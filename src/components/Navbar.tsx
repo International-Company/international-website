@@ -21,6 +21,14 @@ export default function Navbar({ dict, locale }: { dict: Dict; locale: Locale })
 
   useEffect(() => setOpen(false), [pathname]);
 
+  // lock page scroll while the mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   const otherLocale: Locale = locale === "ar" ? "en" : "ar";
   const rest = pathname.replace(new RegExp(`^/${locale}`), "") || "";
   const switchHref = `/${otherLocale}${rest}`;

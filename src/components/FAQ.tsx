@@ -29,7 +29,7 @@ export default function FAQ({ dict }: { dict: Dict }) {
                 </button>
                 <div
                   className="faq-a"
-                  style={{ maxHeight: open === i ? "200px" : "0" }}
+                  style={{ maxHeight: open === i ? "340px" : "0" }}
                 >
                   <p>{f.a}</p>
                 </div>
