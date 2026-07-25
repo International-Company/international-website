@@ -1,5 +1,6 @@
 /** Demo market data — wire to a live rates API in production. */
 const TICKER = [
+  { sym: "USD/ILS", prc: "3.6500", chg: "0.21%", up: true },
   { sym: "USD/SAR", prc: "3.7500", chg: "0.00%", up: true },
   { sym: "EUR/USD", prc: "1.0932", chg: "0.31%", up: true },
   { sym: "GBP/USD", prc: "1.2718", chg: "0.12%", up: false },

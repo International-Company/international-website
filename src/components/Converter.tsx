@@ -6,6 +6,7 @@ import type { Dict } from "@/dictionaries";
 /** Demo rates per 1 USD — replace with a live rates API in production. */
 const RATES: Record<string, number> = {
   USD: 1,
+  ILS: 3.65,
   EUR: 0.9151,
   GBP: 0.7863,
   SAR: 3.75,
@@ -15,6 +16,7 @@ const RATES: Record<string, number> = {
 
 const LABELS: Record<string, string> = {
   USD: "USD $",
+  ILS: "ILS ₪",
   EUR: "EUR €",
   GBP: "GBP £",
   SAR: "SAR ﷼",
@@ -30,7 +32,7 @@ const fmt = new Intl.NumberFormat("en-US", {
 export default function Converter({ dict }: { dict: Dict }) {
   const [amount, setAmount] = useState("1000");
   const [from, setFrom] = useState("USD");
-  const [to, setTo] = useState("SAR");
+  const [to, setTo] = useState("ILS");
 
   const value = (parseFloat(amount) || 0) / RATES[from] * RATES[to];
 
