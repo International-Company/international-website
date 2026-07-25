@@ -162,8 +162,6 @@ const en: typeof ar = {
     branch: "Branch",
     items: [
       { tag: "Headquarters", name: "Main Branch", address: "Deir al-Balah — Downtown, opposite the Municipality", phone: "+970 59 402 0634" },
-      { tag: "Branch", name: "Second City Branch", address: "Address to be determined", phone: "+000 000 0000" },
-      { tag: "Branch", name: "Third City Branch", address: "Address to be determined", phone: "+000 000 0000" },
     ],
     hours: "Sat – Thu · 9am – 9pm",
   },
