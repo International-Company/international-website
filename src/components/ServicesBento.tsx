@@ -75,7 +75,7 @@ export default function ServicesBento({
 
           {/* International transfers */}
           <Reveal className="g-a" delay={0.1}>
-            <div className="bento-card">
+            <div className="bento-card hue-teal">
               <span className="bento-num">02</span>
               <span className="bento-ghost" aria-hidden>02</span>
               <div className="bento-img">
@@ -96,7 +96,7 @@ export default function ServicesBento({
 
           {/* Currency exchange */}
           <Reveal className="g-b" delay={0.2}>
-            <div className="bento-card">
+            <div className="bento-card hue-violet">
               <span className="bento-num">03</span>
               <span className="bento-ghost" aria-hidden>03</span>
               <div className="bento-img">
