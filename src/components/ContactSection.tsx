@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { Dict } from "@/dictionaries";
 import type { Locale } from "@/lib/i18n";
-import { CONTACT_EMAIL } from "@/lib/site";
+import { FORMSUBMIT_ID } from "@/lib/site";
 import Reveal from "./Reveal";
 
 type FormStatus = "idle" | "sending" | "sent" | "error";
@@ -24,7 +24,7 @@ export default function ContactSection({
     const data = Object.fromEntries(new FormData(form).entries());
     setStatus("sending");
     try {
-      const res = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+      const res = await fetch(`https://formsubmit.co/ajax/${FORMSUBMIT_ID}`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
