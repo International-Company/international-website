@@ -20,6 +20,7 @@ export default function Footer({ dict, locale }: { dict: Dict; locale: Locale })
               <li><Link href={`/${locale}/about`}>{dict.nav.about}</Link></li>
               <li><Link href={`/${locale}#network`}>{dict.nav.network}</Link></li>
               <li><Link href={`/${locale}/about`}>{dict.footer.licenses}</Link></li>
+              <li><Link href={`/${locale}/legal`}>{dict.footer.legal}</Link></li>
             </ul>
           </div>
           <div>

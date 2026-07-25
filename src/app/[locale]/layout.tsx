@@ -3,6 +3,7 @@ import { IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { dirOf, isLocale, locales, type Locale } from "@/lib/i18n";
 import { getDict } from "@/dictionaries";
+import { CONTACT_EMAIL, CONTACT_PHONE, SITE_URL } from "@/lib/site";
 import Preloader from "@/components/Preloader";
 import ScrollProgress from "@/components/ScrollProgress";
 import CursorFx from "@/components/CursorFx";
@@ -39,11 +40,31 @@ export async function generateMetadata({
   if (!isLocale(locale)) return {};
   const dict = getDict(locale);
   return {
+    metadataBase: new URL(SITE_URL),
     title: {
       default: dict.meta.title,
       template: `%s — ${dict.brand.en}`,
     },
     description: dict.meta.description,
+    alternates: {
+      canonical: `/${locale}`,
+      languages: { ar: "/ar", en: "/en" },
+    },
+    openGraph: {
+      type: "website",
+      locale: locale === "ar" ? "ar_AR" : "en_US",
+      url: `/${locale}`,
+      siteName: `${dict.brand.en} — ${dict.brand.ar}`,
+      title: dict.meta.title,
+      description: dict.meta.description,
+      images: [{ url: "/images/money-hero.jpg", width: 1600, height: 1066 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: dict.meta.title,
+      description: dict.meta.description,
+      images: ["/images/money-hero.jpg"],
+    },
   };
 }
 
@@ -62,6 +83,29 @@ export default async function LocaleLayout({
   const dict = getDict(locale);
   const dir = dirOf(locale);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    name: locale === "ar" ? dict.brand.ar : dict.brand.en,
+    alternateName: "International Financial Company",
+    description: dict.meta.description,
+    url: `${SITE_URL}/${locale}`,
+    email: CONTACT_EMAIL,
+    telephone: CONTACT_PHONE,
+    image: `${SITE_URL}/images/money-hero.jpg`,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress:
+        locale === "ar"
+          ? "البلد - مقابل البلدية"
+          : "Downtown, opposite the Municipality",
+      addressLocality: locale === "ar" ? "دير البلح" : "Deir al-Balah",
+      addressCountry: "PS",
+    },
+    openingHours: "Sa-Th 09:00-21:00",
+    priceRange: "$$",
+  };
+
   return (
     <html
       lang={locale}
@@ -71,6 +115,10 @@ export default async function LocaleLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
       <body
         style={{

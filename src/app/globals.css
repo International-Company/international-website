@@ -1561,6 +1561,24 @@ footer,
 .page-head .wrap { position: relative; }
 
 /* ============================================================
+   LEGAL PAGE
+   ============================================================ */
+.legal-item {
+  border-bottom: 1px solid var(--border);
+  padding: 22px 0;
+}
+.legal-item h3 {
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+.legal-item p {
+  color: var(--text-2);
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+/* ============================================================
    FOOTER
    ============================================================ */
 footer.site-footer {

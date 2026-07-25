@@ -3,7 +3,10 @@
 import { useState } from "react";
 import type { Dict } from "@/dictionaries";
 import type { Locale } from "@/lib/i18n";
+import { CONTACT_EMAIL } from "@/lib/site";
 import Reveal from "./Reveal";
+
+type FormStatus = "idle" | "sending" | "sent" | "error";
 
 export default function ContactSection({
   dict,
@@ -12,8 +15,31 @@ export default function ContactSection({
   dict: Dict;
   locale?: Locale;
 }) {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<FormStatus>("idle");
   const f = dict.contact.form;
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = Object.fromEntries(new FormData(form).entries());
+    setStatus("sending");
+    try {
+      const res = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          ...data,
+          _subject: "رسالة جديدة من موقع إنترنشونال — New website message",
+          _template: "table",
+        }),
+      });
+      if (!res.ok) throw new Error(`formsubmit ${res.status}`);
+      setStatus("sent");
+      form.reset();
+    } catch {
+      setStatus("error");
+    }
+  }
   const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(
     dict.contact.mapQuery
   )}&hl=${locale}&z=16&output=embed`;
@@ -84,22 +110,17 @@ export default function ContactSection({
           </Reveal>
 
           <Reveal delay={0.2}>
-            <form
-              className="contact-form"
-              onSubmit={(e) => {
-                e.preventDefault();
-                setSent(true);
-              }}
-            >
+            <form className="contact-form" onSubmit={handleSubmit}>
               <div className="form-row">
                 <div className="field">
                   <label htmlFor="cf-name">{f.name}</label>
-                  <input id="cf-name" type="text" placeholder={f.namePh} required />
+                  <input id="cf-name" name="name" type="text" placeholder={f.namePh} required />
                 </div>
                 <div className="field">
                   <label htmlFor="cf-phone">{f.phone}</label>
                   <input
                     id="cf-phone"
+                    name="phone"
                     type="tel"
                     placeholder={f.phonePh}
                     style={{ direction: "ltr", textAlign: "end" }}
@@ -110,6 +131,7 @@ export default function ContactSection({
                 <label htmlFor="cf-email">{f.email}</label>
                 <input
                   id="cf-email"
+                  name="email"
                   type="email"
                   placeholder={f.emailPh}
                   style={{ direction: "ltr", textAlign: "end" }}
@@ -118,20 +140,31 @@ export default function ContactSection({
               </div>
               <div className="field">
                 <label htmlFor="cf-service">{f.service}</label>
-                <input id="cf-service" type="text" placeholder={f.servicePh} />
+                <input id="cf-service" name="service" type="text" placeholder={f.servicePh} />
               </div>
               <div className="field">
                 <label htmlFor="cf-message">{f.message}</label>
-                <textarea id="cf-message" placeholder={f.messagePh} required />
+                <textarea id="cf-message" name="message" placeholder={f.messagePh} required />
               </div>
               <button
                 type="submit"
                 className="btn btn-primary"
-                style={{ width: "100%", justifyContent: "center" }}
+                disabled={status === "sending"}
+                style={{
+                  width: "100%",
+                  justifyContent: "center",
+                  opacity: status === "sending" ? 0.7 : 1,
+                }}
               >
-                {f.submit} <span className="arrow">{dict.arrow}</span>
+                {status === "sending" ? f.sending : f.submit}{" "}
+                <span className="arrow">{dict.arrow}</span>
               </button>
-              {sent && <div className="form-success">{f.success}</div>}
+              {status === "sent" && <div className="form-success">{f.success}</div>}
+              {status === "error" && (
+                <div className="form-success" style={{ color: "var(--text-2)" }}>
+                  {f.error}
+                </div>
+              )}
             </form>
           </Reveal>
         </div>
