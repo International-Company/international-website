@@ -15,8 +15,8 @@ export default function Branches({ dict }: { dict: Dict }) {
               <div className="branch-card">
                 <span className="b-tag">{b.tag}</span>
                 <h4>{b.name}</h4>
-                <div className="b-line"><span className="ic">⌖</span><span>{dict.branches.address}</span></div>
-                <div className="b-line"><span className="ic">✆</span><span className="en">{dict.branches.phone}</span></div>
+                <div className="b-line"><span className="ic">⌖</span><span>{b.address}</span></div>
+                <div className="b-line"><span className="ic">✆</span><span className="en">{b.phone}</span></div>
                 <div className="b-line"><span className="ic">◷</span><span>{dict.branches.hours}</span></div>
               </div>
             </Reveal>

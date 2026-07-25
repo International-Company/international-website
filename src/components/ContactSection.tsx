@@ -21,12 +21,24 @@ export default function ContactSection({ dict }: { dict: Dict }) {
             <div className="info-line">
               <div className="ic">✆</div>
               <div style={{ flex: 1 }}><div className="lbl">{dict.contact.phone}</div></div>
-              <div className="val">{dict.contact.phoneValue}</div>
+              <a
+                className="val"
+                href={`tel:${dict.contact.phoneValue.replace(/\s/g, "")}`}
+                style={{ color: "inherit", textDecoration: "none" }}
+              >
+                {dict.contact.phoneValue}
+              </a>
             </div>
             <div className="info-line">
               <div className="ic">✉</div>
               <div style={{ flex: 1 }}><div className="lbl">{dict.contact.email}</div></div>
-              <div className="val">{dict.contact.emailValue}</div>
+              <a
+                className="val"
+                href={`mailto:${dict.contact.emailValue}`}
+                style={{ color: "inherit", textDecoration: "none" }}
+              >
+                {dict.contact.emailValue}
+              </a>
             </div>
             <div className="info-line">
               <div className="ic">⌖</div>

@@ -157,12 +157,10 @@ const en: typeof ar = {
     hq: "Headquarters",
     branch: "Branch",
     items: [
-      { tag: "Headquarters", name: "Main Branch" },
-      { tag: "Branch", name: "Second City Branch" },
-      { tag: "Branch", name: "Third City Branch" },
+      { tag: "Headquarters", name: "Main Branch", address: "Deir al-Balah — Downtown, opposite the Municipality", phone: "+000 000 0000" },
+      { tag: "Branch", name: "Second City Branch", address: "Address to be determined", phone: "+000 000 0000" },
+      { tag: "Branch", name: "Third City Branch", address: "Address to be determined", phone: "+000 000 0000" },
     ],
-    address: "Address to be determined",
-    phone: "+000 000 0000",
     hours: "Sat – Thu · 9am – 9pm",
   },
   faq: {
@@ -183,8 +181,8 @@ const en: typeof ar = {
     address: "Headquarters",
     hours: "Working hours",
     phoneValue: "+000 000 0000",
-    emailValue: "info@international.com",
-    addressValue: "Address to be determined",
+    emailValue: "support@international0.com",
+    addressValue: "Deir al-Balah — Downtown, opposite the Municipality",
     hoursValue: "Sat – Thu · 9am – 9pm",
     map: "🗺 Interactive Google Map — added once the location is set",
     form: {
