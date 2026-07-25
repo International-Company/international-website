@@ -15,7 +15,7 @@ const ar = {
     menu: "القائمة",
   },
   hero: {
-    badge: "شركة قابضة مالية · موثوقة منذ التأسيس",
+    badge: "شركة حوالات مالية ومجوهرات · موثوقة منذ التأسيس",
     kicker: "INTERNATIONAL FINANCIAL HOLDING",
     title: "إنترنشونال",
     titleThin: "حيث تلتقي الثقة بالمال",

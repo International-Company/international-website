@@ -17,7 +17,7 @@ const en: typeof ar = {
     menu: "Menu",
   },
   hero: {
-    badge: "Financial holding company · Trusted since inception",
+    badge: "Money remittances & jewelry company · Trusted since inception",
     kicker: "INTERNATIONAL FINANCIAL HOLDING",
     title: "International",
     titleThin: "Where trust meets finance",
