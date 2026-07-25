@@ -1,18 +1,31 @@
-/** Demo market data — wire to a live rates API in production. */
-const TICKER = [
-  { sym: "USD/ILS", prc: "3.6500", chg: "0.21%", up: true },
-  { sym: "USD/SAR", prc: "3.7500", chg: "0.00%", up: true },
-  { sym: "EUR/USD", prc: "1.0932", chg: "0.31%", up: true },
-  { sym: "GBP/USD", prc: "1.2718", chg: "0.12%", up: false },
-  { sym: "USD/AED", prc: "3.6725", chg: "0.00%", up: true },
-  { sym: "USD/TRY", prc: "32.84", chg: "0.45%", up: false },
-  { sym: "USD/EGP", prc: "48.52", chg: "0.18%", up: true },
-  { sym: "XAU/USD", prc: "$2,412.30", chg: "0.64%", up: true },
-  { sym: "XAG/USD", prc: "$29.14", chg: "0.22%", up: true },
-];
+import { getFxRates, getMetalPrice } from "@/lib/rates";
 
-export default function Ticker() {
-  const items = [...TICKER, ...TICKER];
+const fx4 = (n: number) => (n >= 100 ? n.toFixed(2) : n.toFixed(4));
+
+export default async function Ticker() {
+  const [fx, gold, silver] = await Promise.all([
+    getFxRates(),
+    getMetalPrice("XAU"),
+    getMetalPrice("XAG"),
+  ]);
+  const r = fx.rates;
+
+  const data = [
+    { sym: "USD/ILS", prc: fx4(r.ILS) },
+    { sym: "USD/SAR", prc: fx4(r.SAR) },
+    { sym: "USD/AED", prc: fx4(r.AED) },
+    { sym: "EUR/USD", prc: (1 / r.EUR).toFixed(4) },
+    { sym: "GBP/USD", prc: (1 / r.GBP).toFixed(4) },
+    { sym: "USD/TRY", prc: fx4(r.TRY) },
+    { sym: "USD/EGP", prc: fx4(r.EGP) },
+    {
+      sym: "XAU/USD",
+      prc: "$" + gold.price.toLocaleString("en-US", { maximumFractionDigits: 0 }),
+    },
+    { sym: "XAG/USD", prc: "$" + silver.price.toFixed(2) },
+  ];
+
+  const items = [...data, ...data];
   return (
     <div className="ticker" aria-hidden>
       <div className="ticker-track">
@@ -20,9 +33,6 @@ export default function Ticker() {
           <div className="tick-item" key={i}>
             <span className="sym">{t.sym}</span>
             <span className="prc">{t.prc}</span>
-            <span className={`chg ${t.up ? "up" : "dn"}`}>
-              {t.up ? "▲" : "▼"} {t.chg}
-            </span>
           </div>
         ))}
       </div>

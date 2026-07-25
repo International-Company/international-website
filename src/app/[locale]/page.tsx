@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
 import { getDict } from "@/dictionaries";
+import { getFxRates } from "@/lib/rates";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import GoldMarkets from "@/components/GoldMarkets";
@@ -18,10 +19,11 @@ export default async function HomePage({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const dict = getDict(locale);
+  const fx = await getFxRates();
 
   return (
     <>
-      <Hero dict={dict} locale={locale} />
+      <Hero dict={dict} locale={locale} rates={fx.rates} />
       <Stats dict={dict} />
       <GoldMarkets dict={dict} />
       <ServicesScrolly dict={dict} locale={locale} />

@@ -33,7 +33,7 @@ const en: typeof ar = {
     from: "From",
     to: "To",
     swap: "Swap",
-    note: "Demo rates — connected to a live feed in production",
+    note: "Indicative rates — refreshed periodically from the market",
   },
   stats: {
     items: [
@@ -46,7 +46,7 @@ const en: typeof ar = {
   markets: {
     tag: "Live Markets",
     title: "Gold prices,\nupdated in real time",
-    sub: "Full transparency — prices in front of you before you take a step. (Demo data)",
+    sub: "Full transparency — prices in front of you before you take a step, updated automatically from global markets.",
     perOunce: "per ounce",
     perGram: "per gram",
     ounce: "Global Gold Ounce",

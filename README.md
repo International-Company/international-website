@@ -14,7 +14,7 @@ Corporate website for a financial holding company — premium monochrome design,
 ## المميزات — Features
 
 - 🎬 Cinematic preloader, film grain, custom cursor, magnetic buttons
-- 💹 Live market ticker + interactive currency converter + gold price cards *(demo data)*
+- 💹 Live market ticker + interactive currency converter + gold price cards — **real rates** from [open.er-api.com](https://open.er-api.com) (FX, cached 30 min) and [gold-api.com](https://gold-api.com) (metals, cached 10 min), with graceful fallbacks
 - 📜 Pinned scrollytelling services section (desktop) with mobile fallback
 - 🌍 Animated global-network canvas (transfer arcs + pulses)
 - 🌓 Animated theme switcher with saved preference (localStorage)
@@ -51,7 +51,6 @@ src/
 
 - [ ] استبدال بيانات التواصل المؤقتة (هاتف، إيميل، عنوان) — `src/dictionaries/ar.ts` و `en.ts`
 - [ ] رقم واتساب حقيقي — `src/components/WhatsAppFloat.tsx` (`wa.me/NUMBER`)
-- [ ] ربط أسعار العملات والذهب بمزود حقيقي — `Ticker.tsx`, `Converter.tsx`, `GoldMarkets.tsx`
 - [ ] ربط نموذج التواصل بخدمة إرسال (Resend / Formspree / API route)
 - [ ] استبدال تواريخ الخط الزمني وأسماء الشركاء وآراء العملاء بالحقيقية
 - [ ] إضافة خريطة Google Maps عند تحديد الموقع

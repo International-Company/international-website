@@ -4,10 +4,19 @@ import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import type { Dict } from "@/dictionaries";
 import type { Locale } from "@/lib/i18n";
+import type { FxRates } from "@/lib/rates";
 import Converter from "./Converter";
 import Reveal from "./Reveal";
 
-export default function Hero({ dict, locale }: { dict: Dict; locale: Locale }) {
+export default function Hero({
+  dict,
+  locale,
+  rates,
+}: {
+  dict: Dict;
+  locale: Locale;
+  rates?: FxRates;
+}) {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 800], [0, 120]);
 
@@ -41,7 +50,7 @@ export default function Hero({ dict, locale }: { dict: Dict; locale: Locale }) {
           </div>
         </Reveal>
         <Reveal delay={0.4}>
-          <Converter dict={dict} />
+          <Converter dict={dict} rates={rates} />
         </Reveal>
       </motion.div>
       <div className="scroll-hint">

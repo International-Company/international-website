@@ -2,17 +2,9 @@
 
 import { useState } from "react";
 import type { Dict } from "@/dictionaries";
+import { FX_FALLBACK, type FxRates } from "@/lib/rates";
 
-/** Demo rates per 1 USD — replace with a live rates API in production. */
-const RATES: Record<string, number> = {
-  USD: 1,
-  ILS: 3.65,
-  EUR: 0.9151,
-  GBP: 0.7863,
-  SAR: 3.75,
-  AED: 3.6725,
-  TRY: 32.84,
-};
+const CURRENCIES = ["USD", "ILS", "EUR", "GBP", "SAR", "AED", "TRY", "EGP"];
 
 const LABELS: Record<string, string> = {
   USD: "USD $",
@@ -22,6 +14,7 @@ const LABELS: Record<string, string> = {
   SAR: "SAR ﷼",
   AED: "AED د.إ",
   TRY: "TRY ₺",
+  EGP: "EGP £",
 };
 
 const fmt = new Intl.NumberFormat("en-US", {
@@ -29,12 +22,20 @@ const fmt = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 2,
 });
 
-export default function Converter({ dict }: { dict: Dict }) {
+export default function Converter({
+  dict,
+  rates,
+}: {
+  dict: Dict;
+  rates?: FxRates;
+}) {
+  const r = rates ?? FX_FALLBACK;
   const [amount, setAmount] = useState("1000");
   const [from, setFrom] = useState("USD");
   const [to, setTo] = useState("ILS");
 
-  const value = (parseFloat(amount) || 0) / RATES[from] * RATES[to];
+  const available = CURRENCIES.filter((c) => typeof r[c] === "number");
+  const value = ((parseFloat(amount) || 0) / r[from]) * r[to];
 
   return (
     <div className="converter">
@@ -58,7 +59,7 @@ export default function Converter({ dict }: { dict: Dict }) {
         <div className="conv-field">
           <label htmlFor="conv-from">{dict.converter.from}</label>
           <select id="conv-from" value={from} onChange={(e) => setFrom(e.target.value)}>
-            {Object.keys(RATES).map((c) => (
+            {available.map((c) => (
               <option key={c} value={c}>{LABELS[c]}</option>
             ))}
           </select>
@@ -74,7 +75,7 @@ export default function Converter({ dict }: { dict: Dict }) {
         <div className="conv-field">
           <label htmlFor="conv-to">{dict.converter.to}</label>
           <select id="conv-to" value={to} onChange={(e) => setTo(e.target.value)}>
-            {Object.keys(RATES).map((c) => (
+            {available.map((c) => (
               <option key={c} value={c}>{LABELS[c]}</option>
             ))}
           </select>
