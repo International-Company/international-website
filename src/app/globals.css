@@ -327,21 +327,25 @@ footer,
 .logo {
   display: flex;
   flex-direction: column;
-  line-height: 1.2;
+  align-items: flex-start; /* both lines share the same inline-start edge */
+  line-height: 1.25;
   text-decoration: none;
   color: var(--text-1);
+  white-space: nowrap;
 }
 .logo .en-name {
   font-family: var(--font-en), sans-serif;
   font-weight: 800;
   font-size: 17px;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
+  margin-inline-end: -0.2em; /* cancel trailing tracking space */
 }
 .logo .ar-name {
-  font-size: 11.5px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
   color: var(--text-2);
-  letter-spacing: 0.35em;
+  letter-spacing: 0; /* Arabic letters must stay connected */
+  margin-top: 1px;
 }
 .nav-links {
   display: flex;
@@ -1611,9 +1615,9 @@ footer.site-footer {
 
   /* keep the hamburger visible: compress navbar row */
   .lang-pill { display: none; } /* language switch lives inside the menu */
-  .logo .en-name { font-size: 13.5px; letter-spacing: 0.14em; }
-  .logo .ar-name { font-size: 10px; letter-spacing: 0.22em; }
-  .nav-actions { gap: 8px; flex-shrink: 0; }
+  .logo .en-name { font-size: 14px; letter-spacing: 0.14em; margin-inline-end: -0.14em; }
+  .logo .ar-name { font-size: 11.5px; }
+  .nav-actions { gap: 10px; flex-shrink: 0; }
   .menu-btn { padding: 8px 6px; }
 
   /* ticker: denser items */
