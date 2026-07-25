@@ -1,8 +1,8 @@
-/** Floating WhatsApp button — set the real number in the href (wa.me/NUMBER). */
+/** Floating WhatsApp button. */
 export default function WhatsAppFloat({ label }: { label: string }) {
   return (
     <a
-      href="https://wa.me/0000000000"
+      href="https://wa.me/970594020634"
       target="_blank"
       rel="noopener noreferrer"
       className="wa-float"

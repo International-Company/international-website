@@ -157,7 +157,7 @@ const en: typeof ar = {
     hq: "Headquarters",
     branch: "Branch",
     items: [
-      { tag: "Headquarters", name: "Main Branch", address: "Deir al-Balah — Downtown, opposite the Municipality", phone: "+000 000 0000" },
+      { tag: "Headquarters", name: "Main Branch", address: "Deir al-Balah — Downtown, opposite the Municipality", phone: "+970 59 402 0634" },
       { tag: "Branch", name: "Second City Branch", address: "Address to be determined", phone: "+000 000 0000" },
       { tag: "Branch", name: "Third City Branch", address: "Address to be determined", phone: "+000 000 0000" },
     ],
@@ -180,7 +180,7 @@ const en: typeof ar = {
     email: "Email",
     address: "Headquarters",
     hours: "Working hours",
-    phoneValue: "+000 000 0000",
+    phoneValue: "+970 59 402 0634",
     emailValue: "support@international0.com",
     addressValue: "Deir al-Balah — Downtown, opposite the Municipality",
     hoursValue: "Sat – Thu · 9am – 9pm",
