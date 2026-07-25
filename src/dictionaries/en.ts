@@ -32,8 +32,12 @@ const en: typeof ar = {
     amount: "Amount",
     from: "From",
     to: "To",
+    send: "You send",
+    receive: "Receives approx.",
     swap: "Swap",
-    note: "Indicative rates — refreshed periodically from the market",
+    cta: "Complete the transfer on WhatsApp",
+    waText: "Hello 👋 I'd like to transfer {amount} {from} to {to}. What's your best rate?",
+    note: "Indicative rates — final rate confirmed at execution",
     names: {
       USD: "US Dollar",
       ILS: "Shekel",

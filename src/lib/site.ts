@@ -7,6 +7,7 @@ export const SITE_URL =
 
 export const CONTACT_EMAIL = "support@international0.com";
 export const CONTACT_PHONE = "+970594020634";
+export const WHATSAPP_NUMBER = "972598650998";
 
 /** FormSubmit alias for CONTACT_EMAIL — hides the address from scrapers and works on any domain. */
 export const FORMSUBMIT_ID = "1d50bc0aaf1a27f2642a403cd76926c0";

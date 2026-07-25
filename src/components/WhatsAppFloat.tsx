@@ -1,8 +1,10 @@
+import { WHATSAPP_NUMBER } from "@/lib/site";
+
 /** Floating WhatsApp button. */
 export default function WhatsAppFloat({ label }: { label: string }) {
   return (
     <a
-      href="https://wa.me/972598650998"
+      href={`https://wa.me/${WHATSAPP_NUMBER}`}
       target="_blank"
       rel="noopener noreferrer"
       className="wa-float"
