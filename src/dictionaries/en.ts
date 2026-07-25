@@ -184,7 +184,9 @@ const en: typeof ar = {
     emailValue: "support@international0.com",
     addressValue: "Deir al-Balah — Downtown, opposite the Municipality",
     hoursValue: "Sat – Thu · 9am – 9pm",
-    map: "🗺 Interactive Google Map — added once the location is set",
+    map: "Headquarters location — Deir al-Balah",
+    mapQuery: "Deir al-Balah Municipality",
+    mapOpen: "Open in Google Maps",
     form: {
       name: "Full name",
       namePh: "Enter your name",

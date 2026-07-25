@@ -182,7 +182,9 @@ const ar = {
     emailValue: "support@international0.com",
     addressValue: "دير البلح - البلد - مقابل البلدية",
     hoursValue: "السبت – الخميس · 9ص – 9م",
-    map: "🗺 خريطة جوجل التفاعلية — تُضاف عند تحديد الموقع",
+    map: "موقع المقر الرئيسي — دير البلح",
+    mapQuery: "بلدية دير البلح",
+    mapOpen: "افتح في خرائط جوجل",
     form: {
       name: "الاسم الكامل",
       namePh: "اكتب اسمك",

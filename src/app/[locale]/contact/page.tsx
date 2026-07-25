@@ -36,7 +36,7 @@ export default async function ContactPage({
           </Reveal>
         </div>
       </div>
-      <ContactSection dict={dict} />
+      <ContactSection dict={dict} locale={locale} />
       <Branches dict={dict} />
     </>
   );

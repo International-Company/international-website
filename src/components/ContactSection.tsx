@@ -2,11 +2,24 @@
 
 import { useState } from "react";
 import type { Dict } from "@/dictionaries";
+import type { Locale } from "@/lib/i18n";
 import Reveal from "./Reveal";
 
-export default function ContactSection({ dict }: { dict: Dict }) {
+export default function ContactSection({
+  dict,
+  locale = "ar",
+}: {
+  dict: Dict;
+  locale?: Locale;
+}) {
   const [sent, setSent] = useState(false);
   const f = dict.contact.form;
+  const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(
+    dict.contact.mapQuery
+  )}&hl=${locale}&z=16&output=embed`;
+  const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    dict.contact.mapQuery
+  )}`;
 
   return (
     <section className="contact" id="contact">
@@ -50,7 +63,24 @@ export default function ContactSection({ dict }: { dict: Dict }) {
               <div style={{ flex: 1 }}><div className="lbl">{dict.contact.hours}</div></div>
               <div className="val ar-val">{dict.contact.hoursValue}</div>
             </div>
-            <div className="map-ph">{dict.contact.map}</div>
+            <div className="map-embed">
+              <iframe
+                src={mapSrc}
+                title={dict.contact.map}
+                loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+            <a
+              href={mapLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-link"
+              style={{ marginTop: 12 }}
+            >
+              {dict.contact.mapOpen} <span>{dict.arrow}</span>
+            </a>
           </Reveal>
 
           <Reveal delay={0.2}>
