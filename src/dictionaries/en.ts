@@ -53,6 +53,10 @@ const en: typeof ar = {
       { value: 4, suffix: "", label: "Integrated financial divisions" },
     ],
   },
+  showcase: {
+    title: "Your money, in safe hands",
+    sub: "Ready liquidity, fair rates, and delivery within minutes — across a network of 120+ countries.",
+  },
   markets: {
     tag: "Live Markets",
     title: "Gold prices,\nupdated in real time",

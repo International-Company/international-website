@@ -4,6 +4,7 @@ import { getDict } from "@/dictionaries";
 import { getFxRates } from "@/lib/rates";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
+import MoneyBand from "@/components/MoneyBand";
 import GoldMarkets from "@/components/GoldMarkets";
 import ServicesBento from "@/components/ServicesBento";
 import NetworkSection from "@/components/NetworkSection";
@@ -25,6 +26,7 @@ export default async function HomePage({
     <>
       <Hero dict={dict} locale={locale} rates={fx.rates} />
       <Stats dict={dict} />
+      <MoneyBand dict={dict} />
       <GoldMarkets dict={dict} />
       <ServicesBento dict={dict} locale={locale} />
       <NetworkSection dict={dict} />

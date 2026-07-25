@@ -931,6 +931,28 @@ footer,
 }
 
 /* ============================================================
+   MONEY BAND — cinematic full-width imagery
+   ============================================================ */
+.money-band {
+  position: relative;
+  padding: 140px 0;
+  background-image:
+    linear-gradient(105deg, rgba(6, 11, 25, 0.92) 25%, rgba(6, 11, 25, 0.6) 60%, rgba(23, 37, 84, 0.55) 100%),
+    url("/images/money-hero.jpg");
+  background-size: cover;
+  background-position: center;
+  border-block: 1px solid var(--border);
+  overflow: hidden;
+}
+@media (min-width: 981px) {
+  .money-band { background-attachment: fixed; }
+}
+.money-band .section-title { color: #ffffff; }
+.money-band .section-sub { color: rgba(255, 255, 255, 0.82); }
+.money-band .chapter-tag { color: rgba(255, 255, 255, 0.6); }
+.money-band .chapter-tag::before { background: var(--accent-2); }
+
+/* ============================================================
    SERVICES — BENTO GRID
    ============================================================ */
 .services-bento {
@@ -1013,20 +1035,27 @@ footer,
   pointer-events: none;
   user-select: none;
 }
-.bento-icon {
-  width: 68px;
-  height: 68px;
-  border-radius: 18px;
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  margin-bottom: 24px;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+.bento-img {
+  position: relative;
+  height: 170px;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 22px;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
 }
-.bento-card:hover .bento-icon { transform: scale(1.08) rotate(-4deg); }
+.bento-img img {
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.bento-card:hover .bento-img img { transform: scale(1.07); }
+.bento-img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(6, 11, 25, 0.35));
+  pointer-events: none;
+}
 .bento-card h3 { font-size: 22px; margin-bottom: 6px; }
 .bento-card > p,
 .bento-body > p {
@@ -1048,9 +1077,9 @@ footer,
 .bento-feat .en-label { color: rgba(255, 255, 255, 0.55); }
 .bento-feat .bento-num { color: rgba(255, 255, 255, 0.45); }
 .bento-feat .bento-ghost { color: #ffffff; opacity: 0.06; }
-.bento-feat .bento-icon {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.28);
+.bento-feat .bento-img {
+  height: 200px;
+  border-color: rgba(255, 255, 255, 0.22);
 }
 .bento-feat .svc-feats li { color: rgba(255, 255, 255, 0.85); }
 .bento-feat .svc-feats li::before { background: #93c5fd; }
@@ -1060,8 +1089,8 @@ footer,
 .bento-feat:hover { border-color: rgba(147, 197, 253, 0.5); }
 
 /* Wide gold card */
-.bento-gold { flex-direction: row; align-items: center; gap: 30px; padding: 36px 38px; }
-.bento-gold .bento-icon { margin-bottom: 0; flex-shrink: 0; }
+.bento-gold { flex-direction: row; align-items: center; gap: 30px; padding: 32px 34px; }
+.bento-gold .bento-img-side { width: 300px; height: 190px; margin-bottom: 0; }
 .bento-gold .bento-body { display: flex; flex-direction: column; flex: 1; position: relative; }
 .bento-gold .bento-body > p { margin-bottom: 14px; }
 .bento-gold .bento-ghost { font-size: 190px; bottom: -70px; }
@@ -1652,9 +1681,13 @@ footer.site-footer {
   /* services bento */
   .bento-card { padding: 28px 24px; }
   .bento-feat { padding: 32px 26px; }
-  .bento-gold { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .bento-gold { flex-direction: column; align-items: stretch; gap: 18px; }
+  .bento-gold .bento-img-side { width: 100%; height: 160px; }
+  .bento-img { height: 150px; }
+  .bento-feat .bento-img { height: 170px; }
   .bento-ghost { font-size: 110px; }
   .bento-gold .bento-ghost { font-size: 130px; }
+  .money-band { padding: 90px 0; }
 
   /* network */
   .net-stage { height: 300px; }

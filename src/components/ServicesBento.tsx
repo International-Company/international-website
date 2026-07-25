@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Dict } from "@/dictionaries";
 import type { Locale } from "@/lib/i18n";
 import Reveal from "./Reveal";
@@ -51,7 +52,14 @@ export default function ServicesBento({
             <div className="bento-card bento-feat">
               <span className="bento-num">01</span>
               <span className="bento-ghost" aria-hidden>01</span>
-              <div className="bento-icon">{feat.icon}</div>
+              <div className="bento-img">
+                <Image
+                  src="/images/svc-remit.jpg"
+                  alt={feat.title}
+                  fill
+                  sizes="(max-width: 980px) 100vw, 40vw"
+                />
+              </div>
               <h3>{feat.title}</h3>
               <span className="en-label">{feat.en}</span>
               <p>{feat.desc}</p>
@@ -71,7 +79,14 @@ export default function ServicesBento({
             <div className="bento-card">
               <span className="bento-num">02</span>
               <span className="bento-ghost" aria-hidden>02</span>
-              <div className="bento-icon">{a.icon}</div>
+              <div className="bento-img">
+                <Image
+                  src="/images/svc-transfer.jpg"
+                  alt={a.title}
+                  fill
+                  sizes="(max-width: 980px) 100vw, 30vw"
+                />
+              </div>
               <h3>{a.title}</h3>
               <span className="en-label">{a.en}</span>
               <p>{a.desc}</p>
@@ -86,7 +101,14 @@ export default function ServicesBento({
             <div className="bento-card">
               <span className="bento-num">03</span>
               <span className="bento-ghost" aria-hidden>03</span>
-              <div className="bento-icon">{b.icon}</div>
+              <div className="bento-img">
+                <Image
+                  src="/images/svc-exchange.jpg"
+                  alt={b.title}
+                  fill
+                  sizes="(max-width: 980px) 100vw, 30vw"
+                />
+              </div>
               <h3>{b.title}</h3>
               <span className="en-label">{b.en}</span>
               <p>{b.desc}</p>
@@ -101,7 +123,14 @@ export default function ServicesBento({
             <div className="bento-card bento-gold">
               <span className="bento-num">04</span>
               <span className="bento-ghost" aria-hidden>◈</span>
-              <div className="bento-icon">{gold.icon}</div>
+              <div className="bento-img bento-img-side">
+                <Image
+                  src="/images/svc-gold.jpg"
+                  alt={gold.title}
+                  fill
+                  sizes="(max-width: 980px) 100vw, 30vw"
+                />
+              </div>
               <div className="bento-body">
                 <h3>{gold.title}</h3>
                 <span className="en-label">{gold.en}</span>
