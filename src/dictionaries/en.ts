@@ -2,11 +2,11 @@ import type ar from "./ar";
 
 const en: typeof ar = {
   meta: {
-    title: "International — Financial Holding Company",
+    title: "International — Money Remittances & Jewelry Company",
     description:
-      "A financial holding group delivering integrated solutions in currency exchange, international transfers, money remittances and gold — with world-class standards and absolute security.",
+      "A money remittances and jewelry company delivering integrated solutions in currency exchange, international transfers and gold — with world-class standards and absolute security.",
   },
-  brand: { en: "INTERNATIONAL", ar: "Financial Holding" },
+  brand: { en: "INTERNATIONAL", ar: "Financial Company" },
   arrow: "→",
   nav: {
     home: "Home",
@@ -18,10 +18,10 @@ const en: typeof ar = {
   },
   hero: {
     badge: "Money remittances & jewelry company · Trusted since inception",
-    kicker: "INTERNATIONAL FINANCIAL HOLDING",
+    kicker: "INTERNATIONAL FINANCIAL COMPANY",
     title: "International",
     titleThin: "Where trust meets finance",
-    lead: "A financial holding group delivering integrated solutions in currency exchange, international transfers, money remittances and gold — with world-class standards and absolute security.",
+    lead: "A money remittances and jewelry company delivering integrated solutions in currency exchange, international transfers and gold — with world-class standards and absolute security.",
     cta1: "Explore our services",
     cta2: "Contact us",
     scroll: "Scroll down",
@@ -72,7 +72,7 @@ const en: typeof ar = {
   about: {
     tag: "About",
     title: "A story built on trust,\na vision beyond borders",
-    p1: "Since its founding, International has established itself as a financial holding group uniting currency exchange, international transfers, money remittances, and gold & jewelry under one umbrella.",
+    p1: "Since its founding, International has established itself as a leading money remittances and jewelry company, uniting currency exchange, international transfers, remittances, and gold under one umbrella.",
     visionLabel: "Our vision:",
     vision: "To be the most trusted financial bridge between local and global markets.",
     missionLabel: "Our mission:",
@@ -91,7 +91,7 @@ const en: typeof ar = {
       { year: "1998 — Founding", title: "One branch, one vision", desc: "International started with a single exchange office and a grand vision: trust as the true capital." },
       { year: "2005 — Regional expansion", title: "Branches & correspondents", desc: "New branches opened and a banking correspondent network reached dozens of countries." },
       { year: "2015 — Digital transformation", title: "Instant transfer systems", desc: "Investment in technology and compliance to deliver remittances within minutes." },
-      { year: "2026 — Today", title: "An integrated holding group", desc: "Four financial divisions under one umbrella, and over half a million clients worldwide." },
+      { year: "2026 — Today", title: "An integrated financial ecosystem", desc: "Four financial divisions under one umbrella, and over half a million clients worldwide." },
     ],
   },
   services: {
@@ -229,7 +229,7 @@ const en: typeof ar = {
     ],
   },
   footer: {
-    blurb: "A financial holding company delivering integrated exchange, transfer and gold solutions to world-class standards.",
+    blurb: "A money remittances and jewelry company delivering integrated exchange, transfer and gold solutions to world-class standards.",
     company: "Company",
     servicesCol: "Services",
     contactCol: "Contact",
@@ -239,7 +239,7 @@ const en: typeof ar = {
     careers: "Careers",
     callUs: "Call us",
     rights: "© 2026 International — All rights reserved",
-    holding: "INTERNATIONAL FINANCIAL HOLDING",
+    holding: "INTERNATIONAL FINANCIAL COMPANY",
   },
   whatsapp: "WhatsApp",
 };

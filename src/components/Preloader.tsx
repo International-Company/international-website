@@ -12,7 +12,21 @@ export default function Preloader({
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    const t = setTimeout(() => setDone(true), 1500);
+    // cinematic intro once per session — skip on subsequent page loads
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem("intl-preloaded") === "1";
+    } catch {}
+    if (seen) {
+      setDone(true);
+      return;
+    }
+    const t = setTimeout(() => {
+      setDone(true);
+      try {
+        sessionStorage.setItem("intl-preloaded", "1");
+      } catch {}
+    }, 1500);
     return () => clearTimeout(t);
   }, []);
 

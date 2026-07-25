@@ -49,12 +49,14 @@ src/
 
 ## قبل الإطلاق — Before Going Live (TODO)
 
-- [ ] استبدال بيانات التواصل المؤقتة (هاتف، إيميل، عنوان) — `src/dictionaries/ar.ts` و `en.ts`
-- [ ] رقم واتساب حقيقي — `src/components/WhatsAppFloat.tsx` (`wa.me/NUMBER`)
-- [ ] ربط نموذج التواصل بخدمة إرسال (Resend / Formspree / API route)
+- [x] بيانات التواصل الرسمية (هاتف، إيميل، عنوان دير البلح)
+- [x] زر واتساب فعّال
+- [x] نموذج تواصل يرسل فعليًا (FormSubmit → support@international0.com)
+- [x] خريطة Google Maps للمقر
+- [x] صفحة الخصوصية والشروط + SEO (sitemap / JSON-LD / OG)
 - [ ] استبدال تواريخ الخط الزمني وأسماء الشركاء وآراء العملاء بالحقيقية
-- [ ] إضافة خريطة Google Maps عند تحديد الموقع
-- [ ] إضافة أرقام التراخيص الرسمية
+- [ ] إضافة أرقام التراخيص الرسمية (صفحة legal + FAQ)
+- [ ] تحديث `SITE_URL` في `src/lib/site.ts` عند اعتماد الدومين النهائي
 
 ## النشر — Deployment
 

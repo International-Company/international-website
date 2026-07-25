@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { dirOf, isLocale, locales, type Locale } from "@/lib/i18n";
@@ -30,6 +30,10 @@ const inter = Inter({
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
+
+export const viewport: Viewport = {
+  themeColor: "#0a0a0a",
+};
 
 export async function generateMetadata({
   params,
