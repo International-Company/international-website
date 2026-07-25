@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
 import { getDict } from "@/dictionaries";
 import GoldMarkets from "@/components/GoldMarkets";
 import FAQ from "@/components/FAQ";
 import Reveal from "@/components/Reveal";
+import ServicesBento from "@/components/ServicesBento";
 
 export async function generateMetadata({
   params,
@@ -39,31 +39,13 @@ export default async function ServicesPage({
         </div>
       </div>
 
-      <section style={{ padding: "110px 0", background: "var(--bg)" }}>
-        <div className="wrap">
-          <div className="svc-cards" style={{ marginTop: 0 }}>
-            {dict.services.items.map((s, i) => (
-              <Reveal key={s.en} delay={i * 0.1}>
-                <div className="svc-card">
-                  <span className="num">0{i + 1}</span>
-                  <div className="svc-icon">{s.icon}</div>
-                  <h3>{s.title}</h3>
-                  <span className="en-label">{s.en}</span>
-                  <p>{s.desc}</p>
-                  <ul className="svc-feats">
-                    {s.feats.map((f) => (
-                      <li key={f}>{f}</li>
-                    ))}
-                  </ul>
-                  <Link href={`/${locale}/contact`} className="text-link">
-                    {dict.hero.cta2} <span>{dict.arrow}</span>
-                  </Link>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ServicesBento
+        dict={dict}
+        locale={locale}
+        showHeader={false}
+        linkHref={`/${locale}/contact`}
+        linkLabel={dict.hero.cta2}
+      />
 
       <GoldMarkets dict={dict} />
       <FAQ dict={dict} />

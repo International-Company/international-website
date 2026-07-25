@@ -5,7 +5,7 @@ import { getFxRates } from "@/lib/rates";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import GoldMarkets from "@/components/GoldMarkets";
-import ServicesScrolly from "@/components/ServicesScrolly";
+import ServicesBento from "@/components/ServicesBento";
 import NetworkSection from "@/components/NetworkSection";
 import Partners from "@/components/Partners";
 import Testimonials from "@/components/Testimonials";
@@ -26,7 +26,7 @@ export default async function HomePage({
       <Hero dict={dict} locale={locale} rates={fx.rates} />
       <Stats dict={dict} />
       <GoldMarkets dict={dict} />
-      <ServicesScrolly dict={dict} locale={locale} />
+      <ServicesBento dict={dict} locale={locale} />
       <NetworkSection dict={dict} />
       <Partners dict={dict} />
       <Testimonials dict={dict} />
