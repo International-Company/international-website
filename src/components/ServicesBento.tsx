@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import Image from "next/image";
 import type { Dict } from "@/dictionaries";
 import type { Locale } from "@/lib/i18n";
@@ -61,7 +61,6 @@ export default function ServicesBento({
                 />
               </div>
               <h3>{feat.title}</h3>
-              <span className="en-label">{feat.en}</span>
               <p>{feat.desc}</p>
               <ul className="svc-feats">
                 {feat.feats.map((f) => (
@@ -88,7 +87,6 @@ export default function ServicesBento({
                 />
               </div>
               <h3>{a.title}</h3>
-              <span className="en-label">{a.en}</span>
               <p>{a.desc}</p>
               <Link href={href} className="text-link">
                 {label} <span>{dict.arrow}</span>
@@ -110,7 +108,6 @@ export default function ServicesBento({
                 />
               </div>
               <h3>{b.title}</h3>
-              <span className="en-label">{b.en}</span>
               <p>{b.desc}</p>
               <Link href={href} className="text-link">
                 {label} <span>{dict.arrow}</span>
@@ -133,7 +130,6 @@ export default function ServicesBento({
               </div>
               <div className="bento-body">
                 <h3>{gold.title}</h3>
-                <span className="en-label">{gold.en}</span>
                 <p>{gold.desc}</p>
                 <Link href={href} className="text-link">
                   {label} <span>{dict.arrow}</span>
@@ -146,3 +142,4 @@ export default function ServicesBento({
     </section>
   );
 }
+

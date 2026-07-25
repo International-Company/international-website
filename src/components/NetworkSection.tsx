@@ -146,7 +146,7 @@ export default function NetworkSection({ dict }: { dict: Dict }) {
             className="city-chip"
             style={{ top: c.top, insetInlineStart: c.start, animationDelay: c.delay }}
           >
-            <b>{c.ar}</b> · {c.en}
+            <b>{c.ar}</b>
           </div>
         ))}
       </div>
