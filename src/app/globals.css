@@ -1599,8 +1599,15 @@ footer.site-footer {
 
 @media (max-width: 560px) {
   .wrap { padding: 0 20px; }
-  .nav-inner { padding: 0 20px; height: 64px; }
+  .nav-inner { padding: 0 16px; height: 64px; gap: 10px; }
   .mobile-menu { top: calc(var(--ticker-h) + 64px); padding: 10px 20px 20px; }
+
+  /* keep the hamburger visible: compress navbar row */
+  .lang-pill { display: none; } /* language switch lives inside the menu */
+  .logo .en-name { font-size: 13.5px; letter-spacing: 0.14em; }
+  .logo .ar-name { font-size: 10px; letter-spacing: 0.22em; }
+  .nav-actions { gap: 8px; flex-shrink: 0; }
+  .menu-btn { padding: 8px 6px; }
 
   /* ticker: denser items */
   .tick-item { padding: 0 14px; font-size: 11px; gap: 6px; }
