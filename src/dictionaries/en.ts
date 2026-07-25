@@ -34,6 +34,16 @@ const en: typeof ar = {
     to: "To",
     swap: "Swap",
     note: "Indicative rates — refreshed periodically from the market",
+    names: {
+      USD: "US Dollar",
+      ILS: "Shekel",
+      EUR: "Euro",
+      GBP: "British Pound",
+      SAR: "Saudi Riyal",
+      AED: "UAE Dirham",
+      TRY: "Turkish Lira",
+      EGP: "Egyptian Pound",
+    } as Record<string, string>,
   },
   stats: {
     items: [

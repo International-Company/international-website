@@ -6,15 +6,16 @@ import { FX_FALLBACK, type FxRates } from "@/lib/rates";
 
 const CURRENCIES = ["USD", "ILS", "EUR", "GBP", "SAR", "AED", "TRY", "EGP"];
 
-const LABELS: Record<string, string> = {
-  USD: "USD $",
-  ILS: "ILS ₪",
-  EUR: "EUR €",
-  GBP: "GBP £",
-  SAR: "SAR ﷼",
-  AED: "AED د.إ",
-  TRY: "TRY ₺",
-  EGP: "EGP £",
+/** Currency symbols shown next to the localized name. */
+const SYMBOLS: Record<string, string> = {
+  USD: "$",
+  ILS: "₪",
+  EUR: "€",
+  GBP: "£",
+  SAR: "﷼",
+  AED: "د.إ",
+  TRY: "₺",
+  EGP: "£",
 };
 
 const fmt = new Intl.NumberFormat("en-US", {
@@ -36,6 +37,7 @@ export default function Converter({
 
   const available = CURRENCIES.filter((c) => typeof r[c] === "number");
   const value = ((parseFloat(amount) || 0) / r[from]) * r[to];
+  const nameOf = (c: string) => dict.converter.names[c] ?? c;
 
   return (
     <div className="converter">
@@ -60,7 +62,7 @@ export default function Converter({
           <label htmlFor="conv-from">{dict.converter.from}</label>
           <select id="conv-from" value={from} onChange={(e) => setFrom(e.target.value)}>
             {available.map((c) => (
-              <option key={c} value={c}>{LABELS[c]}</option>
+              <option key={c} value={c}>{nameOf(c)} {SYMBOLS[c]}</option>
             ))}
           </select>
         </div>
@@ -76,13 +78,15 @@ export default function Converter({
           <label htmlFor="conv-to">{dict.converter.to}</label>
           <select id="conv-to" value={to} onChange={(e) => setTo(e.target.value)}>
             {available.map((c) => (
-              <option key={c} value={c}>{LABELS[c]}</option>
+              <option key={c} value={c}>{nameOf(c)} {SYMBOLS[c]}</option>
             ))}
           </select>
         </div>
       </div>
       <div className="conv-result">
-        <span className="out">{fmt.format(value)} {to}</span>
+        <span className="out">
+          {fmt.format(value)} <span className="out-name">{nameOf(to)}</span>
+        </span>
         <small>{dict.converter.note}</small>
       </div>
     </div>

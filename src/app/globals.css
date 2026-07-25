@@ -628,6 +628,10 @@ footer,
   transition: border-color 0.3s;
   appearance: none;
 }
+.conv-field select {
+  font-family: inherit;
+  cursor: pointer;
+}
 .conv-field input:focus,
 .conv-field select:focus { border-color: var(--text-1); }
 .conv-swap {
@@ -657,6 +661,15 @@ footer,
   font-size: clamp(22px, 3vw, 30px);
   font-weight: 700;
   letter-spacing: -0.01em;
+}
+.conv-result .out-name {
+  font-family: inherit;
+  font-size: 0.62em;
+  font-weight: 600;
+  color: var(--text-2);
+}
+[dir="rtl"] .conv-result .out-name {
+  font-family: var(--font-ar), sans-serif;
 }
 .conv-result small { font-size: 11px; color: var(--text-3); }
 
