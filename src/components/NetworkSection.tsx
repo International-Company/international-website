@@ -41,8 +41,8 @@ export default function NetworkSection({ dict }: { dict: Dict }) {
 
     const ink = (a: number) =>
       document.documentElement.getAttribute("data-theme") === "light"
-        ? `rgba(20,20,20,${a})`
-        : `rgba(255,255,255,${a})`;
+        ? `rgba(37,99,235,${a})`
+        : `rgba(96,165,250,${a})`;
 
     const q = (
       p0: { x: number; y: number },
