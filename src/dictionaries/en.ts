@@ -25,6 +25,11 @@ const en: typeof ar = {
     cta1: "Explore our services",
     cta2: "Contact us",
     scroll: "Scroll down",
+    trust: ["Officially licensed & supervised", "Reaching 120+ countries", "500K+ clients trust us"],
+    chips: [
+      { icon: "⚡", t: "Remittances within minutes" },
+      { icon: "🛡", t: "Bank-grade security" },
+    ],
   },
   converter: {
     title: "Currency Converter",
