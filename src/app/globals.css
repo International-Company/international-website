@@ -2026,15 +2026,37 @@ footer.site-footer {
   /* ticker: denser items */
   .tick-item { padding: 0 14px; font-size: 11px; gap: 6px; }
 
-  /* hero */
-  .hero-grid { padding-top: 130px; padding-bottom: 64px; gap: 36px; }
-  .hero-badge { font-size: 11.5px; padding: 7px 14px; margin-bottom: 24px; }
-  .hero p.lead { margin-bottom: 30px; }
+  /* hero — smartphone tuning */
+  .hero-grid { padding-top: 125px; padding-bottom: 56px; gap: 32px; }
+  .hero-badge {
+    font-size: 11px;
+    padding: 7px 14px;
+    margin-bottom: 22px;
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.5;
+  }
+  .hero-split .en-word {
+    font-size: 10px;
+    letter-spacing: 0.26em;
+    margin-bottom: 16px;
+  }
+  .hero-split h1 { font-size: clamp(32px, 9.2vw, 42px); }
+  .hero p.lead { margin-bottom: 26px; font-size: 15px; }
   .hero-ctas { flex-direction: column; align-items: stretch; gap: 12px; }
-  .hero-ctas .btn { justify-content: center; }
-  .trust-row { gap: 8px 16px; margin-top: 26px; }
+  .hero-ctas .btn { justify-content: center; padding: 14px 28px; }
+  .trust-row { gap: 8px 16px; margin-top: 24px; }
+  .trust-row li { font-size: 12px; }
   .float-chip { display: none; }
-  .conv-stage::before { inset: -16px; }
+  .conv-stage::before { inset: -14px; filter: blur(26px); }
+
+  /* converter — smartphone tuning */
+  .conv2-amount { font-size: 21px; }
+  .conv2-cur { padding: 6px 10px; gap: 6px; }
+  .conv2-cur .sym { width: 23px; height: 23px; font-size: 11px; }
+  .conv2-cur .code { font-size: 12px; }
+  .conv2-chips button { padding: 6px 13px; font-size: 12px; }
+  .conv2-rate { font-size: 12px; padding: 8px 14px; gap: 7px; }
 
   /* converter: stack send/receive panels vertically */
   .converter { padding: 20px 16px 16px; border-radius: 18px; }
