@@ -39,13 +39,7 @@ export default async function ServicesPage({
         </div>
       </div>
 
-      <ServicesBento
-        dict={dict}
-        locale={locale}
-        showHeader={false}
-        linkHref={`/${locale}/contact`}
-        linkLabel={dict.hero.cta2}
-      />
+      <ServicesBento dict={dict} locale={locale} showHeader={false} />
 
       <GoldMarkets dict={dict} />
       <FAQ dict={dict} />

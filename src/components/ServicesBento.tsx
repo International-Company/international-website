@@ -13,14 +13,10 @@ export default function ServicesBento({
   dict,
   locale,
   showHeader = true,
-  linkHref,
-  linkLabel,
 }: {
   dict: Dict;
   locale: Locale;
   showHeader?: boolean;
-  linkHref?: string;
-  linkLabel?: string;
 }) {
   const s = dict.services.items;
   const feat = s[2]; // الحوالات المالية
@@ -28,8 +24,8 @@ export default function ServicesBento({
   const b = s[0]; // صرافة العملات
   const gold = s[3]; // الذهب والمجوهرات
 
-  const href = linkHref ?? `/${locale}/services`;
-  const label = linkLabel ?? dict.services.link;
+  const hrefOf = (slug: string) => `/${locale}/services/${slug}`;
+  const label = dict.services.link;
 
   return (
     <section className="services-bento" id="services">
@@ -67,7 +63,7 @@ export default function ServicesBento({
                   <li key={f}>{f}</li>
                 ))}
               </ul>
-              <Link href={href} className="text-link">
+              <Link href={hrefOf(feat.slug)} className="text-link">
                 {label} <span>{dict.arrow}</span>
               </Link>
             </div>
@@ -88,7 +84,7 @@ export default function ServicesBento({
               </div>
               <h3>{a.title}</h3>
               <p>{a.desc}</p>
-              <Link href={href} className="text-link">
+              <Link href={hrefOf(a.slug)} className="text-link">
                 {label} <span>{dict.arrow}</span>
               </Link>
             </div>
@@ -109,7 +105,7 @@ export default function ServicesBento({
               </div>
               <h3>{b.title}</h3>
               <p>{b.desc}</p>
-              <Link href={href} className="text-link">
+              <Link href={hrefOf(b.slug)} className="text-link">
                 {label} <span>{dict.arrow}</span>
               </Link>
             </div>
@@ -131,7 +127,7 @@ export default function ServicesBento({
               <div className="bento-body">
                 <h3>{gold.title}</h3>
                 <p>{gold.desc}</p>
-                <Link href={href} className="text-link">
+                <Link href={hrefOf(gold.slug)} className="text-link">
                   {label} <span>{dict.arrow}</span>
                 </Link>
               </div>
@@ -142,4 +138,5 @@ export default function ServicesBento({
     </section>
   );
 }
+
 
