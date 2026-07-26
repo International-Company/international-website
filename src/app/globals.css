@@ -596,14 +596,14 @@ footer,
 
 /* Converter */
 .converter {
-  max-width: 720px;
+  max-width: 740px;
   margin: 0 auto;
   background: var(--glass);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border: 1px solid var(--border-strong);
-  border-radius: 22px;
-  padding: 26px 28px 20px;
+  border-radius: 24px;
+  padding: 28px 30px 22px;
   box-shadow: var(--shadow);
   text-align: start;
 }
@@ -745,14 +745,29 @@ footer,
   border-color: var(--accent);
   color: var(--accent-2);
 }
+.conv2-chips button.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.conv2-name {
+  display: block;
+  margin-top: 8px;
+  font-size: 11.5px;
+  color: var(--text-3);
+}
 .conv2-rate {
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 1px solid var(--border);
+  margin: 18px auto 0;
+  width: fit-content;
+  max-width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+  padding: 9px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
   font-family: var(--font-en), sans-serif;
   font-size: 13px;
   font-weight: 600;
@@ -761,45 +776,15 @@ footer,
   direction: ltr;
 }
 .conv2-rate .sep { color: var(--text-3); }
-.conv2-cta {
-  width: 100%;
-  justify-content: center;
-  margin-top: 16px;
-}
 .conv2-note {
   display: block;
   text-align: center;
-  margin-top: 10px;
+  margin-top: 12px;
   font-size: 11px;
   color: var(--text-3);
 }
 .conv-result small { font-size: 11px; color: var(--text-3); }
 
-.scroll-hint {
-  position: absolute;
-  bottom: 26px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: var(--text-3);
-  font-size: 12px;
-  letter-spacing: 0.2em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-.scroll-hint .line {
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(var(--text-3), transparent);
-  animation: drip 2s infinite;
-}
-@keyframes drip {
-  0% { transform: scaleY(0); transform-origin: top; }
-  50% { transform: scaleY(1); transform-origin: top; }
-  51% { transform-origin: bottom; }
-  100% { transform: scaleY(0); transform-origin: bottom; }
-}
 
 /* ============================================================
    STATS
@@ -1921,7 +1906,6 @@ footer.site-footer {
   .hero p.lead { margin-bottom: 30px; }
   .hero-ctas { flex-direction: column; align-items: stretch; gap: 12px; margin-bottom: 40px; }
   .hero-ctas .btn { justify-content: center; }
-  .scroll-hint { display: none; }
 
   /* converter: stack send/receive panels vertically */
   .converter { padding: 20px 16px 16px; border-radius: 18px; }

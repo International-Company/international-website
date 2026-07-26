@@ -3,7 +3,6 @@
 import { useState } from "react";
 import type { Dict } from "@/dictionaries";
 import { FX_FALLBACK, type FxRates } from "@/lib/rates";
-import { WHATSAPP_NUMBER } from "@/lib/site";
 
 const CURRENCIES = ["USD", "ILS", "EUR", "GBP", "SAR", "AED", "TRY", "EGP"];
 
@@ -81,11 +80,7 @@ export default function Converter({
   };
 
   const rate = r[to] / r[from];
-  const waText = dict.converter.waText
-    .replace("{amount}", `${send} ${from}`)
-    .replace("{from}", nameOf(from))
-    .replace("{to}", nameOf(to));
-  const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}`;
+  const activeQuick = parse(send);
 
   return (
     <div className="converter">
@@ -130,6 +125,7 @@ export default function Converter({
               </select>
             </div>
           </div>
+          <span className="conv2-name">{nameOf(from)}</span>
         </div>
 
         <button type="button" className="conv2-swap" title={dict.converter.swap} onClick={swap}>
@@ -165,12 +161,18 @@ export default function Converter({
               </select>
             </div>
           </div>
+          <span className="conv2-name">{nameOf(to)}</span>
         </div>
       </div>
 
       <div className="conv2-chips">
         {QUICK_AMOUNTS.map((n) => (
-          <button key={n} type="button" onClick={() => setQuick(n)}>
+          <button
+            key={n}
+            type="button"
+            className={activeQuick === n ? "active" : ""}
+            onClick={() => setQuick(n)}
+          >
             {n.toLocaleString("en-US")}
           </button>
         ))}
@@ -183,14 +185,6 @@ export default function Converter({
         <span>1 {to} = {(1 / rate).toFixed(4)} {from}</span>
       </div>
 
-      <a
-        href={waLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="btn btn-primary conv2-cta"
-      >
-        ✆ {dict.converter.cta}
-      </a>
       <small className="conv2-note">{dict.converter.note}</small>
     </div>
   );

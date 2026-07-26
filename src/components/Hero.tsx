@@ -53,10 +53,6 @@ export default function Hero({
           <Converter dict={dict} rates={rates} />
         </Reveal>
       </motion.div>
-      <div className="scroll-hint">
-        <span>{dict.hero.scroll}</span>
-        <span className="line" />
-      </div>
     </section>
   );
 }
