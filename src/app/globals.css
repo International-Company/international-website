@@ -518,13 +518,16 @@ footer,
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1.05fr 1fr;
+  /* minmax(0, …) lets tracks shrink below content min-width — prevents mobile overflow */
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
   gap: 64px;
   align-items: center;
   width: 100%;
   padding-top: 170px;
   padding-bottom: 110px;
 }
+.hero-copy,
+.hero-conv { min-width: 0; }
 .hero-copy { text-align: start; }
 .hero-split h1 {
   font-size: clamp(38px, 5.4vw, 68px);
@@ -776,6 +779,7 @@ footer,
 .conv2-amount {
   flex: 1;
   min-width: 0;
+  width: 100%;
   background: none;
   border: none;
   outline: none;
@@ -787,6 +791,7 @@ footer,
   padding: 0;
   direction: ltr;
 }
+[dir="rtl"] .conv2-amount { text-align: right; }
 .conv2-cur {
   position: relative;
   display: flex;
@@ -1972,7 +1977,7 @@ footer.site-footer {
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .about .watermark { font-size: 180px; }
   .hero-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 44px;
     padding-top: 150px;
     padding-bottom: 80px;
