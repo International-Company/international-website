@@ -36,9 +36,10 @@ export default function Navbar({ dict, locale }: { dict: Dict; locale: Locale })
 
   const links = [
     { href: `/${locale}`, label: dict.nav.home },
-    { href: `/${locale}/about`, label: dict.nav.about },
+    { href: `/${locale}/rates`, label: dict.rates.navLabel },
     { href: `/${locale}/services`, label: dict.nav.services },
-    { href: `/${locale}#network`, label: dict.nav.network },
+    { href: `/${locale}/about`, label: dict.nav.about },
+    { href: `/${locale}/request`, label: dict.requestForm.navLabel },
     { href: `/${locale}/contact`, label: dict.nav.contact },
   ];
 

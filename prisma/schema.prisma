@@ -1,0 +1,56 @@
+// International — operational database
+// Local dev uses SQLite; Railway provides PostgreSQL via DATABASE_URL.
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Company's own buy/sell rates, edited from the admin panel.
+model Rate {
+  id        String   @id @default(cuid())
+  code      String   @unique // USD, ILS, JOD, XAU21 ...
+  nameAr    String
+  nameEn    String
+  buy       Float // company buys from client
+  sell      Float // company sells to client
+  unit      String   @default("currency") // currency | gold
+  sort      Int      @default(0)
+  active    Boolean  @default(true)
+  updatedAt DateTime @updatedAt
+}
+
+/// Structured transfer/service requests submitted from the site.
+model Request {
+  id         String        @id @default(cuid())
+  service    String // remittances | transfers | exchange | gold
+  name       String
+  phone      String
+  amount     String?
+  currency   String?
+  country    String?
+  recipient  String?
+  note       String?
+  status     RequestStatus @default(NEW)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+}
+
+enum RequestStatus {
+  NEW
+  IN_PROGRESS
+  DONE
+  CANCELLED
+}
+
+/// Simple site-wide settings (announcement bar, etc.)
+model Setting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}

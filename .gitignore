@@ -33,3 +33,11 @@ next-env.d.ts
 
 # raw brand assets (processed copies live in public/images)
 img/
+
+# generated prisma client
+/src/generated
+
+# local test artifacts
+*.log
+prisma/*.db
+prisma/schema.sqlite.prisma

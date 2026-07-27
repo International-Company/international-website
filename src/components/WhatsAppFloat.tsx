@@ -1,6 +1,8 @@
+"use client";
+
 import { WHATSAPP_NUMBER } from "@/lib/site";
 
-/** Floating WhatsApp button — brand-green with a real WhatsApp glyph. */
+/** Floating WhatsApp button — brand-green, tracked as a conversion. */
 export default function WhatsAppFloat({ label }: { label: string }) {
   return (
     <a
@@ -10,6 +12,9 @@ export default function WhatsAppFloat({ label }: { label: string }) {
       className="wa-float"
       aria-label={label}
       title={label}
+      onClick={() => {
+        window.gtag?.("event", "whatsapp_click", { location: "float" });
+      }}
     >
       <svg
         className="wico"

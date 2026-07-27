@@ -20,6 +20,9 @@ Corporate website for a financial holding company — premium monochrome design,
 - 🌓 Animated theme switcher with saved preference (localStorage)
 - 🤝 Timeline, partners marquee, testimonials, branches, FAQ
 - 📱 Fully responsive (desktop / tablet / mobile)
+- 🔐 Arabic admin panel (`/admin`): company buy/sell rates + incoming requests board
+- 📋 Structured service-request form saved to PostgreSQL (Prisma)
+- 📊 Google Analytics 4 with WhatsApp-click and request-submitted events
 
 ## التشغيل — Getting Started
 
@@ -57,6 +60,31 @@ src/
 - [ ] استبدال تواريخ الخط الزمني وأسماء الشركاء وآراء العملاء بالحقيقية
 - [ ] إضافة أرقام التراخيص الرسمية (صفحة legal + FAQ)
 - [ ] تحديث `SITE_URL` في `src/lib/site.ts` عند اعتماد الدومين النهائي
+
+## لوحة التحكم — Admin panel
+
+`/admin` — لوحة تشغيلية بالعربية (محمية بكلمة مرور) تتيح:
+
+- **أسعار الشركة**: تعديل سعر الشراء/البيع لكل عملة وللذهب (عيار 24/21/18) وتفعيل أو إخفاء أي بند — تظهر فورًا في صفحة `/ar/rates`
+- **الطلبات**: كل طلبات نموذج `/ar/request` مع حالاتها (جديد / قيد التنفيذ / منجز / ملغي) وزر واتساب مباشر لكل عميل
+
+### الإعداد على Railway (مرة واحدة)
+
+1. في مشروع Railway: **New → Database → Add PostgreSQL**
+2. افتح خدمة الموقع → **Variables** وأضف:
+
+   | المتغير | القيمة |
+   |---|---|
+   | `DATABASE_URL` | اربطها بمتغير `DATABASE_URL` الخاص بخدمة PostgreSQL |
+   | `ADMIN_PASSWORD` | كلمة مرور قوية تدخل بها للوحة |
+   | `AUTH_SECRET` | نص عشوائي طويل (32 حرفًا فأكثر) |
+   | `NEXT_PUBLIC_SITE_URL` | رابط الموقع النهائي |
+   | `NEXT_PUBLIC_GA_ID` | معرّف Google Analytics (اختياري) |
+
+3. أعد النشر — `prisma migrate deploy` ينشئ الجداول تلقائيًا عند الإقلاع
+4. افتح `/admin` → أدخل كلمة المرور → **إنشاء قائمة الأسعار** ثم عدّل أسعارك
+
+> الموقع لا يتعطل إن غابت قاعدة البيانات: صفحة الأسعار تعرض قيمًا افتراضية والطلبات تُسجَّل في السجلات.
 
 ## النشر — Deployment
 

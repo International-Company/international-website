@@ -11,6 +11,7 @@ import Ticker from "@/components/Ticker";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import Analytics from "@/components/Analytics";
 import "../globals.css";
 
 const plexArabic = IBM_Plex_Sans_Arabic({
@@ -146,6 +147,7 @@ export default async function LocaleLayout({
         <main>{children}</main>
         <Footer dict={dict} locale={locale} />
         <WhatsAppFloat label={dict.whatsapp} />
+        <Analytics />
       </body>
     </html>
   );
