@@ -93,16 +93,22 @@ export default async function AdminPage({
           </p>
 
           {rates.length === 0 ? (
-            <>
-              <div className="a-note">
-                لم تُنشأ قائمة الأسعار بعد. اضغط الزر لإنشاء القائمة الافتراضية ثم عدّلها.
+            hasDb ? (
+              <>
+                <div className="a-note">
+                  لم تُنشأ قائمة الأسعار بعد. اضغط الزر لإنشاء القائمة الافتراضية ثم عدّلها.
+                </div>
+                <form action={seedRatesAction}>
+                  <button className="a-btn" type="submit">
+                    إنشاء قائمة الأسعار
+                  </button>
+                </form>
+              </>
+            ) : (
+              <div className="a-empty">
+                أضف قاعدة بيانات PostgreSQL في Railway لتفعيل تعديل الأسعار.
               </div>
-              <form action={seedRatesAction}>
-                <button className="a-btn" type="submit">
-                  إنشاء قائمة الأسعار
-                </button>
-              </form>
-            </>
+            )
           ) : (
             <form action={saveRatesAction}>
               <div className="a-rate-row head">
