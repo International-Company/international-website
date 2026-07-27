@@ -5,9 +5,11 @@ import { useEffect, useState } from "react";
 export default function Preloader({
   brandEn,
   brandAr,
+  arOnly = false,
 }: {
   brandEn: string;
   brandAr: string;
+  arOnly?: boolean;
 }) {
   const [done, setDone] = useState(false);
 
@@ -34,8 +36,8 @@ export default function Preloader({
     <div className={`preloader${done ? " done" : ""}`} aria-hidden>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/images/logo.png" alt="" className="pl-logo" />
-      <div className="pl-word">{brandEn}</div>
-      <div className="pl-ar">{brandAr}</div>
+      {!arOnly && <div className="pl-word">{brandEn}</div>}
+      <div className={`pl-ar${arOnly ? " pl-ar-solo" : ""}`}>{brandAr}</div>
       <div className="pl-line" />
     </div>
   );

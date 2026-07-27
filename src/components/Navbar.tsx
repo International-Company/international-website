@@ -58,10 +58,17 @@ export default function Navbar({ dict, locale }: { dict: Dict; locale: Locale })
               className="logo-img"
               priority
             />
-            <span className="logo-text">
-              <span className="en-name">{dict.brand.en}</span>
-              <span className="ar-name">{dict.brand.ar}</span>
-            </span>
+            {locale === "ar" ? (
+              <span className="logo-text">
+                <span className="brand-ar-main">إنترنشونال</span>
+                <span className="brand-ar-sub">للخدمات المالية والمجوهرات</span>
+              </span>
+            ) : (
+              <span className="logo-text">
+                <span className="en-name">{dict.brand.en}</span>
+                <span className="ar-name">{dict.brand.ar}</span>
+              </span>
+            )}
           </Link>
 
           <ul className="nav-links">

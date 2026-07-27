@@ -133,7 +133,11 @@ export default async function LocaleLayout({
               : "var(--font-en), var(--font-ar), sans-serif",
         }}
       >
-        <Preloader brandEn={dict.brand.en} brandAr={dict.brand.ar} />
+        <Preloader
+          brandEn={dict.brand.en}
+          brandAr={dict.brand.ar}
+          arOnly={locale === "ar"}
+        />
         <div className="grain" aria-hidden />
         <ScrollProgress />
         <CursorFx />
