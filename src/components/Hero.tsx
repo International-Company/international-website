@@ -31,7 +31,6 @@ export default function Hero({
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <span className="en-word">{dict.hero.kicker}</span>
             <h1>
               {dict.hero.title}
               <br />
