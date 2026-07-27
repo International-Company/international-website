@@ -32,6 +32,8 @@ export default function Preloader({
 
   return (
     <div className={`preloader${done ? " done" : ""}`} aria-hidden>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/images/logo.png" alt="" className="pl-logo" />
       <div className="pl-word">{brandEn}</div>
       <div className="pl-ar">{brandAr}</div>
       <div className="pl-line" />

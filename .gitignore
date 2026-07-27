@@ -30,3 +30,6 @@ next-env.d.ts
 
 # internal brief
 *.docx
+
+# raw brand assets (processed copies live in public/images)
+img/

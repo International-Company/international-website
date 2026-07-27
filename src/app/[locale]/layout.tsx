@@ -96,6 +96,7 @@ export default async function LocaleLayout({
     url: `${SITE_URL}/${locale}`,
     email: CONTACT_EMAIL,
     telephone: CONTACT_PHONE,
+    logo: `${SITE_URL}/images/logo.png`,
     image: `${SITE_URL}/images/money-hero.jpg`,
     address: {
       "@type": "PostalAddress",

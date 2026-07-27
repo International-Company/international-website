@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import type { Dict } from "@/dictionaries";
 import type { Locale } from "@/lib/i18n";
@@ -49,8 +50,18 @@ export default function Navbar({ dict, locale }: { dict: Dict; locale: Locale })
       <nav className={`navbar${scrolled ? " scrolled" : ""}`}>
         <div className="nav-inner">
           <Link href={`/${locale}`} className="logo">
-            <span className="en-name">{dict.brand.en}</span>
-            <span className="ar-name">{dict.brand.ar}</span>
+            <Image
+              src="/images/logo.png"
+              alt={dict.brand.ar}
+              width={44}
+              height={44}
+              className="logo-img"
+              priority
+            />
+            <span className="logo-text">
+              <span className="en-name">{dict.brand.en}</span>
+              <span className="ar-name">{dict.brand.ar}</span>
+            </span>
           </Link>
 
           <ul className="nav-links">

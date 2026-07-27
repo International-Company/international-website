@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Dict } from "@/dictionaries";
 import type { Locale } from "@/lib/i18n";
 
@@ -9,8 +10,17 @@ export default function Footer({ dict, locale }: { dict: Dict; locale: Locale })
         <div className="footer-grid">
           <div className="footer-brand">
             <Link href={`/${locale}`} className="logo">
-              <span className="en-name">{dict.brand.en}</span>
-              <span className="ar-name">{dict.brand.ar}</span>
+              <Image
+                src="/images/logo.png"
+                alt={dict.brand.ar}
+                width={48}
+                height={48}
+                className="logo-img"
+              />
+              <span className="logo-text">
+                <span className="en-name">{dict.brand.en}</span>
+                <span className="ar-name">{dict.brand.ar}</span>
+              </span>
             </Link>
             <p>{dict.footer.blurb}</p>
           </div>
