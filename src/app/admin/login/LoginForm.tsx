@@ -29,8 +29,12 @@ export default function LoginForm() {
         </div>
 
         <button className="a-btn wide" type="submit" disabled={pending}>
-          {pending ? "جارٍ الدخول..." : "دخول"}
+          {pending ? "جارٍ الدخول..." : "دخول للوحة"}
         </button>
+
+        <div className="a-login-foot">
+          <span>🔒</span> اتصال آمن — لوحة إدارة خاصة
+        </div>
       </form>
     </div>
   );
