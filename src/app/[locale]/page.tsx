@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
 import { getDict } from "@/dictionaries";
 import { getFxRates } from "@/lib/rates";
-import { getCompanyRates, mergeCompanyIntoFx } from "@/lib/rates-service";
+import { getCompanyRates, getConverterRates } from "@/lib/rates-service";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import MoneyBand from "@/components/MoneyBand";
@@ -27,13 +27,16 @@ export default async function HomePage({
   const dict = getDict(locale);
   const fx = await getFxRates();
   const company = await getCompanyRates();
-  const converterRates = company.live
-    ? mergeCompanyIntoFx(fx.rates, company.rates)
-    : fx.rates;
+  const converter = await getConverterRates(fx.rates);
 
   return (
     <>
-      <Hero dict={dict} locale={locale} rates={converterRates} />
+      <Hero
+        dict={dict}
+        locale={locale}
+        rates={converter.rates}
+        source={converter.source}
+      />
       <Stats dict={dict} />
       <MoneyBand dict={dict} />
 

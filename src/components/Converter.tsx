@@ -2,13 +2,12 @@
 
 import { useState } from "react";
 import type { Dict } from "@/dictionaries";
-import { FX_FALLBACK, type FxRates } from "@/lib/rates";
-
-const CURRENCIES = ["USD", "ILS", "EUR", "GBP", "SAR", "AED", "TRY", "EGP"];
+import type { ConverterRate } from "@/lib/rates-service";
 
 const SYMBOLS: Record<string, string> = {
-  USD: "$",
   ILS: "₪",
+  USD: "$",
+  JOD: "د.ا",
   EUR: "€",
   GBP: "£",
   SAR: "﷼",
@@ -26,20 +25,48 @@ const parse = (s: string) => parseFloat(s.replace(/,/g, "")) || 0;
 
 export default function Converter({
   dict,
+  locale,
   rates,
+  source,
 }: {
   dict: Dict;
-  rates?: FxRates;
+  locale: string;
+  rates: ConverterRate[];
+  source: "shop" | "market";
 }) {
-  const r = rates ?? FX_FALLBACK;
-  const [from, setFrom] = useState("USD");
-  const [to, setTo] = useState("ILS");
-  const [send, setSend] = useState("1,000");
-  const [recv, setRecv] = useState(() => fmt((1000 / (r.USD ?? 1)) * (r.ILS ?? 3.05)));
+  const byCode = new Map(rates.map((r) => [r.code, r]));
+  const initialFrom = byCode.has("USD") ? "USD" : (rates[1]?.code ?? "ILS");
 
-  const available = CURRENCIES.filter((c) => typeof r[c] === "number");
-  const nameOf = (c: string) => dict.converter.names[c] ?? c;
-  const convert = (n: number, f: string, t: string) => (n / r[f]) * r[t];
+  const [from, setFrom] = useState(initialFrom);
+  const [to, setTo] = useState("ILS");
+
+  /**
+   * Real counter maths: the shop buys what you hand over at its `buy` price
+   * and sells what you take away at its `sell` price.
+   */
+  const convert = (amount: number, f: string, t: string) => {
+    const src = byCode.get(f);
+    const dst = byCode.get(t);
+    if (!src || !dst || dst.sell <= 0) return 0;
+    return (amount * src.buy) / dst.sell;
+  };
+
+  const invert = (amount: number, f: string, t: string) => {
+    const src = byCode.get(f);
+    const dst = byCode.get(t);
+    if (!src || !dst || src.buy <= 0) return 0;
+    return (amount * dst.sell) / src.buy;
+  };
+
+  const [send, setSend] = useState("1,000");
+  const [recv, setRecv] = useState(() => fmt(convert(1000, initialFrom, "ILS")));
+
+  const nameOf = (code: string) => {
+    const dictName = dict.converter.names[code];
+    if (dictName) return dictName;
+    const r = byCode.get(code);
+    return r ? (locale === "ar" ? r.nameAr : r.nameEn) : code;
+  };
 
   const onSendChange = (v: string) => {
     setSend(v);
@@ -50,7 +77,7 @@ export default function Converter({
   const onRecvChange = (v: string) => {
     setRecv(v);
     const n = parse(v);
-    setSend(n > 0 ? fmt(convert(n, to, from)) : "");
+    setSend(n > 0 ? fmt(invert(n, from, to)) : "");
   };
 
   const onFromChange = (c: string) => {
@@ -79,7 +106,7 @@ export default function Converter({
     setRecv(fmt(convert(n, from, to)));
   };
 
-  const rate = r[to] / r[from];
+  const unitRate = convert(1, from, to);
   const activeQuick = parse(send);
 
   return (
@@ -87,12 +114,12 @@ export default function Converter({
       <div className="conv-head">
         <span className="t">{dict.converter.title}</span>
         <span className="live">
-          <span className="pulse-dot" /> {dict.converter.live}
+          <span className="pulse-dot" />{" "}
+          {source === "shop" ? dict.converter.shopRates : dict.converter.marketRates}
         </span>
       </div>
 
       <div className="conv2-body">
-        {/* You send */}
         <div className="conv2-panel">
           <label htmlFor="conv-send">{dict.converter.send}</label>
           <div className="conv2-row">
@@ -101,6 +128,7 @@ export default function Converter({
               className="conv2-amount"
               type="text"
               inputMode="decimal"
+              lang="en"
               value={send}
               onChange={(e) => onSendChange(e.target.value)}
               onBlur={() => {
@@ -109,7 +137,7 @@ export default function Converter({
               }}
             />
             <div className="conv2-cur">
-              <span className="sym">{SYMBOLS[from]}</span>
+              <span className="sym">{SYMBOLS[from] ?? from.slice(0, 2)}</span>
               <span className="code">{from}</span>
               <span className="chev">▾</span>
               <select
@@ -117,9 +145,9 @@ export default function Converter({
                 value={from}
                 onChange={(e) => onFromChange(e.target.value)}
               >
-                {available.map((c) => (
-                  <option key={c} value={c}>
-                    {SYMBOLS[c]} {nameOf(c)} ({c})
+                {rates.map((r) => (
+                  <option key={r.code} value={r.code}>
+                    {SYMBOLS[r.code] ?? ""} {nameOf(r.code)} ({r.code})
                   </option>
                 ))}
               </select>
@@ -132,7 +160,6 @@ export default function Converter({
           ⇄
         </button>
 
-        {/* They receive */}
         <div className="conv2-panel">
           <label htmlFor="conv-recv">{dict.converter.receive}</label>
           <div className="conv2-row">
@@ -141,11 +168,12 @@ export default function Converter({
               className="conv2-amount"
               type="text"
               inputMode="decimal"
+              lang="en"
               value={recv}
               onChange={(e) => onRecvChange(e.target.value)}
             />
             <div className="conv2-cur">
-              <span className="sym">{SYMBOLS[to]}</span>
+              <span className="sym">{SYMBOLS[to] ?? to.slice(0, 2)}</span>
               <span className="code">{to}</span>
               <span className="chev">▾</span>
               <select
@@ -153,9 +181,9 @@ export default function Converter({
                 value={to}
                 onChange={(e) => onToChange(e.target.value)}
               >
-                {available.map((c) => (
-                  <option key={c} value={c}>
-                    {SYMBOLS[c]} {nameOf(c)} ({c})
+                {rates.map((r) => (
+                  <option key={r.code} value={r.code}>
+                    {SYMBOLS[r.code] ?? ""} {nameOf(r.code)} ({r.code})
                   </option>
                 ))}
               </select>
@@ -180,12 +208,14 @@ export default function Converter({
 
       <div className="conv2-rate">
         <span className="pulse-dot" />
-        <span>1 {from} = {rate.toFixed(4)} {to}</span>
-        <span className="sep">·</span>
-        <span>1 {to} = {(1 / rate).toFixed(4)} {from}</span>
+        <span>
+          1 {from} = {unitRate >= 1 ? unitRate.toFixed(4) : unitRate.toFixed(6)} {to}
+        </span>
       </div>
 
-      <small className="conv2-note">{dict.converter.note}</small>
+      <small className="conv2-note">
+        {source === "shop" ? dict.converter.shopNote : dict.converter.note}
+      </small>
     </div>
   );
 }

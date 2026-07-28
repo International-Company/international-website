@@ -44,28 +44,83 @@ export async function getCompanyRates(): Promise<{
  * converter uses, so the homepage calculator reflects the company's own prices.
  * Falls back to the global market map for currencies the company hasn't set.
  */
-export function mergeCompanyIntoFx(
-  fx: Record<string, number>,
-  company: CompanyRate[]
-): Record<string, number> {
-  const usd = company.find((r) => r.code === "USD" && r.unit === "currency");
-  if (!usd) return fx;
+/** A currency the converter can use, always quoted in ILS per 1 unit. */
+export type ConverterRate = {
+  code: string;
+  nameAr: string;
+  nameEn: string;
+  /** ILS the shop pays when buying this currency from the customer. */
+  buy: number;
+  /** ILS the shop charges when selling this currency to the customer. */
+  sell: number;
+};
 
-  // mid-market style reference so buying and selling stay symmetrical
-  const ilsPerUsd = (usd.buy + usd.sell) / 2;
-  if (!Number.isFinite(ilsPerUsd) || ilsPerUsd <= 0) return fx;
+const MARKET_CODES = ["USD", "JOD", "EUR", "GBP", "EGP", "SAR", "AED", "TRY"];
 
-  const merged: Record<string, number> = { ...fx, USD: 1, ILS: ilsPerUsd };
+const MARKET_NAMES: Record<string, { ar: string; en: string }> = {
+  USD: { ar: "دولار أمريكي", en: "US Dollar" },
+  JOD: { ar: "دينار أردني", en: "Jordanian Dinar" },
+  EUR: { ar: "يورو", en: "Euro" },
+  GBP: { ar: "جنيه إسترليني", en: "British Pound" },
+  EGP: { ar: "جنيه مصري", en: "Egyptian Pound" },
+  SAR: { ar: "ريال سعودي", en: "Saudi Riyal" },
+  AED: { ar: "درهم إماراتي", en: "UAE Dirham" },
+  TRY: { ar: "ليرة تركية", en: "Turkish Lira" },
+};
 
-  for (const r of company) {
-    if (r.unit !== "currency" || r.code === "USD" || r.code === "ILS") continue;
-    const ilsPerUnit = (r.buy + r.sell) / 2;
-    if (!Number.isFinite(ilsPerUnit) || ilsPerUnit <= 0) continue;
-    // units of this currency per 1 USD
-    merged[r.code] = ilsPerUsd / ilsPerUnit;
+const SHEKEL: ConverterRate = {
+  code: "ILS",
+  nameAr: "شيكل",
+  nameEn: "Shekel",
+  buy: 1,
+  sell: 1,
+};
+
+/**
+ * Currencies for the public converter.
+ *
+ * Prefers the shop's own buy/sell board so the customer sees exactly what they
+ * would receive at the counter; falls back to global market rates (buy = sell)
+ * when the shop has not published its board yet.
+ */
+export async function getConverterRates(
+  fx: Record<string, number>
+): Promise<{ rates: ConverterRate[]; source: "shop" | "market" }> {
+  const { rates: company, live } = await getCompanyRates();
+
+  if (live) {
+    const shop = company
+      .filter((r) => r.unit === "currency" && r.code !== "ILS" && r.buy > 0 && r.sell > 0)
+      .map((r) => ({
+        code: r.code,
+        nameAr: r.nameAr,
+        nameEn: r.nameEn,
+        buy: r.buy,
+        sell: r.sell,
+      }));
+
+    if (shop.length) return { rates: [SHEKEL, ...shop], source: "shop" };
   }
 
-  return merged;
+  // Market fallback: derive ILS per unit from the USD-based map.
+  const ilsPerUsd = fx.ILS;
+  const market: ConverterRate[] = [];
+  if (Number.isFinite(ilsPerUsd) && ilsPerUsd > 0) {
+    for (const code of MARKET_CODES) {
+      const perUsd = fx[code];
+      if (!Number.isFinite(perUsd) || perUsd <= 0) continue;
+      const ilsPerUnit = ilsPerUsd / perUsd;
+      market.push({
+        code,
+        nameAr: MARKET_NAMES[code]?.ar ?? code,
+        nameEn: MARKET_NAMES[code]?.en ?? code,
+        buy: ilsPerUnit,
+        sell: ilsPerUnit,
+      });
+    }
+  }
+
+  return { rates: [SHEKEL, ...market], source: "market" };
 }
 
 /** All rates including inactive ones — admin view. */

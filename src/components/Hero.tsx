@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import type { Dict } from "@/dictionaries";
 import type { Locale } from "@/lib/i18n";
-import type { FxRates } from "@/lib/rates";
+import type { ConverterRate } from "@/lib/rates-service";
 import Converter from "./Converter";
 import Reveal from "./Reveal";
 
@@ -12,10 +12,12 @@ export default function Hero({
   dict,
   locale,
   rates,
+  source,
 }: {
   dict: Dict;
   locale: Locale;
-  rates?: FxRates;
+  rates: ConverterRate[];
+  source: "shop" | "market";
 }) {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 800], [0, 90]);
@@ -69,7 +71,7 @@ export default function Hero({
               <div className="float-chip chip-b" aria-hidden>
                 <span>{dict.hero.chips[1].icon}</span> {dict.hero.chips[1].t}
               </div>
-              <Converter dict={dict} rates={rates} />
+              <Converter dict={dict} locale={locale} rates={rates} source={source} />
             </div>
           </Reveal>
         </div>

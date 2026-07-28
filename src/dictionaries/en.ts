@@ -42,7 +42,10 @@ const en: typeof ar = {
     swap: "Swap",
     cta: "Complete the transfer on WhatsApp",
     waText: "Hello 👋 I'd like to transfer {amount} {from} to {to}. What's your best rate?",
+    shopRates: "Our rates",
+    marketRates: "Market rates",
     note: "Indicative rates — final rate confirmed at execution",
+    shopNote: "Calculated with our official buy/sell board — confirmed at execution",
     names: {
       USD: "US Dollar",
       ILS: "Shekel",
