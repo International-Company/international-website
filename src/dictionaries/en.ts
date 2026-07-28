@@ -7,6 +7,10 @@ const en: typeof ar = {
       "A money remittances and jewelry company delivering integrated solutions in currency exchange, international transfers and gold — with world-class standards and absolute security.",
   },
   brand: { en: "INTERNATIONAL", ar: "Financial Company" },
+  preloader: {
+    title: "International Company",
+    tagline: "Financial Services & Jewelry",
+  },
   arrow: "→",
   nav: {
     home: "Home",

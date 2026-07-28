@@ -2,19 +2,17 @@
 
 import { useEffect, useState } from "react";
 
+/** Cinematic splash: logo, company name and tagline — once per session. */
 export default function Preloader({
-  brandEn,
-  brandAr,
-  arOnly = false,
+  title,
+  tagline,
 }: {
-  brandEn: string;
-  brandAr: string;
-  arOnly?: boolean;
+  title: string;
+  tagline: string;
 }) {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    // cinematic intro once per session — skip on subsequent page loads
     let seen = false;
     try {
       seen = sessionStorage.getItem("intl-preloaded") === "1";
@@ -28,17 +26,27 @@ export default function Preloader({
       try {
         sessionStorage.setItem("intl-preloaded", "1");
       } catch {}
-    }, 1500);
+    }, 2100);
     return () => clearTimeout(t);
   }, []);
 
   return (
     <div className={`preloader${done ? " done" : ""}`} aria-hidden>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/images/logo.png" alt="" className="pl-logo" />
-      {!arOnly && <div className="pl-word">{brandEn}</div>}
-      <div className={`pl-ar${arOnly ? " pl-ar-solo" : ""}`}>{brandAr}</div>
-      <div className="pl-line" />
+      <div className="pl-stage">
+        <div className="pl-mark">
+          <span className="pl-ring" />
+          <span className="pl-ring pl-ring-2" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/logo.png" alt="" className="pl-logo" />
+        </div>
+
+        <h1 className="pl-title">{title}</h1>
+        <p className="pl-tagline">{tagline}</p>
+
+        <div className="pl-bar">
+          <span />
+        </div>
+      </div>
     </div>
   );
 }
