@@ -567,12 +567,21 @@ footer,
   opacity: 0.4;
   transform: scale(1.04);
 }
-/* Light mode: the photo reads as a deliberate, brand-tinted backdrop
-   instead of a washed-out ghost — brighter, cooler, anchored low. */
+/* Light mode: rather than painting white over the photo (which turned it
+   into a grey smudge), fade the photo itself with a mask so the part that
+   shows keeps its full richness. */
+:root[data-theme="light"] .hero-photo {
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 26%, rgba(0, 0, 0, 0.55) 48%, transparent 70%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 26%, rgba(0, 0, 0, 0.55) 48%, transparent 70%);
+}
+:root[data-theme="light"][dir="ltr"] .hero-photo {
+  -webkit-mask-image: linear-gradient(-90deg, #000 0%, #000 26%, rgba(0, 0, 0, 0.55) 48%, transparent 70%);
+  mask-image: linear-gradient(-90deg, #000 0%, #000 26%, rgba(0, 0, 0, 0.55) 48%, transparent 70%);
+}
 :root[data-theme="light"] .hero-photo img {
-  opacity: 0.55;
-  object-position: center 62%;
-  filter: saturate(0.88) brightness(1.06) contrast(0.98);
+  opacity: 0.92;
+  object-position: center 55%;
+  filter: saturate(1.06) contrast(1.08);
 }
 .hero-photo::after {
   content: "";
@@ -582,20 +591,13 @@ footer,
     linear-gradient(180deg, var(--bg) 0%, rgba(10, 10, 10, 0.55) 32%, var(--bg) 96%),
     linear-gradient(90deg, var(--bg) 2%, transparent 45%);
 }
-:root[data-theme="light"] .hero-photo::after {
-  background:
-    /* cool brand wash so the photo belongs to the palette */
-    linear-gradient(155deg, rgba(59, 130, 246, 0.1), transparent 62%),
-    /* keep the copy column clean */
-    linear-gradient(90deg, transparent 30%, rgba(247, 247, 247, 0.9) 66%, var(--bg) 88%),
-    /* fade into the page top and bottom */
-    linear-gradient(180deg, var(--bg) 0%, rgba(247, 247, 247, 0.5) 26%, rgba(247, 247, 247, 0.86) 82%, var(--bg) 100%);
-}
+/* The horizontal fade is handled by the mask above, so the overlay only
+   blends the photo into the page top and bottom and adds a brand wash. */
+:root[data-theme="light"] .hero-photo::after,
 :root[data-theme="light"][dir="ltr"] .hero-photo::after {
   background:
-    linear-gradient(155deg, rgba(59, 130, 246, 0.1), transparent 62%),
-    linear-gradient(-90deg, transparent 30%, rgba(247, 247, 247, 0.9) 66%, var(--bg) 88%),
-    linear-gradient(180deg, var(--bg) 0%, rgba(247, 247, 247, 0.5) 26%, rgba(247, 247, 247, 0.86) 82%, var(--bg) 100%);
+    linear-gradient(150deg, rgba(37, 99, 235, 0.12), transparent 55%),
+    linear-gradient(180deg, var(--bg) 0%, rgba(247, 247, 247, 0.28) 22%, rgba(247, 247, 247, 0.45) 74%, var(--bg) 100%);
 }
 [dir="ltr"] .hero-photo::after {
   background:
@@ -789,14 +791,20 @@ footer,
   -webkit-backdrop-filter: blur(8px);
 }
 
-/* Single-column layouts put the photo directly behind the copy — soften it. */
+/* Single column puts the photo directly behind the copy: fade it downward
+   instead of sideways, and keep it light enough to read over. */
 @media (max-width: 980px) {
-  :root[data-theme="light"] .hero-photo img { opacity: 0.3; }
+  :root[data-theme="light"] .hero-photo,
+  :root[data-theme="light"][dir="ltr"] .hero-photo {
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.35) 46%, transparent 72%);
+    mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.35) 46%, transparent 72%);
+  }
+  :root[data-theme="light"] .hero-photo img { opacity: 0.5; }
   :root[data-theme="light"] .hero-photo::after,
   :root[data-theme="light"][dir="ltr"] .hero-photo::after {
     background:
-      linear-gradient(155deg, rgba(59, 130, 246, 0.09), transparent 58%),
-      linear-gradient(180deg, var(--bg) 0%, rgba(247, 247, 247, 0.84) 26%, rgba(247, 247, 247, 0.93) 100%);
+      linear-gradient(155deg, rgba(37, 99, 235, 0.1), transparent 58%),
+      linear-gradient(180deg, var(--bg) 0%, rgba(247, 247, 247, 0.55) 28%, rgba(247, 247, 247, 0.8) 100%);
   }
 }
 
