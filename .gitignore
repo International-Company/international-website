@@ -41,3 +41,7 @@ img/
 *.log
 prisma/*.db
 prisma/schema.sqlite.prisma
+
+# local screenshot/debug scripts
+/*.mjs
+!postcss.config.mjs
