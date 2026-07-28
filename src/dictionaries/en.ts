@@ -279,7 +279,7 @@ const en: typeof ar = {
     currencies: "Currencies",
     gold: "Gold",
     unitCurrency: "against the Shekel ₪",
-    unitGold: "price per gram in Shekel ₪",
+    unitGold: "price per gram in Jordanian Dinar",
     buy: "We buy",
     sell: "We sell",
     updated: "Last updated",

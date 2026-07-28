@@ -237,7 +237,7 @@ export default async function AdminPage({
               <div>
                 <h2>تعديل الأسعار</h2>
                 <div className="hint">
-                  العملات مقابل الشيكل ₪ · الذهب سعر الغرام بالشيكل ₪
+                  العملات مقابل الشيكل ₪ · الذهب سعر الغرام بالدينار الأردني
                 </div>
               </div>
             </div>

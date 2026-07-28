@@ -17,7 +17,8 @@ export const DEFAULT_RATES: CompanyRate[] = [
   { code: "EGP", nameAr: "جنيه مصري", nameEn: "Egyptian Pound", buy: 0.058, sell: 0.063, unit: "currency", sort: 4, active: true },
   { code: "SAR", nameAr: "ريال سعودي", nameEn: "Saudi Riyal", buy: 0.8, sell: 0.83, unit: "currency", sort: 5, active: true },
   { code: "AED", nameAr: "درهم إماراتي", nameEn: "UAE Dirham", buy: 0.82, sell: 0.85, unit: "currency", sort: 6, active: true },
-  { code: "GOLD24", nameAr: "ذهب عيار 24", nameEn: "Gold 24K", buy: 395, sell: 410, unit: "gold", sort: 7, active: true },
-  { code: "GOLD21", nameAr: "ذهب عيار 21", nameEn: "Gold 21K", buy: 345, sell: 360, unit: "gold", sort: 8, active: true },
-  { code: "GOLD18", nameAr: "ذهب عيار 18", nameEn: "Gold 18K", buy: 296, sell: 310, unit: "gold", sort: 9, active: true },
+  // Gold is quoted per gram in Jordanian Dinar (JOD).
+  { code: "GOLD24", nameAr: "ذهب عيار 24", nameEn: "Gold 24K", buy: 92, sell: 96, unit: "gold", sort: 7, active: true },
+  { code: "GOLD21", nameAr: "ذهب عيار 21", nameEn: "Gold 21K", buy: 80, sell: 84, unit: "gold", sort: 8, active: true },
+  { code: "GOLD18", nameAr: "ذهب عيار 18", nameEn: "Gold 18K", buy: 69, sell: 72, unit: "gold", sort: 9, active: true },
 ];
