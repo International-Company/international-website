@@ -1,0 +1,17 @@
+﻿import puppeteer from "puppeteer-core";
+import { existsSync } from "fs";
+const exe = ["C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe","C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe"].find(p=>existsSync(p));
+const out = process.argv[2];
+const b = await puppeteer.launch({ executablePath: exe, headless: true });
+const p = await b.newPage();
+await p.setViewport({ width: 1440, height: 900 });
+await p.goto("http://localhost:3000/ar", { waitUntil: "domcontentloaded", timeout: 60000 });
+await new Promise(r=>setTimeout(r,3500));
+await p.evaluate(()=>{ document.documentElement.setAttribute("data-theme","light"); localStorage.setItem("intl-theme","light"); });
+await new Promise(r=>setTimeout(r,1600));
+await p.screenshot({ path: `${out}/lt1-hero.png` });
+await p.evaluate(()=>document.querySelector(".showcase")?.scrollIntoView({block:"center"}));
+await new Promise(r=>setTimeout(r,1600));
+await p.screenshot({ path: `${out}/lt2-showcase.png` });
+console.log("DONE");
+await b.close();

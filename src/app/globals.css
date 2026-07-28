@@ -567,7 +567,13 @@ footer,
   opacity: 0.4;
   transform: scale(1.04);
 }
-:root[data-theme="light"] .hero-photo img { opacity: 0.2; }
+/* Light mode: the photo reads as a deliberate, brand-tinted backdrop
+   instead of a washed-out ghost — brighter, cooler, anchored low. */
+:root[data-theme="light"] .hero-photo img {
+  opacity: 0.55;
+  object-position: center 62%;
+  filter: saturate(0.88) brightness(1.06) contrast(0.98);
+}
 .hero-photo::after {
   content: "";
   position: absolute;
@@ -578,8 +584,18 @@ footer,
 }
 :root[data-theme="light"] .hero-photo::after {
   background:
-    linear-gradient(180deg, var(--bg) 0%, rgba(247, 247, 247, 0.72) 32%, var(--bg) 96%),
-    linear-gradient(90deg, var(--bg) 2%, transparent 48%);
+    /* cool brand wash so the photo belongs to the palette */
+    linear-gradient(155deg, rgba(59, 130, 246, 0.1), transparent 62%),
+    /* keep the copy column clean */
+    linear-gradient(90deg, transparent 30%, rgba(247, 247, 247, 0.9) 66%, var(--bg) 88%),
+    /* fade into the page top and bottom */
+    linear-gradient(180deg, var(--bg) 0%, rgba(247, 247, 247, 0.5) 26%, rgba(247, 247, 247, 0.86) 82%, var(--bg) 100%);
+}
+:root[data-theme="light"][dir="ltr"] .hero-photo::after {
+  background:
+    linear-gradient(155deg, rgba(59, 130, 246, 0.1), transparent 62%),
+    linear-gradient(-90deg, transparent 30%, rgba(247, 247, 247, 0.9) 66%, var(--bg) 88%),
+    linear-gradient(180deg, var(--bg) 0%, rgba(247, 247, 247, 0.5) 26%, rgba(247, 247, 247, 0.86) 82%, var(--bg) 100%);
 }
 [dir="ltr"] .hero-photo::after {
   background:
@@ -730,6 +746,60 @@ footer,
 .sc-points span { font-size: 13.5px; color: var(--text-2); font-weight: 300; }
 .sc-cta { display: inline-flex; }
 
+/* ---- Light mode: give the showcase depth instead of white-on-white ---- */
+:root[data-theme="light"] .showcase {
+  background:
+    radial-gradient(760px 460px at 78% 8%, rgba(59, 130, 246, 0.09), transparent 70%),
+    linear-gradient(180deg, #ffffff 0%, #eef3fb 100%);
+}
+:root[data-theme="light"] .sc-frame::before {
+  background:
+    radial-gradient(60% 60% at 30% 20%, rgba(37, 99, 235, 0.4), transparent 70%),
+    radial-gradient(55% 55% at 78% 82%, rgba(109, 40, 217, 0.3), transparent 70%);
+  opacity: 0.75;
+}
+:root[data-theme="light"] .sc-veil {
+  background: linear-gradient(180deg, rgba(6, 11, 25, 0.04), rgba(6, 11, 25, 0.24));
+  border-color: rgba(37, 99, 235, 0.18);
+  box-shadow: 0 24px 60px rgba(30, 58, 138, 0.18);
+}
+:root[data-theme="light"] .sc-float {
+  background: #ffffff;
+  border-color: rgba(37, 99, 235, 0.16);
+  box-shadow: 0 16px 38px rgba(30, 58, 138, 0.16);
+}
+:root[data-theme="light"] .sc-points li {
+  background: #ffffff;
+  border-color: rgba(15, 23, 42, 0.08);
+  box-shadow: 0 6px 18px rgba(30, 58, 138, 0.07);
+}
+:root[data-theme="light"] .sc-points li:hover {
+  border-color: rgba(37, 99, 235, 0.35);
+  box-shadow: 0 12px 28px rgba(30, 58, 138, 0.13);
+}
+:root[data-theme="light"] .sc-points .ic {
+  background: #f1f5fd;
+  border-color: rgba(37, 99, 235, 0.18);
+}
+
+/* outline button needs a surface of its own when it sits over the photo */
+:root[data-theme="light"] .hero .btn-secondary {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Single-column layouts put the photo directly behind the copy — soften it. */
+@media (max-width: 980px) {
+  :root[data-theme="light"] .hero-photo img { opacity: 0.3; }
+  :root[data-theme="light"] .hero-photo::after,
+  :root[data-theme="light"][dir="ltr"] .hero-photo::after {
+    background:
+      linear-gradient(155deg, rgba(59, 130, 246, 0.09), transparent 58%),
+      linear-gradient(180deg, var(--bg) 0%, rgba(247, 247, 247, 0.84) 26%, rgba(247, 247, 247, 0.93) 100%);
+  }
+}
+
 .hero-grid {
   position: relative;
   z-index: 1;
@@ -764,6 +834,12 @@ footer,
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
+}
+/* deeper stops so the gradient holds contrast on a pale page */
+:root[data-theme="light"] .grad-text {
+  background: linear-gradient(100deg, #1d4ed8 0%, #6d28d9 55%, #1e40af 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 .trust-row {
   list-style: none;
