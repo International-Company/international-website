@@ -6,6 +6,7 @@ import { getCompanyRates, getConverterRates } from "@/lib/rates-service";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import MoneyBand from "@/components/MoneyBand";
+import Showcase from "@/components/Showcase";
 import GoldMarkets from "@/components/GoldMarkets";
 import CompanyRates from "@/components/CompanyRates";
 import ServicesBento from "@/components/ServicesBento";
@@ -38,6 +39,7 @@ export default async function HomePage({
         source={converter.source}
       />
       <Stats dict={dict} />
+      <Showcase dict={dict} locale={locale} />
       <MoneyBand dict={dict} />
 
       {company.live ? (

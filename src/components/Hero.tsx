@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import type { Dict } from "@/dictionaries";
 import type { Locale } from "@/lib/i18n";
@@ -24,6 +25,9 @@ export default function Hero({
 
   return (
     <section className="hero hero-split" id="hero">
+      <div className="hero-photo" aria-hidden>
+        <Image src="/images/hero-city.jpg" alt="" fill priority sizes="100vw" />
+      </div>
       <div className="wrap hero-grid">
         {/* Copy side */}
         <motion.div className="hero-copy" style={{ y }}>

@@ -68,6 +68,16 @@ const en: typeof ar = {
   showcase: {
     title: "Your money, in safe hands",
     sub: "Ready liquidity, fair rates, and delivery within minutes — across a network of 120+ countries.",
+    tag: "Why International",
+    heading: "World-class standards,\nlocal service",
+    body: "We combine the discipline of major financial institutions with the warmth of local service — a team that knows you by name, and a network that reaches anywhere in the world.",
+    points: [
+      { icon: "⚡", t: "Executed in minutes", d: "Your transfers arrive fast through accredited networks." },
+      { icon: "🛡", t: "Security & compliance", d: "Controls built to international institutional standards." },
+      { icon: "⚖", t: "Fair, published pricing", d: "Our rates are on the site before you even ask." },
+    ],
+    badge: "Over 25 years of experience",
+    cta: "Learn more about us",
   },
   markets: {
     tag: "Live Markets",

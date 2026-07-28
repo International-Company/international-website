@@ -554,6 +554,39 @@ footer,
   mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 30%, transparent 75%);
   -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 30%, transparent 75%);
 }
+/* cinematic city backdrop behind the hero */
+.hero-photo {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hero-photo img {
+  object-fit: cover;
+  object-position: center 38%;
+  opacity: 0.4;
+  transform: scale(1.04);
+}
+:root[data-theme="light"] .hero-photo img { opacity: 0.2; }
+.hero-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, var(--bg) 0%, rgba(10, 10, 10, 0.55) 32%, var(--bg) 96%),
+    linear-gradient(90deg, var(--bg) 2%, transparent 45%);
+}
+:root[data-theme="light"] .hero-photo::after {
+  background:
+    linear-gradient(180deg, var(--bg) 0%, rgba(247, 247, 247, 0.72) 32%, var(--bg) 96%),
+    linear-gradient(90deg, var(--bg) 2%, transparent 48%);
+}
+[dir="ltr"] .hero-photo::after {
+  background:
+    linear-gradient(180deg, var(--bg) 0%, rgba(10, 10, 10, 0.55) 32%, var(--bg) 96%),
+    linear-gradient(-90deg, var(--bg) 2%, transparent 45%);
+}
+
 /* aurora color washes (teal + violet echo the service hues) */
 .hero::after {
   content: "";
@@ -565,6 +598,137 @@ footer,
     radial-gradient(540px 300px at 12% 78%, rgba(20, 184, 166, 0.1), transparent 70%);
 }
 :root[data-theme="light"] .hero::after { opacity: 0.55; }
+
+/* ============================================================
+   SHOWCASE — centrepiece image + pillars
+   ============================================================ */
+.showcase {
+  position: relative;
+  padding: 130px 0;
+  background:
+    radial-gradient(700px 420px at 78% 12%, var(--glow), transparent 70%),
+    var(--surface);
+  border-block: 1px solid var(--border);
+  overflow: hidden;
+}
+.sc-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 64px;
+  align-items: center;
+}
+.sc-visual { min-width: 0; }
+.sc-frame {
+  position: relative;
+  aspect-ratio: 7 / 5;
+  border-radius: 28px;
+  overflow: visible;
+  isolation: isolate;
+}
+.sc-frame .sc-img {
+  border-radius: 28px;
+  object-fit: cover;
+}
+.sc-frame::before {
+  content: "";
+  position: absolute;
+  inset: -26px;
+  border-radius: 44px;
+  background:
+    radial-gradient(60% 60% at 30% 20%, var(--accent-glow), transparent 70%),
+    radial-gradient(55% 55% at 78% 82%, rgba(139, 92, 246, 0.3), transparent 70%);
+  filter: blur(40px);
+  opacity: 0.55;
+  z-index: -1;
+}
+.sc-veil {
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  border: 1px solid var(--border-strong);
+  background: linear-gradient(180deg, rgba(6, 11, 25, 0.12), rgba(6, 11, 25, 0.5));
+  box-shadow: var(--shadow);
+}
+.sc-badge {
+  position: absolute;
+  top: 18px;
+  inset-inline-start: 18px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 18px;
+  border-radius: 100px;
+  background: rgba(10, 14, 24, 0.62);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.sc-float {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-radius: 18px;
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow);
+  animation: chipFloat 6s ease-in-out infinite;
+}
+.sc-float .ic { font-size: 22px; }
+.sc-float b {
+  display: block;
+  font-family: var(--font-en), sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.sc-float small { font-size: 11.5px; color: var(--text-2); }
+.sc-float-a { bottom: 34px; inset-inline-start: -26px; }
+.sc-float-b { top: 30%; inset-inline-end: -30px; animation-delay: 2s; }
+
+.sc-copy { min-width: 0; }
+.sc-points {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 32px 0 34px;
+}
+.sc-points li {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s;
+}
+.sc-points li:hover { transform: translateX(-5px); border-color: var(--accent-glow); }
+[dir="ltr"] .sc-points li:hover { transform: translateX(5px); }
+.sc-points .ic {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+}
+.sc-points b { display: block; font-size: 15.5px; margin-bottom: 2px; }
+.sc-points span { font-size: 13.5px; color: var(--text-2); font-weight: 300; }
+.sc-cta { display: inline-flex; }
 
 .hero-grid {
   position: relative;
@@ -2168,6 +2332,10 @@ footer.site-footer {
     padding-bottom: 80px;
   }
   .hero-split p.lead { max-width: none; }
+  .showcase { padding: 90px 0; }
+  .sc-grid { grid-template-columns: minmax(0, 1fr); gap: 46px; }
+  .sc-float-a { inset-inline-start: 10px; bottom: 16px; }
+  .sc-float-b { inset-inline-end: 10px; top: 16px; }
   .svc-detail-grid { grid-template-columns: 1fr; gap: 40px; }
   .steps-grid { grid-template-columns: 1fr; }
   .svc-detail-img { height: 240px; margin-bottom: 44px; }
@@ -2251,6 +2419,23 @@ footer.site-footer {
   .trust-row li { font-size: 12px; }
   .float-chip { display: none; }
   .conv-stage::before { inset: -14px; filter: blur(26px); }
+
+  /* showcase on phones */
+  .showcase { padding: 76px 0; }
+  .sc-frame { aspect-ratio: 4 / 3; border-radius: 22px; }
+  .sc-frame .sc-img, .sc-veil { border-radius: 22px; }
+  .sc-frame::before { inset: -14px; filter: blur(26px); }
+  .sc-badge { font-size: 11px; padding: 7px 13px; top: 12px; inset-inline-start: 12px; }
+  .sc-float { padding: 10px 14px; gap: 9px; border-radius: 14px; }
+  .sc-float .ic { font-size: 18px; }
+  .sc-float b { font-size: 16px; }
+  .sc-float small { font-size: 10px; }
+  /* keep the floating cards clear of the badge row */
+  .sc-float-a { inset-inline-start: 6px; bottom: 12px; }
+  .sc-float-b { inset-inline-end: 6px; top: 46%; }
+  .sc-points { gap: 12px; margin: 26px 0 28px; }
+  .sc-points li { padding: 14px 15px; gap: 13px; }
+  .sc-cta { width: 100%; justify-content: center; }
 
   /* converter — smartphone tuning */
   .conv2-amount { font-size: 21px; }
