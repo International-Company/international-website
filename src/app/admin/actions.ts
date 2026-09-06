@@ -239,7 +239,6 @@ export async function saveSiteAction(formData: FormData) {
     phone: get("phone"),
     email: get("email"),
     whatsapp: waDigits(get("whatsapp")),
-    formsubmitId: get("formsubmitId"),
   });
   refreshPublic();
 }

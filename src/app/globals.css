@@ -1979,17 +1979,16 @@ footer,
    CONTACT
    ============================================================ */
 .contact {
-  padding: 150px 0;
+  padding: 110px 0 130px;
   background: radial-gradient(ellipse 50% 40% at 50% 108%, var(--glow), transparent 70%),
     linear-gradient(180deg, var(--surface), var(--bg));
   border-top: 1px solid var(--border);
 }
 .contact-grid {
   display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 64px;
-  margin-top: 64px;
-  align-items: start;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 48px;
+  align-items: stretch;
 }
 .contact-info { display: flex; flex-direction: column; gap: 14px; }
 .info-line {
@@ -2001,6 +2000,20 @@ footer,
   border: 1px solid var(--border);
   border-radius: 16px;
 }
+.info-line.is-link {
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+}
+.info-line.is-link:hover {
+  border-color: var(--border-strong);
+  background: var(--card-hover);
+  transform: translateY(-2px);
+}
+.info-line.is-link:hover .ic { border-color: var(--accent); color: var(--accent-2); }
+
+.contact-map { display: flex; flex-direction: column; }
+.contact-map .map-embed { flex: 1; }
 .info-line .ic {
   width: 42px;
   height: 42px;
@@ -2027,8 +2040,8 @@ footer,
   font-family: inherit;
 }
 .map-embed {
-  margin-top: 10px;
-  height: 260px;
+  height: 100%;
+  min-height: 330px;
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid var(--border);
@@ -2961,4 +2974,16 @@ body:has(.announce) { --ann-h: 40px; }
   }
   .social-copy h3 { font-size: 19px; }
   .social-btn { width: 48px; height: 48px; border-radius: 14px; }
+}
+
+/* The contact page has no message form any more: details sit beside the map,
+   and both stack on a narrow screen. */
+@media (max-width: 900px) {
+  .contact { padding: 80px 0 90px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+  .map-embed { min-height: 260px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .info-line.is-link:hover { transform: none; }
 }

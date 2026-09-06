@@ -64,19 +64,6 @@ export default async function AdminContactPage() {
                 <span className="a-field-label">البريد الإلكتروني</span>
                 <input name="email" type="email" defaultValue={site.email} dir="ltr" />
               </label>
-
-              <label className="a-field">
-                <span className="a-field-label">معرّف FormSubmit</span>
-                <input
-                  name="formsubmitId"
-                  type="text"
-                  defaultValue={site.formsubmitId}
-                  dir="ltr"
-                />
-                <small className="a-field-hint">
-                  يستقبل رسائل نموذج التواصل — لا تغيّره إلا إذا تغيّر بريد الشركة
-                </small>
-              </label>
             </div>
 
             <div className="a-savebar">
