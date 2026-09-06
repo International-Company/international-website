@@ -107,6 +107,10 @@ export type Department = {
   icon: string;
   nameAr: string;
   nameEn: string;
+  /** Who runs the desk. Optional — the card simply omits the line. */
+  personAr: string;
+  /** Latin spelling for the English site; falls back to the Arabic name. */
+  personEn: string;
   /** Free-form, shown as typed and dialled with the spaces stripped. */
   phone: string;
   /** Digits only, no "+" — goes straight into a wa.me link. Optional. */
@@ -120,11 +124,13 @@ export type Department = {
  * Numbers start empty on purpose: a department with no phone is skipped on the
  * public page, so the section stays honest until real numbers are entered.
  */
+const blankDept = { personAr: "", personEn: "", phone: "", whatsapp: "", email: "" };
+
 export const DEFAULT_DEPARTMENTS: Department[] = [
-  { icon: "💸", nameAr: "الحوالات المالية", nameEn: "Money Remittances", phone: "", whatsapp: "", email: "" },
-  { icon: "🌐", nameAr: "التحويلات الدولية", nameEn: "International Transfers", phone: "", whatsapp: "", email: "" },
-  { icon: "💱", nameAr: "صرافة العملات", nameEn: "Currency Exchange", phone: "", whatsapp: "", email: "" },
-  { icon: "◈", nameAr: "الذهب والمجوهرات", nameEn: "Gold & Jewelry", phone: "", whatsapp: "", email: "" },
+  { icon: "💸", nameAr: "الحوالات المالية", nameEn: "Money Remittances", ...blankDept },
+  { icon: "🌐", nameAr: "التحويلات الدولية", nameEn: "International Transfers", ...blankDept },
+  { icon: "💱", nameAr: "صرافة العملات", nameEn: "Currency Exchange", ...blankDept },
+  { icon: "◈", nameAr: "الذهب والمجوهرات", nameEn: "Gold & Jewelry", ...blankDept },
 ];
 
 /* ── safety ────────────────────────────────────────────────────────────── */
@@ -159,6 +165,23 @@ export function safeUrl(raw: string): string {
 
 /** Strips everything but digits, for building a wa.me or tel: link. */
 export const digits = (value: string) => value.replace(/[^0-9]/g, "");
+
+/**
+ * Honorifics people put before a name — "أ. محمد", "الأستاذ محمد", "Mr. Ali".
+ * Arabic names are almost always written with one, and taking the very first
+ * letter would label every single person "أ".
+ */
+const HONORIFIC =
+  /^\s*(?:[أادمهةحس]\s*\.\s*|(?:الأستاذ|الاستاذ|الدكتور|المهندس|السيد|الحاج|الشيخ|الآنسة)[ةه]?\s+|(?:Mr|Mrs|Ms|Miss|Dr|Eng|Prof)\.?\s+)+/i;
+
+/**
+ * First letter of the person's actual given name, for the avatar badge.
+ * Returns an empty string when there is nothing usable to show.
+ */
+export function nameInitial(name: string): string {
+  const stripped = name.replace(HONORIFIC, "").trim();
+  return (stripped || name.trim()).charAt(0);
+}
 
 /* ── reads ─────────────────────────────────────────────────────────────── */
 
@@ -201,6 +224,8 @@ export const getDepartments = cache(async function getDepartments(): Promise<Dep
     icon: String(row.icon ?? "").trim(),
     nameAr: String(row.nameAr ?? "").trim(),
     nameEn: String(row.nameEn ?? "").trim(),
+    personAr: String(row.personAr ?? "").trim(),
+    personEn: String(row.personEn ?? "").trim(),
     phone: String(row.phone ?? "").trim(),
     whatsapp: digits(String(row.whatsapp ?? "")),
     email: String(row.email ?? "").trim(),

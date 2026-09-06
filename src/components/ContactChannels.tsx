@@ -1,5 +1,5 @@
 import type { Locale } from "@/lib/i18n";
-import { digits, type Department, type Platform } from "@/lib/contact-config";
+import { digits, nameInitial, type Department, type Platform } from "@/lib/contact-config";
 import SocialIcon from "./SocialIcon";
 import Reveal from "./Reveal";
 
@@ -21,6 +21,7 @@ const COPY = {
     call: "اتصال",
     whatsapp: "واتساب",
     email: "بريد",
+    inCharge: "المسؤول",
     socialTitle: "تابعنا على منصاتنا",
     socialSub: "آخر الأسعار والعروض والأخبار أولًا بأول.",
   },
@@ -31,6 +32,7 @@ const COPY = {
     call: "Call",
     whatsapp: "WhatsApp",
     email: "Email",
+    inCharge: "In charge",
     socialTitle: "Follow us",
     socialSub: "Rates, offers and announcements as they happen.",
   },
@@ -63,6 +65,9 @@ export default function ContactChannels({
             <div className="dept-grid">
               {departments.map((dept, i) => {
                 const name = (locale === "ar" ? dept.nameAr : dept.nameEn) || dept.nameAr;
+                // The Latin spelling is optional; fall back rather than blank out.
+                const person =
+                  (locale === "ar" ? dept.personAr : dept.personEn) || dept.personAr;
                 const tel = digits(dept.phone);
 
                 return (
@@ -72,6 +77,18 @@ export default function ContactChannels({
                         {dept.icon || "☎"}
                       </span>
                       <h3>{name}</h3>
+
+                      {person && (
+                        <div className="dept-person">
+                          <span className="dept-avatar" aria-hidden>
+                            {nameInitial(person)}
+                          </span>
+                          <span>
+                            <small>{t.inCharge}</small>
+                            <b>{person}</b>
+                          </span>
+                        </div>
+                      )}
 
                       {dept.phone && (
                         <a className="dept-num" href={`tel:${tel}`} dir="ltr">

@@ -2780,6 +2780,51 @@ body:has(.announce) { --ann-h: 40px; }
   line-height: 1.4;
   margin-bottom: 14px;
 }
+.dept-card h3:has(+ .dept-person) { margin-bottom: 12px; }
+
+/* Who runs the desk — sits between the department name and its number. */
+.dept-person {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border);
+  width: 100%;
+  min-width: 0;
+}
+.dept-avatar {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(150deg, var(--accent), var(--accent-strong));
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+}
+.dept-person > span:last-child { min-width: 0; }
+.dept-person small {
+  display: block;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  line-height: 1.5;
+}
+.dept-person b {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-1);
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 .dept-num,
 .dept-mail {

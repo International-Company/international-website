@@ -18,6 +18,8 @@ const EMPTY: Department = {
   icon: "",
   nameAr: "",
   nameEn: "",
+  personAr: "",
+  personEn: "",
   phone: "",
   whatsapp: "",
   email: "",
@@ -149,6 +151,32 @@ export default function DepartmentsEditor({
                 defaultValue={row.value.nameEn}
                 dir="ltr"
               />
+            </label>
+
+            <label className="a-field">
+              <span className="a-field-label">المسؤول عن القسم</span>
+              <input
+                name={`dept_${row.key}_personAr`}
+                type="text"
+                defaultValue={row.value.personAr}
+                dir="auto"
+                placeholder="مثال: أ. محمد العلي"
+              />
+              <small className="a-field-hint">اتركه فارغًا لإخفاء الاسم من البطاقة</small>
+            </label>
+
+            <label className="a-field">
+              <span className="a-field-label">اسم المسؤول بالإنجليزية</span>
+              <input
+                name={`dept_${row.key}_personEn`}
+                type="text"
+                defaultValue={row.value.personEn}
+                dir="ltr"
+                placeholder="Mohammed Al-Ali"
+              />
+              <small className="a-field-hint">
+                يُستخدم في النسخة الإنجليزية — إن تُرك فارغًا يظهر الاسم العربي
+              </small>
             </label>
 
             <label className="a-field">

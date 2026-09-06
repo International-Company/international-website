@@ -323,6 +323,8 @@ export async function saveDepartmentsAction(formData: FormData) {
     icon: get(key, "icon"),
     nameAr: get(key, "nameAr"),
     nameEn: get(key, "nameEn"),
+    personAr: get(key, "personAr"),
+    personEn: get(key, "personEn"),
     phone: get(key, "phone"),
     whatsapp: digits(get(key, "whatsapp")),
     email: get(key, "email"),
