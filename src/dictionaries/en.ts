@@ -259,7 +259,9 @@ const en: typeof ar = {
   },
   contact: {
     tag: "Contact",
-    title: "At your service,\nanytime",
+    title: "Talk to the person\nwho handles it",
+    lead:
+      "Every desk has its own line and its own name. Pick the one you need, call or message on WhatsApp, and you reach someone who already knows your case.",
     phone: "Call us",
     email: "Email",
     address: "Headquarters",

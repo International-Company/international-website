@@ -15,9 +15,6 @@ import Reveal from "./Reveal";
 
 const COPY = {
   ar: {
-    tag: "خطوط الاتصال",
-    title: "تواصل مع القسم\nالذي تحتاجه مباشرة",
-    sub: "كل قسم لديه خطه الخاص — اتصل أو راسلنا على واتساب ويصلك الرد من الفريق المختص.",
     call: "اتصال",
     whatsapp: "واتساب",
     email: "بريد",
@@ -26,9 +23,6 @@ const COPY = {
     socialSub: "آخر الأسعار والعروض والأخبار أولًا بأول.",
   },
   en: {
-    tag: "Direct lines",
-    title: "Reach the desk\nyou actually need",
-    sub: "Every department has its own line — call or message on WhatsApp and the right team answers.",
     call: "Call",
     whatsapp: "WhatsApp",
     email: "Email",
@@ -56,12 +50,8 @@ export default function ContactChannels({
       <div className="wrap">
         {departments.length > 0 && (
           <>
-            <Reveal>
-              <div className="chapter-tag">{t.tag}</div>
-              <h2 className="section-title">{t.title}</h2>
-              <p className="section-sub">{t.sub}</p>
-            </Reveal>
-
+            {/* No heading here: the page above already introduces the page,
+                and a second title stacked under the first read as a repeat. */}
             <div className="dept-grid">
               {departments.map((dept, i) => {
                 const name = (locale === "ar" ? dept.nameAr : dept.nameEn) || dept.nameAr;

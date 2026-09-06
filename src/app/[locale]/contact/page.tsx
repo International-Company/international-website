@@ -38,6 +38,7 @@ export default async function ContactPage({
           <Reveal>
             <div className="chapter-tag">{dict.contact.tag}</div>
             <h1 className="section-title">{dict.contact.title}</h1>
+            <p className="section-sub">{dict.contact.lead}</p>
           </Reveal>
         </div>
       </div>
