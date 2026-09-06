@@ -422,19 +422,6 @@ export const CONTENT_GROUPS: Group[] = [
           },
         ],
       },
-      {
-        title: "التذييل",
-        blocks: [
-          {
-            kind: "fields",
-            fields: [
-              { path: "footer.blurb", label: "الفقرة التعريفية", type: "area" },
-              { path: "footer.rights", label: "سطر الحقوق" },
-              { path: "footer.holding", label: "الاسم الإنجليزي أسفل الصفحة" },
-            ],
-          },
-        ],
-      },
     ],
   },
 
