@@ -369,25 +369,6 @@ export const CONTENT_GROUPS: Group[] = [
         ],
       },
       {
-        title: "بطاقات التواصل",
-        blocks: [
-          {
-            kind: "fields",
-            fields: [
-              { path: "contact.phoneValue", label: "رقم الهاتف المعروض" },
-              { path: "contact.emailValue", label: "البريد الإلكتروني المعروض" },
-              { path: "contact.addressValue", label: "عنوان المقر", type: "area" },
-              { path: "contact.hoursValue", label: "ساعات العمل" },
-              {
-                path: "contact.mapQuery",
-                label: "موقع الخريطة",
-                hint: "ما يُبحث عنه في خرائط جوجل — مثل: بلدية دير البلح",
-              },
-            ],
-          },
-        ],
-      },
-      {
         title: "الفروع",
         blocks: [
           {

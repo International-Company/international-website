@@ -84,8 +84,7 @@ footer,
 .partner-pill,
 .svc-panel,
 .faq-item,
-.value-card,
-.info-line {
+.value-card {
   transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1),
     color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
     border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
@@ -1978,400 +1977,6 @@ footer,
 /* ============================================================
    CONTACT
    ============================================================ */
-.contact {
-  padding: 110px 0 130px;
-  background: radial-gradient(ellipse 50% 40% at 50% 108%, var(--glow), transparent 70%),
-    linear-gradient(180deg, var(--surface), var(--bg));
-  border-top: 1px solid var(--border);
-}
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.05fr;
-  gap: 48px;
-  align-items: stretch;
-}
-.contact-info { display: flex; flex-direction: column; gap: 14px; }
-.info-line {
-  display: flex;
-  gap: 18px;
-  align-items: center;
-  padding: 20px 24px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-}
-.info-line.is-link {
-  text-decoration: none;
-  color: inherit;
-  transition: border-color 0.3s, background 0.3s, transform 0.3s;
-}
-.info-line.is-link:hover {
-  border-color: var(--border-strong);
-  background: var(--card-hover);
-  transform: translateY(-2px);
-}
-.info-line.is-link:hover .ic { border-color: var(--accent); color: var(--accent-2); }
-
-.contact-map { display: flex; flex-direction: column; }
-.contact-map .map-embed { flex: 1; }
-.info-line .ic {
-  width: 42px;
-  height: 42px;
-  border-radius: 11px;
-  border: 1px solid var(--border-strong);
-  background: var(--surface);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 17px;
-  flex-shrink: 0;
-}
-.info-line .lbl { font-size: 12px; color: var(--text-3); }
-.info-line .val {
-  font-size: 15px;
-  font-weight: 500;
-  direction: ltr;
-  text-align: end;
-  font-family: var(--font-en), sans-serif;
-}
-.info-line .val.ar-val {
-  direction: inherit;
-  text-align: start;
-  font-family: inherit;
-}
-.map-embed {
-  height: 100%;
-  min-height: 330px;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  background: var(--card);
-  box-shadow: var(--shadow);
-}
-.map-embed iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-  display: block;
-  /* natural full-color map, slightly enriched */
-  filter: saturate(1.1) contrast(1.02);
-  transition: filter 0.6s;
-}
-.contact-form {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  padding: 42px;
-  box-shadow: var(--shadow);
-}
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-}
-.field { margin-bottom: 18px; }
-.field label {
-  display: block;
-  font-size: 13.5px;
-  font-weight: 500;
-  color: var(--text-2);
-  margin-bottom: 8px;
-}
-.field input,
-.field textarea {
-  width: 100%;
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  border-radius: 12px;
-  padding: 14px 18px;
-  color: var(--text-1);
-  font-family: inherit;
-  font-size: 14.5px;
-  outline: none;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-.field input:focus,
-.field textarea:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 4px var(--glow);
-}
-.field textarea { min-height: 120px; resize: vertical; }
-.form-success {
-  margin-top: 14px;
-  padding: 14px 18px;
-  border: 1px solid var(--border-strong);
-  border-radius: 12px;
-  font-size: 14px;
-  color: var(--text-1);
-  background: var(--surface);
-}
-
-/* ============================================================
-   PAGE HEADER (inner pages)
-   ============================================================ */
-.page-head {
-  padding: 190px 0 90px;
-  position: relative;
-  overflow: hidden;
-  background: radial-gradient(ellipse 60% 45% at 50% -8%, var(--glow), transparent 70%), var(--bg);
-  border-bottom: 1px solid var(--border);
-}
-.page-head::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: radial-gradient(ellipse 70% 80% at 50% 0%, black 20%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 0%, black 20%, transparent 70%);
-}
-.page-head .wrap { position: relative; }
-
-/* ============================================================
-   SERVICE DETAIL PAGE
-   ============================================================ */
-.svc-detail-img {
-  position: relative;
-  height: 340px;
-  border-radius: 24px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-  margin-bottom: 64px;
-}
-.svc-detail-img img { object-fit: cover; }
-.svc-detail-img::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 55%, rgba(6, 11, 25, 0.35));
-}
-.svc-detail-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 56px;
-  align-items: start;
-}
-.steps-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-  margin-top: 34px;
-}
-.step-card {
-  --hA: var(--accent);
-  --hB: var(--accent-2);
-  --hGlow: var(--accent-glow);
-  position: relative;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 30px 28px;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.45s, box-shadow 0.45s;
-}
-.step-card.hue-gold-page { --hA: #f59e0b; --hB: #fcd34d; --hGlow: rgba(245, 158, 11, 0.3); }
-.step-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--hGlow);
-  box-shadow: var(--shadow);
-}
-.step-num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid var(--hGlow);
-  color: var(--hB);
-  font-family: var(--font-en), sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 18px;
-}
-.step-card h4 { font-size: 17px; margin-bottom: 6px; }
-.step-card p { font-size: 14px; color: var(--text-2); font-weight: 300; }
-
-.cta-band {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(165deg, var(--accent-strong) 0%, #1e3a8a 55%, #172554 100%);
-  border: 1px solid rgba(147, 197, 253, 0.25);
-  border-radius: 26px;
-  padding: 64px 40px;
-  text-align: center;
-}
-.cta-band::after {
-  content: "";
-  position: absolute;
-  top: -60%;
-  left: 20%;
-  width: 60%;
-  height: 120%;
-  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.14), transparent 65%);
-  pointer-events: none;
-}
-.cta-band h2 {
-  color: #fff;
-  font-size: clamp(26px, 3.6vw, 40px);
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-.cta-band p {
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 300;
-  font-size: 16px;
-  max-width: 520px;
-  margin: 0 auto 30px;
-}
-.cta-band .cta-actions {
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-  flex-wrap: wrap;
-  position: relative;
-}
-.cta-band .btn-secondary {
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.4);
-}
-.cta-band .btn-secondary:hover { border-color: #fff; color: #fff; }
-.cta-band .cta-back {
-  margin-top: 26px;
-  color: rgba(255, 255, 255, 0.65);
-  justify-content: center;
-  display: inline-flex;
-}
-.cta-band .cta-back:hover { color: #fff; }
-
-/* ============================================================
-   RATES PAGE (company buy/sell)
-   ============================================================ */
-.rt-meta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  margin-bottom: 40px;
-  font-size: 13px;
-  color: var(--text-2);
-}
-.rt-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
-}
-.rt-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  padding: 26px 24px;
-  height: 100%;
-}
-.rt-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  padding-bottom: 16px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid var(--border);
-}
-.rt-head h2 { font-size: 20px; }
-.rt-head span { font-size: 11.5px; color: var(--text-3); }
-.rt-row {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
-  gap: 10px;
-  align-items: center;
-  padding: 12px 10px;
-  border-radius: 12px;
-  transition: background 0.3s;
-}
-.rt-row:not(.rt-labels):hover { background: var(--surface); }
-.rt-labels {
-  padding: 2px 10px 8px;
-  font-size: 11.5px;
-  color: var(--text-3);
-}
-.rt-labels span { text-align: center; }
-.rt-name b { font-size: 15px; display: block; line-height: 1.35; }
-.rt-name small {
-  font-family: var(--font-en), sans-serif;
-  font-size: 10.5px;
-  color: var(--text-3);
-  letter-spacing: 0.08em;
-}
-.rt-val {
-  text-align: center;
-  font-family: var(--font-en), sans-serif;
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
-.rt-val.buy { color: var(--text-1); }
-.rt-val.sell { color: var(--accent-2); }
-
-/* ============================================================
-   REQUEST FORM
-   ============================================================ */
-.req-form .rq-chips {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.req-form .rq-chips button {
-  padding: 9px 18px;
-  border-radius: 100px;
-  border: 1px solid var(--border-strong);
-  background: none;
-  color: var(--text-2);
-  font-family: inherit;
-  font-size: 13.5px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.req-form .rq-chips button:hover { border-color: var(--accent); color: var(--accent-2); }
-.req-form .rq-chips button.on {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
-}
-.rq-select {
-  width: 100%;
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  border-radius: 12px;
-  padding: 14px 18px;
-  color: var(--text-1);
-  font-family: inherit;
-  font-size: 14.5px;
-  outline: none;
-  cursor: pointer;
-  transition: border-color 0.3s;
-}
-.rq-select:focus { border-color: var(--accent); }
-
-/* ============================================================
-   LEGAL PAGE
-   ============================================================ */
-.legal-item {
-  border-bottom: 1px solid var(--border);
-  padding: 22px 0;
-}
-.legal-item h3 {
-  font-size: 17px;
-  margin-bottom: 8px;
-}
-.legal-item p {
-  color: var(--text-2);
-  font-weight: 300;
-  font-size: 15px;
-  line-height: 1.9;
-}
-
 /* ============================================================
    FOOTER
    ============================================================ */
@@ -2470,7 +2075,6 @@ footer.site-footer {
   .menu-btn { display: flex; }
   .mobile-menu { display: flex; }
   .about-grid,
-  .contact-grid { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .gold-grid { grid-template-columns: repeat(2, 1fr); }
   .branches-grid { grid-template-columns: 1fr; }
@@ -2500,8 +2104,6 @@ footer.site-footer {
   .stats-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
   .gold-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
-  .form-row { grid-template-columns: 1fr; }
-  .contact-form { padding: 28px; }
   .wa-float .txt { display: none; }
   .wa-float {
     width: 56px;
@@ -2521,7 +2123,6 @@ footer.site-footer {
   .markets, .branches { padding: 95px 0; }
   .about { padding: 100px 0 80px; }
   .faq, .testimonials { padding: 95px 0; }
-  .contact { padding: 100px 0; }
   .network { padding: 95px 0 0; }
   .timeline { margin-top: 80px; }
   .services-bento { padding: 95px 0; }
@@ -2638,9 +2239,6 @@ footer.site-footer {
   .faq-q { font-size: 15.5px; padding: 20px 4px; }
 
   /* contact + map */
-  .contact-grid { gap: 40px; }
-  .info-line { padding: 16px 18px; gap: 14px; }
-  .map-embed { height: 220px; }
 
   /* inner pages */
   .page-head { padding: 150px 0 60px; }
@@ -2727,7 +2325,9 @@ body:has(.announce) { --ann-h: 40px; }
    the admin panel. Sits between the contact form and branches.
    ============================================================ */
 .channels {
-  padding: 130px 0;
+  /* Less room underneath than above: the social band closes the section, and
+     the branches heading follows with its own generous top padding. */
+  padding: 120px 0 90px;
   background: var(--bg);
   border-block-start: 1px solid var(--border);
 }
@@ -2964,7 +2564,7 @@ body:has(.announce) { --ann-h: 40px; }
 }
 
 @media (max-width: 720px) {
-  .channels { padding: 90px 0; }
+  .channels { padding: 80px 0 60px; }
   .dept-grid { margin-top: 40px; gap: 16px; }
   .dept-card { padding: 26px 22px 22px; }
   .social-band {
@@ -2976,14 +2576,5 @@ body:has(.announce) { --ann-h: 40px; }
   .social-btn { width: 48px; height: 48px; border-radius: 14px; }
 }
 
-/* The contact page has no message form any more: details sit beside the map,
-   and both stack on a narrow screen. */
-@media (max-width: 900px) {
-  .contact { padding: 80px 0 90px; }
-  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
-  .map-embed { min-height: 260px; }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .info-line.is-link:hover { transform: none; }
 }

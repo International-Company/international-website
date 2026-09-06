@@ -4,7 +4,6 @@ import { isLocale } from "@/lib/i18n";
 import { getContent } from "@/lib/content";
 import { getPublicDepartments, getSocialLinks } from "@/lib/contact-config";
 import ContactChannels from "@/components/ContactChannels";
-import ContactSection from "@/components/ContactSection";
 import Branches from "@/components/Branches";
 import Reveal from "@/components/Reveal";
 
@@ -44,7 +43,6 @@ export default async function ContactPage({
         </div>
       </div>
       <ContactChannels locale={locale} departments={departments} socials={socials} />
-      <ContactSection dict={dict} locale={locale} />
       <Branches dict={dict} />
     </>
   );
