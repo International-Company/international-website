@@ -65,9 +65,12 @@ export default function ContactChannels({
             <div className="dept-grid">
               {departments.map((dept, i) => {
                 const name = (locale === "ar" ? dept.nameAr : dept.nameEn) || dept.nameAr;
-                // The Latin spelling is optional; fall back rather than blank out.
+                // Either spelling may be the only one filled in, so the
+                // fallback runs both ways rather than only towards Arabic.
                 const person =
-                  (locale === "ar" ? dept.personAr : dept.personEn) || dept.personAr;
+                  locale === "ar"
+                    ? dept.personAr || dept.personEn
+                    : dept.personEn || dept.personAr;
                 const tel = digits(dept.phone);
 
                 return (

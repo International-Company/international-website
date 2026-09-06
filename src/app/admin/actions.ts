@@ -35,6 +35,9 @@ import {
   type SocialLink,
 } from "@/lib/contact-config";
 
+/** What a save action reports back to its form. */
+export type SaveState = { saved: boolean } | null;
+
 async function requireAuth() {
   if (!(await isAuthed())) throw new Error("unauthorized");
 }
@@ -161,16 +164,19 @@ function coerce(raw: FormDataEntryValue | null, field: Field): unknown {
  * expose (a service `slug`, the map coordinates of a city) survive the save —
  * while `n<n>` is a row the user just added.
  */
-export async function saveContentAction(formData: FormData) {
+export async function saveContentAction(
+  _prev: SaveState,
+  formData: FormData
+): Promise<SaveState> {
   await requireAuth();
 
   const localeRaw = String(formData.get("locale") ?? "");
   const groupId = String(formData.get("group") ?? "");
-  if (!isLocale(localeRaw)) return;
+  if (!isLocale(localeRaw)) return null;
   const locale: Locale = localeRaw;
 
   const group = findGroup(groupId);
-  if (!group) return;
+  if (!group) return null;
 
   const base = getDict(locale);
   const patch: ContentPatch = structuredClone(await getContentPatch(locale));
@@ -211,6 +217,7 @@ export async function saveContentAction(formData: FormData) {
 
   await saveContentPatch(locale, patch);
   refreshPublic();
+  return { saved: true };
 }
 
 /** Drops every saved edit for one language, restoring the shipped copy. */
@@ -308,7 +315,10 @@ export async function saveSocialAction(formData: FormData) {
  * Row order travels in `order`, the same trick the content editor uses, so
  * adding, reordering and deleting all work from one plain form post.
  */
-export async function saveDepartmentsAction(formData: FormData) {
+export async function saveDepartmentsAction(
+  _prev: SaveState,
+  formData: FormData
+): Promise<SaveState> {
   await requireAuth();
 
   const order = String(formData.get("order") ?? "")
@@ -332,4 +342,5 @@ export async function saveDepartmentsAction(formData: FormData) {
 
   await saveDepartments(departments);
   refreshPublic();
+  return { saved: true };
 }

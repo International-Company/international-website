@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useActionState, useState } from "react";
 import type { Department } from "@/lib/contact-config";
 import { saveDepartmentsAction } from "../actions";
 
@@ -35,8 +35,9 @@ export default function DepartmentsEditor({
   const [rows, setRows] = useState<Row[]>(() =>
     departments.map((value, i) => ({ key: `r${i}`, value }))
   );
-  const [saved, setSaved] = useState(false);
-  const [pending, startTransition] = useTransition();
+  // The server action is passed to the form directly rather than wrapped in a
+  // client handler, so a click that lands before hydration still submits.
+  const [state, formAction, pending] = useActionState(saveDepartmentsAction, null);
 
   const add = () =>
     setRows((prev) => [
@@ -61,16 +62,8 @@ export default function DepartmentsEditor({
       prev.map((r) => (r.key === key ? { ...r, value: { ...r.value, nameAr: name } } : r))
     );
 
-  function onSubmit(formData: FormData) {
-    setSaved(false);
-    startTransition(async () => {
-      await saveDepartmentsAction(formData);
-      setSaved(true);
-    });
-  }
-
   return (
-    <form action={onSubmit}>
+    <form action={formAction}>
       <input type="hidden" name="order" value={rows.map((r) => r.key).join(",")} />
 
       <div className="a-list-head">
@@ -222,7 +215,7 @@ export default function DepartmentsEditor({
 
       <div className="a-savebar">
         <span className="tip">
-          {saved && !pending
+          {state?.saved && !pending
             ? "✅ تم الحفظ — الأقسام ظاهرة في صفحة تواصل معنا"
             : "القسم الذي لا يحمل رقمًا أو واتساب لا يظهر للزوار"}
         </span>

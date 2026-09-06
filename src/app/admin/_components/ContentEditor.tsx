@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useActionState, useState } from "react";
 import type { Block, Field, Group, ListBlock } from "@/lib/content-schema";
 import { saveContentAction } from "../actions";
 
@@ -34,8 +34,8 @@ export default function ContentEditor({
   disabled?: boolean;
 }) {
   const [lists, setLists] = useState(data.lists);
-  const [saved, setSaved] = useState(false);
-  const [pending, startTransition] = useTransition();
+  // Passed straight to the form so a pre-hydration click still saves.
+  const [state, formAction, pending] = useActionState(saveContentAction, null);
 
   const mutate = (path: string, next: Row[]) =>
     setLists((prev) => ({ ...prev, [path]: next }));
@@ -63,16 +63,8 @@ export default function ContentEditor({
     mutate(block.path, rows);
   }
 
-  function onSubmit(formData: FormData) {
-    setSaved(false);
-    startTransition(async () => {
-      await saveContentAction(formData);
-      setSaved(true);
-    });
-  }
-
   return (
-    <form action={onSubmit} className="a-editor">
+    <form action={formAction} className="a-editor">
       <input type="hidden" name="locale" value={locale} />
       <input type="hidden" name="group" value={group.id} />
 
@@ -113,7 +105,7 @@ export default function ContentEditor({
 
       <div className="a-savebar sticky">
         <span className="tip">
-          {saved && !pending
+          {state?.saved && !pending
             ? "✅ تم الحفظ — التغييرات ظاهرة في الموقع الآن"
             : "التغييرات تظهر في الموقع فور الحفظ"}
         </span>
