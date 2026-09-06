@@ -63,7 +63,6 @@ export default function Footer({
             <h5>{dict.footer.contactCol}</h5>
             <ul>
               <li><Link href={`/${locale}/contact`}>{dict.footer.callUs}</Link></li>
-              <li><Link href={`/${locale}/contact#branches`}>{dict.footer.branches}</Link></li>
               <li><Link href={`/${locale}/contact`}>{dict.footer.careers}</Link></li>
             </ul>
           </div>

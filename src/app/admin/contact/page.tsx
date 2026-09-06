@@ -8,19 +8,35 @@ import {
   getDepartments,
   getSocialSettings,
 } from "@/lib/contact-config";
+import { getContent } from "@/lib/content";
+import { findGroup } from "@/lib/content-schema";
+import { buildEditorData } from "@/lib/content-editor-data";
 import Chrome from "../_components/Chrome";
+import ContentEditor from "../_components/ContentEditor";
 import DepartmentsEditor from "../_components/DepartmentsEditor";
 import SocialIcon from "@/components/SocialIcon";
 import { saveSiteAction, saveSocialAction } from "../actions";
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminContactPage() {
+export default async function AdminContactPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ lang?: string }>;
+}) {
   if (!(await isAuthed())) redirect("/admin/login");
+
+  const { lang } = await searchParams;
+  const locale = lang === "en" ? "en" : "ar";
 
   const site = await getSiteConfig();
   const social = await getSocialSettings();
   const departments = await getDepartments();
+
+  const headingGroup = findGroup("contact");
+  const headingData = headingGroup
+    ? buildEditorData(headingGroup, await getContent(locale))
+    : null;
 
   const filled = PLATFORMS.filter((p) => (social[p.id] ?? "").trim()).length;
 
@@ -145,6 +161,30 @@ export default async function AdminContactPage() {
           <DepartmentsEditor departments={departments} disabled={!hasDb} />
         </div>
       </section>
+      {/* ── the page's own heading ── */}
+      {headingGroup && headingData && (
+        <>
+          <div className="a-langbar">
+            <div className="a-langs">
+              <Link href="/admin/contact?lang=ar" className={locale === "ar" ? "on" : ""}>
+                🇵🇸 العربية
+              </Link>
+              <Link href="/admin/contact?lang=en" className={locale === "en" ? "on" : ""}>
+                🇬🇧 English
+              </Link>
+            </div>
+            <p className="a-langbar-hint">عنوان الصفحة يُكتب لكل لغة على حدة.</p>
+          </div>
+
+          <ContentEditor
+            key={`contact:${locale}`}
+            group={headingGroup}
+            locale={locale}
+            data={headingData}
+            disabled={!hasDb}
+          />
+        </>
+      )}
     </Chrome>
   );
 }

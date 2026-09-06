@@ -16,7 +16,6 @@ const NAV: NavItem[] = [
   { href: "/admin/requests", label: "الطلبات", icon: "📋" },
   { href: "/admin/content", label: "محتوى الموقع", icon: "✍️" },
   { href: "/admin/contact", label: "تواصل معنا", icon: "☎️" },
-  { href: "/admin/branches", label: "الفروع", icon: "📍" },
   { href: "/admin/media", label: "الصور", icon: "🖼" },
   { href: "/admin/settings", label: "الإعدادات", icon: "⚙️" },
 ];

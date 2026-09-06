@@ -352,45 +352,18 @@ export const CONTENT_GROUPS: Group[] = [
 
   {
     id: "contact",
-    label: "الفروع والتواصل",
-    icon: "📍",
-    hint: "عناوين الفروع وبيانات الاتصال المعروضة في صفحة «تواصل معنا»",
+    label: "صفحة التواصل",
+    icon: "☎️",
+    hint: "عنوان صفحة «تواصل معنا»",
     sections: [
       {
-        title: "ترويسة صفحة التواصل",
+        title: "ترويسة الصفحة",
         blocks: [
           {
             kind: "fields",
             fields: [
               { path: "contact.tag", label: "وسم القسم" },
               { path: "contact.title", label: "العنوان", type: "area" },
-            ],
-          },
-        ],
-      },
-      {
-        title: "الفروع",
-        blocks: [
-          {
-            kind: "fields",
-            fields: [
-              { path: "branches.tag", label: "وسم القسم" },
-              { path: "branches.title", label: "العنوان", type: "area" },
-              { path: "branches.hours", label: "ساعات العمل المعروضة على كل فرع" },
-            ],
-          },
-          {
-            kind: "list",
-            path: "branches.items",
-            label: "قائمة الفروع",
-            itemLabel: "فرع",
-            titleField: "name",
-            addable: true,
-            fields: [
-              { path: "tag", label: "التصنيف", hint: "مثل: المقر الرئيسي أو فرع" },
-              { path: "name", label: "اسم الفرع" },
-              { path: "address", label: "العنوان", type: "area" },
-              { path: "phone", label: "رقم الهاتف" },
             ],
           },
         ],
