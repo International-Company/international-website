@@ -2,8 +2,11 @@ import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { dirOf, isLocale, locales, type Locale } from "@/lib/i18n";
-import { getDict } from "@/dictionaries";
-import { CONTACT_EMAIL, CONTACT_PHONE, SITE_URL } from "@/lib/site";
+import { getContent } from "@/lib/content";
+import { SITE_URL } from "@/lib/site";
+import { getSiteConfig } from "@/lib/site-config";
+import { getImages } from "@/lib/media";
+import AnnounceBar from "@/components/AnnounceBar";
 import Preloader from "@/components/Preloader";
 import ScrollProgress from "@/components/ScrollProgress";
 import CursorFx from "@/components/CursorFx";
@@ -43,7 +46,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const dict = getDict(locale);
+  const dict = await getContent(locale);
+  const images = await getImages();
+  const share = images["money-hero"];
   return {
     metadataBase: new URL(SITE_URL),
     title: {
@@ -62,13 +67,13 @@ export async function generateMetadata({
       siteName: `${dict.brand.en} — ${dict.brand.ar}`,
       title: dict.meta.title,
       description: dict.meta.description,
-      images: [{ url: "/images/money-hero.jpg", width: 1600, height: 1066 }],
+      images: [{ url: share, width: 1600, height: 1066 }],
     },
     twitter: {
       card: "summary_large_image",
       title: dict.meta.title,
       description: dict.meta.description,
-      images: ["/images/money-hero.jpg"],
+      images: [share],
     },
   };
 }
@@ -85,8 +90,10 @@ export default async function LocaleLayout({
   const { locale: raw } = await params;
   if (!isLocale(raw)) notFound();
   const locale: Locale = raw;
-  const dict = getDict(locale);
+  const dict = await getContent(locale);
   const dir = dirOf(locale);
+  const images = await getImages();
+  const site = await getSiteConfig();
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -95,10 +102,10 @@ export default async function LocaleLayout({
     alternateName: "International Financial Company",
     description: dict.meta.description,
     url: `${SITE_URL}/${locale}`,
-    email: CONTACT_EMAIL,
-    telephone: CONTACT_PHONE,
-    logo: `${SITE_URL}/images/logo.png`,
-    image: `${SITE_URL}/images/money-hero.jpg`,
+    email: site.email,
+    telephone: site.phone,
+    logo: `${SITE_URL}${images.logo}`,
+    image: `${SITE_URL}${images["money-hero"]}`,
     address: {
       "@type": "PostalAddress",
       streetAddress:
@@ -134,15 +141,20 @@ export default async function LocaleLayout({
               : "var(--font-en), var(--font-ar), sans-serif",
         }}
       >
-        <Preloader title={dict.preloader.title} tagline={dict.preloader.tagline} />
+        <Preloader
+          title={dict.preloader.title}
+          tagline={dict.preloader.tagline}
+          logo={images.logo}
+        />
         <div className="grain" aria-hidden />
         <ScrollProgress />
         <CursorFx />
+        <AnnounceBar locale={locale} />
         <Ticker />
-        <Navbar dict={dict} locale={locale} />
+        <Navbar dict={dict} locale={locale} logo={images.logo} />
         <main>{children}</main>
-        <Footer dict={dict} locale={locale} />
-        <WhatsAppFloat label={dict.whatsapp} />
+        <Footer dict={dict} locale={locale} logo={images.logo} />
+        <WhatsAppFloat label={dict.whatsapp} wa={site.whatsapp} />
         <Analytics />
       </body>
     </html>

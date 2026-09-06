@@ -54,3 +54,16 @@ model Setting {
   value     String
   updatedAt DateTime @updatedAt
 }
+
+/// Images uploaded from the admin panel, keyed by the slot they fill on the
+/// site (hero, logo, svc-gold ...). Stored in the database so uploads survive
+/// redeploys on hosts with an ephemeral filesystem.
+model Media {
+  slot      String   @id
+  mime      String
+  data      Bytes
+  size      Int
+  /// Changes on every upload — used to bust the CDN/browser cache.
+  version   String
+  updatedAt DateTime @updatedAt
+}

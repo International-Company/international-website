@@ -14,11 +14,13 @@ export default function Hero({
   locale,
   rates,
   source,
+  photo,
 }: {
   dict: Dict;
   locale: Locale;
   rates: ConverterRate[];
   source: "shop" | "market";
+  photo: string;
 }) {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 800], [0, 90]);
@@ -26,7 +28,7 @@ export default function Hero({
   return (
     <section className="hero hero-split" id="hero">
       <div className="hero-photo" aria-hidden>
-        <Image src="/images/hero-city.jpg" alt="" fill priority sizes="100vw" />
+        <Image src={photo} alt="" fill priority sizes="100vw" unoptimized={photo.startsWith("/api/")} />
       </div>
       <div className="wrap hero-grid">
         {/* Copy side */}
@@ -69,12 +71,11 @@ export default function Hero({
         <div className="hero-conv">
           <Reveal delay={0.25}>
             <div className="conv-stage">
-              <div className="float-chip chip-a" aria-hidden>
-                <span>{dict.hero.chips[0].icon}</span> {dict.hero.chips[0].t}
-              </div>
-              <div className="float-chip chip-b" aria-hidden>
-                <span>{dict.hero.chips[1].icon}</span> {dict.hero.chips[1].t}
-              </div>
+              {dict.hero.chips.slice(0, 2).map((chip, i) => (
+                <div className={`float-chip chip-${i === 0 ? "a" : "b"}`} key={chip.t} aria-hidden>
+                  <span>{chip.icon}</span> {chip.t}
+                </div>
+              ))}
               <Converter dict={dict} locale={locale} rates={rates} source={source} />
             </div>
           </Reveal>

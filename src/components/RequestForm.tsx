@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import type { Dict } from "@/dictionaries";
-import { WHATSAPP_NUMBER } from "@/lib/site";
 
 const SERVICES = ["remittances", "transfers", "exchange", "gold"] as const;
 const CURRENCIES = ["ILS", "USD", "JOD", "EUR", "EGP", "SAR", "AED"];
 
 type Status = "idle" | "sending" | "sent" | "error";
 
-export default function RequestForm({ dict }: { dict: Dict }) {
+export default function RequestForm({ dict, wa }: { dict: Dict; wa: string }) {
   const f = dict.requestForm;
   const [service, setService] = useState<string>("remittances");
   const [status, setStatus] = useState<Status>("idle");
@@ -137,7 +136,7 @@ export default function RequestForm({ dict }: { dict: Dict }) {
       )}
 
       <a
-        href={`https://wa.me/${WHATSAPP_NUMBER}`}
+        href={`https://wa.me/${wa}`}
         target="_blank"
         rel="noopener noreferrer"
         className="text-link"

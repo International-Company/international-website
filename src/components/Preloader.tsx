@@ -6,9 +6,11 @@ import { useEffect, useState } from "react";
 export default function Preloader({
   title,
   tagline,
+  logo,
 }: {
   title: string;
   tagline: string;
+  logo: string;
 }) {
   const [done, setDone] = useState(false);
 
@@ -37,7 +39,7 @@ export default function Preloader({
           <span className="pl-ring" />
           <span className="pl-ring pl-ring-2" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/logo.png" alt="" className="pl-logo" />
+          <img src={logo} alt="" className="pl-logo" />
         </div>
 
         <h1 className="pl-title">{title}</h1>

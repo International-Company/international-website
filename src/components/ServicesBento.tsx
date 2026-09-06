@@ -12,10 +12,13 @@ import Reveal from "./Reveal";
 export default function ServicesBento({
   dict,
   locale,
+  images,
   showHeader = true,
 }: {
   dict: Dict;
   locale: Locale;
+  /** Slot → URL map, so an admin upload replaces the shipped artwork. */
+  images: Record<string, string>;
   showHeader?: boolean;
 }) {
   const s = dict.services.items;
@@ -50,7 +53,7 @@ export default function ServicesBento({
               <span className="bento-ghost" aria-hidden>01</span>
               <div className="bento-img">
                 <Image
-                  src="/images/svc-remit.jpg"
+                  src={images["svc-remit"]}
                   alt={feat.title}
                   fill
                   sizes="(max-width: 980px) 100vw, 40vw"
@@ -76,7 +79,7 @@ export default function ServicesBento({
               <span className="bento-ghost" aria-hidden>02</span>
               <div className="bento-img">
                 <Image
-                  src="/images/svc-transfer.jpg"
+                  src={images["svc-transfer"]}
                   alt={a.title}
                   fill
                   sizes="(max-width: 980px) 100vw, 30vw"
@@ -97,7 +100,7 @@ export default function ServicesBento({
               <span className="bento-ghost" aria-hidden>03</span>
               <div className="bento-img">
                 <Image
-                  src="/images/svc-exchange.jpg"
+                  src={images["svc-exchange"]}
                   alt={b.title}
                   fill
                   sizes="(max-width: 980px) 100vw, 30vw"
@@ -118,7 +121,7 @@ export default function ServicesBento({
               <span className="bento-ghost" aria-hidden>◈</span>
               <div className="bento-img bento-img-side">
                 <Image
-                  src="/images/svc-gold.jpg"
+                  src={images["svc-gold"]}
                   alt={gold.title}
                   fill
                   sizes="(max-width: 980px) 100vw, 30vw"

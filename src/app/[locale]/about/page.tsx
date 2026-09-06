@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
-import { getDict } from "@/dictionaries";
+import { getContent } from "@/lib/content";
 import AboutSection from "@/components/AboutSection";
 import Stats from "@/components/Stats";
 import Partners from "@/components/Partners";
@@ -14,7 +14,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const dict = getDict(locale);
+  const dict = await getContent(locale);
   return { title: dict.nav.about };
 }
 
@@ -25,7 +25,7 @@ export default async function AboutPage({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const dict = getDict(locale);
+  const dict = await getContent(locale);
 
   return (
     <>

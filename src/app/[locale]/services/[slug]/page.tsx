@@ -3,15 +3,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
-import { getDict } from "@/dictionaries";
-import { WHATSAPP_NUMBER } from "@/lib/site";
+import { getContent } from "@/lib/content";
+import { getSiteConfig } from "@/lib/site-config";
+import { getImages } from "@/lib/media";
 import Reveal from "@/components/Reveal";
 
-const SLUG_IMAGES: Record<string, string> = {
-  exchange: "/images/svc-exchange.jpg",
-  transfers: "/images/svc-transfer.jpg",
-  remittances: "/images/svc-remit.jpg",
-  gold: "/images/svc-gold.jpg",
+/** Service slug → the image slot the admin panel fills for it. */
+const SLUG_SLOTS: Record<string, string> = {
+  exchange: "svc-exchange",
+  transfers: "svc-transfer",
+  remittances: "svc-remit",
+  gold: "svc-gold",
 };
 
 const SLUG_HUES: Record<string, string> = {
@@ -22,7 +24,7 @@ const SLUG_HUES: Record<string, string> = {
 };
 
 export function generateStaticParams() {
-  return Object.keys(SLUG_IMAGES).map((slug) => ({ slug }));
+  return Object.keys(SLUG_SLOTS).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -32,7 +34,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, slug } = await params;
   if (!isLocale(locale)) return {};
-  const dict = getDict(locale);
+  const dict = await getContent(locale);
   const svc = dict.services.items.find((s) => s.slug === slug);
   if (!svc) return {};
   return { title: svc.title, description: svc.desc };
@@ -45,13 +47,17 @@ export default async function ServiceDetailPage({
 }) {
   const { locale, slug } = await params;
   if (!isLocale(locale)) notFound();
-  const dict = getDict(locale);
+  const dict = await getContent(locale);
   const svc = dict.services.items.find((s) => s.slug === slug);
   if (!svc) notFound();
 
+  const site = await getSiteConfig();
+  const images = await getImages();
+  const photo = images[SLUG_SLOTS[slug]] ?? images["svc-remit"];
+
   const d = dict.services.detail;
   const waText = d.waText.replace("{service}", svc.title);
-  const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}`;
+  const waLink = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(waText)}`;
 
   return (
     <>
@@ -73,7 +79,7 @@ export default async function ServiceDetailPage({
           <Reveal>
             <div className="svc-detail-img">
               <Image
-                src={SLUG_IMAGES[slug]}
+                src={photo}
                 alt={svc.title}
                 fill
                 priority

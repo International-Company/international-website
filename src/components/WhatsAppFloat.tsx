@@ -1,12 +1,10 @@
 "use client";
 
-import { WHATSAPP_NUMBER } from "@/lib/site";
-
 /** Floating WhatsApp button — brand-green, tracked as a conversion. */
-export default function WhatsAppFloat({ label }: { label: string }) {
+export default function WhatsAppFloat({ label, wa }: { label: string; wa: string }) {
   return (
     <a
-      href={`https://wa.me/${WHATSAPP_NUMBER}`}
+      href={`https://wa.me/${wa}`}
       target="_blank"
       rel="noopener noreferrer"
       className="wa-float"

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
-import { getDict } from "@/dictionaries";
+import { getContent } from "@/lib/content";
+import { getSiteConfig } from "@/lib/site-config";
 import Reveal from "@/components/Reveal";
 import RequestForm from "@/components/RequestForm";
 
@@ -12,7 +13,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const dict = getDict(locale);
+  const dict = await getContent(locale);
   return { title: dict.requestForm.navLabel, description: dict.requestForm.sub };
 }
 
@@ -23,7 +24,8 @@ export default async function RequestPage({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const dict = getDict(locale);
+  const dict = await getContent(locale);
+  const site = await getSiteConfig();
 
   return (
     <>
@@ -40,7 +42,7 @@ export default async function RequestPage({
       <section style={{ padding: "70px 0 110px", background: "var(--bg)" }}>
         <div className="wrap" style={{ maxWidth: 720 }}>
           <Reveal>
-            <RequestForm dict={dict} />
+            <RequestForm dict={dict} wa={site.whatsapp} />
           </Reveal>
         </div>
       </section>

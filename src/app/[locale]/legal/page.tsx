@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
-import { getDict } from "@/dictionaries";
+import { getContent } from "@/lib/content";
 import Reveal from "@/components/Reveal";
 
 export async function generateMetadata({
@@ -11,7 +11,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const dict = getDict(locale);
+  const dict = await getContent(locale);
   return { title: dict.legal.title };
 }
 
@@ -22,7 +22,7 @@ export default async function LegalPage({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const dict = getDict(locale);
+  const dict = await getContent(locale);
 
   return (
     <>

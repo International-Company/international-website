@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
-import { getDict } from "@/dictionaries";
+import { getContent } from "@/lib/content";
 import { getFxRates } from "@/lib/rates";
 import { getCompanyRates, getConverterRates } from "@/lib/rates-service";
+import { getImages } from "@/lib/media";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import MoneyBand from "@/components/MoneyBand";
@@ -25,10 +26,11 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const dict = getDict(locale);
+  const dict = await getContent(locale);
   const fx = await getFxRates();
   const company = await getCompanyRates();
   const converter = await getConverterRates(fx.rates);
+  const images = await getImages();
 
   return (
     <>
@@ -37,9 +39,10 @@ export default async function HomePage({
         locale={locale}
         rates={converter.rates}
         source={converter.source}
+        photo={images.hero}
       />
       <Stats dict={dict} />
-      <Showcase dict={dict} locale={locale} />
+      <Showcase dict={dict} locale={locale} photo={images["showcase-city"]} />
       <MoneyBand dict={dict} />
 
       {company.live ? (
@@ -60,7 +63,7 @@ export default async function HomePage({
         <GoldMarkets dict={dict} />
       )}
 
-      <ServicesBento dict={dict} locale={locale} />
+      <ServicesBento dict={dict} locale={locale} images={images} />
       <NetworkSection dict={dict} />
       <Partners dict={dict} />
       <Testimonials dict={dict} />

@@ -8,7 +8,15 @@ import type { Dict } from "@/dictionaries";
 import type { Locale } from "@/lib/i18n";
 import ThemeToggle from "./ThemeToggle";
 
-export default function Navbar({ dict, locale }: { dict: Dict; locale: Locale }) {
+export default function Navbar({
+  dict,
+  locale,
+  logo,
+}: {
+  dict: Dict;
+  locale: Locale;
+  logo: string;
+}) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -52,17 +60,18 @@ export default function Navbar({ dict, locale }: { dict: Dict; locale: Locale })
         <div className="nav-inner">
           <Link href={`/${locale}`} className="logo">
             <Image
-              src="/images/logo.png"
+              src={logo}
               alt={dict.brand.ar}
               width={44}
               height={44}
               className="logo-img"
               priority
+              unoptimized={logo.startsWith("/api/")}
             />
             {locale === "ar" ? (
               <span className="logo-text">
-                <span className="brand-ar-main">إنترنشونال</span>
-                <span className="brand-ar-sub">للخدمات المالية والمجوهرات</span>
+                <span className="brand-ar-main">{dict.brand.ar}</span>
+                <span className="brand-ar-sub">{dict.preloader.tagline}</span>
               </span>
             ) : (
               <span className="logo-text">

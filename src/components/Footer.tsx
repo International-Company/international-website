@@ -3,7 +3,15 @@ import Image from "next/image";
 import type { Dict } from "@/dictionaries";
 import type { Locale } from "@/lib/i18n";
 
-export default function Footer({ dict, locale }: { dict: Dict; locale: Locale }) {
+export default function Footer({
+  dict,
+  locale,
+  logo,
+}: {
+  dict: Dict;
+  locale: Locale;
+  logo: string;
+}) {
   return (
     <footer className="site-footer">
       <div className="wrap">
@@ -11,16 +19,17 @@ export default function Footer({ dict, locale }: { dict: Dict; locale: Locale })
           <div className="footer-brand">
             <Link href={`/${locale}`} className="logo">
               <Image
-                src="/images/logo.png"
+                src={logo}
                 alt={dict.brand.ar}
                 width={48}
                 height={48}
                 className="logo-img"
+                unoptimized={logo.startsWith("/api/")}
               />
               {locale === "ar" ? (
                 <span className="logo-text">
-                  <span className="brand-ar-main brand-ar-lg">إنترنشونال</span>
-                  <span className="brand-ar-sub">للخدمات المالية والمجوهرات</span>
+                  <span className="brand-ar-main brand-ar-lg">{dict.brand.ar}</span>
+                  <span className="brand-ar-sub">{dict.preloader.tagline}</span>
                 </span>
               ) : (
                 <span className="logo-text">

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
-import { getDict } from "@/dictionaries";
+import { getContent } from "@/lib/content";
 import { getCompanyRates } from "@/lib/rates-service";
 import Reveal from "@/components/Reveal";
 import CompanyRates from "@/components/CompanyRates";
@@ -16,7 +16,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const dict = getDict(locale);
+  const dict = await getContent(locale);
   return { title: dict.rates.title, description: dict.rates.sub };
 }
 
@@ -27,7 +27,7 @@ export default async function RatesPage({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const dict = getDict(locale);
+  const dict = await getContent(locale);
   const { rates, updatedAt, live } = await getCompanyRates();
 
   return (

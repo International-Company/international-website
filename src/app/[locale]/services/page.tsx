@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
-import { getDict } from "@/dictionaries";
+import { getContent } from "@/lib/content";
+import { getImages } from "@/lib/media";
 import GoldMarkets from "@/components/GoldMarkets";
 import FAQ from "@/components/FAQ";
 import Reveal from "@/components/Reveal";
@@ -14,7 +15,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const dict = getDict(locale);
+  const dict = await getContent(locale);
   return { title: dict.nav.services };
 }
 
@@ -25,7 +26,8 @@ export default async function ServicesPage({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const dict = getDict(locale);
+  const dict = await getContent(locale);
+  const images = await getImages();
 
   return (
     <>
@@ -39,7 +41,7 @@ export default async function ServicesPage({
         </div>
       </div>
 
-      <ServicesBento dict={dict} locale={locale} showHeader={false} />
+      <ServicesBento dict={dict} locale={locale} images={images} showHeader={false} />
 
       <GoldMarkets dict={dict} />
       <FAQ dict={dict} />

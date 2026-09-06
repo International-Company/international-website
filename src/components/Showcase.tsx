@@ -8,7 +8,15 @@ import Reveal from "./Reveal";
  * Centrepiece section: a large framed skyline image with floating glass
  * cards, paired with the "why us" pillars.
  */
-export default function Showcase({ dict, locale }: { dict: Dict; locale: Locale }) {
+export default function Showcase({
+  dict,
+  locale,
+  photo,
+}: {
+  dict: Dict;
+  locale: Locale;
+  photo: string;
+}) {
   const s = dict.showcase;
 
   return (
@@ -19,11 +27,12 @@ export default function Showcase({ dict, locale }: { dict: Dict; locale: Locale 
           <Reveal className="sc-visual">
             <div className="sc-frame">
               <Image
-                src="/images/showcase-city.jpg"
+                src={photo}
                 alt=""
                 fill
                 sizes="(max-width: 980px) 100vw, 52vw"
                 className="sc-img"
+                unoptimized={photo.startsWith("/api/")}
               />
               <div className="sc-veil" />
 
