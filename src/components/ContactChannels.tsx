@@ -38,12 +38,15 @@ export default function ContactChannels({
   locale,
   departments,
   socials,
+  gallery,
 }: {
   locale: Locale;
   departments: Department[];
   socials: { platform: Platform; url: string }[];
+  /** The showroom block, or a component that renders nothing when it is off. */
+  gallery?: React.ReactNode;
 }) {
-  if (departments.length === 0 && socials.length === 0) return null;
+  if (departments.length === 0 && socials.length === 0 && !gallery) return null;
 
   const t = COPY[locale];
 
@@ -132,6 +135,8 @@ export default function ContactChannels({
             </div>
           </>
         )}
+
+        {gallery && <Reveal delay={0.08}>{gallery}</Reveal>}
 
         {socials.length > 0 && (
           <Reveal delay={0.1}>

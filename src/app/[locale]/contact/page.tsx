@@ -3,7 +3,10 @@ import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
 import { getContent } from "@/lib/content";
 import { getPublicDepartments, getSocialLinks } from "@/lib/contact-config";
+import { getGallery } from "@/lib/gallery-config";
+import { getImages } from "@/lib/media";
 import ContactChannels from "@/components/ContactChannels";
+import GalleryCard from "@/components/GalleryCard";
 import Reveal from "@/components/Reveal";
 
 // Departments and social links come from the panel and must appear on save.
@@ -30,6 +33,8 @@ export default async function ContactPage({
   const dict = await getContent(locale);
   const departments = await getPublicDepartments();
   const socials = await getSocialLinks();
+  const gallery = await getGallery();
+  const images = await getImages();
 
   return (
     <>
@@ -42,7 +47,18 @@ export default async function ContactPage({
           </Reveal>
         </div>
       </div>
-      <ContactChannels locale={locale} departments={departments} socials={socials} />
+      <ContactChannels
+        locale={locale}
+        departments={departments}
+        socials={socials}
+        gallery={
+          <GalleryCard
+            locale={locale}
+            gallery={gallery}
+            emblem={images["gallery-emblem"]}
+          />
+        }
+      />
     </>
   );
 }

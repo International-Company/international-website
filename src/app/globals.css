@@ -2764,6 +2764,93 @@ body:has(.announce) { --ann-h: 40px; }
 .dept-site:hover span { transform: translate(-2px, -2px); }
 [dir="ltr"] .dept-site:hover span { transform: translate(2px, -2px); }
 
+/* ── the jewellery showroom ──────────────────────────────── */
+/* Gold rather than the site's blue: the colour shift is the signal that this
+   link hands the visitor to a different business. */
+.gallery-card {
+  --gold: #d4a017;
+  --gold-2: #f0c04a;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-top: 44px;
+  padding: 34px 40px;
+  border-radius: 24px;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid color-mix(in srgb, var(--gold) 30%, transparent);
+  background:
+    radial-gradient(90% 160% at 100% 0%, color-mix(in srgb, var(--gold) 12%, transparent), transparent 62%),
+    var(--surface);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s,
+    box-shadow 0.5s;
+}
+.gallery-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--gold) 60%, transparent);
+  box-shadow: 0 22px 54px rgba(0, 0, 0, 0.34);
+}
+
+.gc-emblem {
+  flex-shrink: 0;
+  width: 112px;
+  height: 112px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--gold) 22%, transparent), transparent 70%);
+}
+.gc-emblem img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.45));
+}
+
+.gc-body { display: flex; flex-direction: column; min-width: 0; }
+.gc-name {
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1.35;
+  background: linear-gradient(100deg, var(--gold-2), var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.gc-tagline {
+  font-size: 13px;
+  color: color-mix(in srgb, var(--gold-2) 75%, var(--text-2));
+  margin-top: 4px;
+}
+.gc-blurb {
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: var(--text-2);
+  margin-top: 12px;
+  max-width: 62ch;
+}
+.gc-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  margin-top: 18px;
+  padding: 11px 22px;
+  border-radius: 100px;
+  background: linear-gradient(100deg, var(--gold-2), var(--gold));
+  color: #1a1200;
+  font-size: 13.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: filter 0.3s;
+}
+.gc-cta span { font-size: 12px; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.gallery-card:hover .gc-cta { filter: brightness(1.08); }
+.gallery-card:hover .gc-cta span { transform: translate(-2px, -2px); }
+[dir="ltr"] .gallery-card:hover .gc-cta span { transform: translate(2px, -2px); }
+
 /* ── social band ─────────────────────────────────────────── */
 .social-band {
   margin-top: 60px;
@@ -2821,9 +2908,11 @@ body:has(.announce) { --ann-h: 40px; }
 
 @media (prefers-reduced-motion: reduce) {
   .dept-card:hover,
+  .gallery-card:hover,
   .social-btn:hover,
   .social-btn:focus-visible { transform: none; }
-  .dept-site:hover span { transform: none; }
+  .dept-site:hover span,
+  .gallery-card:hover .gc-cta span { transform: none; }
 }
 
 @media (max-width: 720px) {
@@ -2839,4 +2928,16 @@ body:has(.announce) { --ann-h: 40px; }
   }
   .social-copy h3 { font-size: 18px; }
   .social-btn { width: 50px; height: 50px; border-radius: 15px; }
+
+  .gallery-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    margin-top: 30px;
+    padding: 26px 22px;
+    border-radius: 18px;
+  }
+  .gc-emblem { width: 84px; height: 84px; }
+  .gc-name { font-size: 20px; }
+  .gc-cta { align-self: stretch; justify-content: center; }
 }

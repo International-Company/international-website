@@ -1225,3 +1225,27 @@
   }
   .a-social-row input { grid-column: 1 / -1; }
 }
+
+/* ── showroom emblem preview on the contact screen ──────────── */
+.a-gallery-preview {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  border-radius: 12px;
+  border: 1px solid var(--line-2);
+  background: var(--card-2);
+}
+.a-gallery-preview img {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: var(--bg);
+  padding: 5px;
+  flex-shrink: 0;
+}
+.a-gallery-preview b { display: block; font-size: 13.5px; }
+.a-gallery-preview small { font-size: 11.5px; color: var(--ink-3); }
+.a-gallery-preview a { color: var(--accent-2); }

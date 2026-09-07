@@ -86,6 +86,13 @@ export const MEDIA_SLOTS: MediaSlot[] = [
     hint: "بطاقة الذهب والمجوهرات وصفحة الخدمة",
     shape: "wide",
   },
+  {
+    slot: "gallery-emblem",
+    label: "شعار معرض المجوهرات",
+    fallback: "/images/gallery-emblem.png",
+    hint: "يظهر على بطاقة المعرض في صفحة «تواصل معنا» — يفضّل PNG بخلفية شفافة",
+    shape: "square",
+  },
 ];
 
 const SLOT_IDS = new Set(MEDIA_SLOTS.map((s) => s.slot));

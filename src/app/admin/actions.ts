@@ -34,6 +34,7 @@ import {
   type Department,
   type SocialLink,
 } from "@/lib/contact-config";
+import { getGallery, saveGallery, type Gallery } from "@/lib/gallery-config";
 
 /** What a save action reports back to its form. */
 export type SaveState = { saved: boolean } | null;
@@ -343,4 +344,31 @@ export async function saveDepartmentsAction(
   await saveDepartments(departments);
   refreshPublic();
   return { saved: true };
+}
+
+/* ── the jewellery showroom block ─────────────────────────────────────── */
+
+export async function saveGalleryAction(formData: FormData) {
+  await requireAuth();
+  const get = (k: string) => String(formData.get(k) ?? "").trim();
+
+  // Start from what is stored so a blank field falls back to the wording
+  // already in place rather than emptying the block.
+  const current = await getGallery();
+  const gallery: Gallery = {
+    ...current,
+    enabled: formData.get("enabled") === "on",
+    nameAr: get("nameAr"),
+    nameEn: get("nameEn"),
+    taglineAr: get("taglineAr"),
+    taglineEn: get("taglineEn"),
+    blurbAr: get("blurbAr"),
+    blurbEn: get("blurbEn"),
+    url: safeUrl(get("url")),
+    ctaAr: get("ctaAr"),
+    ctaEn: get("ctaEn"),
+  };
+
+  await saveGallery(gallery);
+  refreshPublic();
 }

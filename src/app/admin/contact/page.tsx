@@ -8,6 +8,8 @@ import {
   getDepartments,
   getSocialSettings,
 } from "@/lib/contact-config";
+import { getGallery } from "@/lib/gallery-config";
+import { getImages } from "@/lib/media";
 import { getContent } from "@/lib/content";
 import { findGroup } from "@/lib/content-schema";
 import { buildEditorData } from "@/lib/content-editor-data";
@@ -15,7 +17,7 @@ import Chrome from "../_components/Chrome";
 import ContentEditor from "../_components/ContentEditor";
 import DepartmentsEditor from "../_components/DepartmentsEditor";
 import SocialIcon from "@/components/SocialIcon";
-import { saveSiteAction, saveSocialAction } from "../actions";
+import { saveGalleryAction, saveSiteAction, saveSocialAction } from "../actions";
 
 export const dynamic = "force-dynamic";
 
@@ -32,6 +34,8 @@ export default async function AdminContactPage({
   const site = await getSiteConfig();
   const social = await getSocialSettings();
   const departments = await getDepartments();
+  const gallery = await getGallery();
+  const images = await getImages();
 
   const headingGroup = findGroup("contact");
   const headingData = headingGroup
@@ -161,6 +165,111 @@ export default async function AdminContactPage({
           <DepartmentsEditor departments={departments} disabled={!hasDb} />
         </div>
       </section>
+      {/* ── the jewellery showroom ── */}
+      <section className="a-card">
+        <div className="a-card-head">
+          <div>
+            <h2>معرض المجوهرات</h2>
+            <div className="hint">
+              بطاقة بشعار المعرض ونبذة عنه ورابط إليه، تظهر أسفل بطاقات الأقسام
+            </div>
+          </div>
+          <span className={`a-badge b-${gallery.enabled ? "DONE" : "CANCELLED"}`}>
+            {gallery.enabled ? "ظاهر" : "مخفي"}
+          </span>
+        </div>
+
+        <div className="a-card-body">
+          <form action={saveGalleryAction}>
+            <label className="a-switch-row">
+              <span className="a-toggle">
+                <input type="checkbox" name="enabled" defaultChecked={gallery.enabled} />
+                <span className="track" />
+              </span>
+              <span>
+                <b>إظهار بطاقة المعرض</b>
+                <small>عند الإطفاء تختفي البطاقة دون فقدان بياناتها</small>
+              </span>
+            </label>
+
+            <div className="a-gallery-preview">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={images["gallery-emblem"]} alt="" />
+              <span>
+                <b>الشعار المعروض</b>
+                <small>
+                  لتغييره: قسم <Link href="/admin/media">الصور</Link> ← «شعار معرض
+                  المجوهرات»
+                </small>
+              </span>
+            </div>
+
+            <div className="a-fieldgrid">
+              <label className="a-field wide">
+                <span className="a-field-label">رابط المعرض</span>
+                <input name="url" type="text" defaultValue={gallery.url} dir="ltr" />
+                <small className="a-field-hint">
+                  البطاقة لا تظهر بلا رابط صالح
+                </small>
+              </label>
+
+              <label className="a-field">
+                <span className="a-field-label">اسم المعرض بالعربية</span>
+                <input name="nameAr" type="text" defaultValue={gallery.nameAr} dir="auto" />
+              </label>
+              <label className="a-field">
+                <span className="a-field-label">اسم المعرض بالإنجليزية</span>
+                <input name="nameEn" type="text" defaultValue={gallery.nameEn} dir="ltr" />
+              </label>
+
+              <label className="a-field">
+                <span className="a-field-label">السطر تحت الاسم (عربي)</span>
+                <input
+                  name="taglineAr"
+                  type="text"
+                  defaultValue={gallery.taglineAr}
+                  dir="auto"
+                />
+              </label>
+              <label className="a-field">
+                <span className="a-field-label">السطر تحت الاسم (إنجليزي)</span>
+                <input
+                  name="taglineEn"
+                  type="text"
+                  defaultValue={gallery.taglineEn}
+                  dir="ltr"
+                />
+              </label>
+
+              <label className="a-field wide">
+                <span className="a-field-label">نبذة عن المعرض (عربي)</span>
+                <textarea name="blurbAr" rows={3} defaultValue={gallery.blurbAr} dir="auto" />
+              </label>
+              <label className="a-field wide">
+                <span className="a-field-label">نبذة عن المعرض (إنجليزي)</span>
+                <textarea name="blurbEn" rows={3} defaultValue={gallery.blurbEn} dir="ltr" />
+              </label>
+
+              <label className="a-field">
+                <span className="a-field-label">نص الزر (عربي)</span>
+                <input name="ctaAr" type="text" defaultValue={gallery.ctaAr} dir="auto" />
+              </label>
+              <label className="a-field">
+                <span className="a-field-label">نص الزر (إنجليزي)</span>
+                <input name="ctaEn" type="text" defaultValue={gallery.ctaEn} dir="ltr" />
+              </label>
+            </div>
+
+            <div className="a-savebar">
+              <span className="tip">تظهر أسفل بطاقات الأقسام في صفحة التواصل</span>
+              <button className="a-btn" type="submit" disabled={!hasDb}>
+                💾 حفظ بطاقة المعرض
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
       {/* ── the page's own heading ── */}
       {headingGroup && headingData && (
         <>
