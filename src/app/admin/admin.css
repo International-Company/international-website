@@ -1344,3 +1344,298 @@
 .a-row-head { cursor: grab; }
 .a-row-head:active { cursor: grabbing; }
 .a-row.is-dragging { opacity: 0.45; }
+
+/* ============================================================
+   MODERN REFRESH
+   A calmer, quieter panel: softer surfaces, thinner rules, one
+   accent used sparingly, and no pictograms anywhere. Layered
+   over the rules above rather than replacing them, so nothing
+   silently loses its styling.
+   ============================================================ */
+:root {
+  /* Less contrast between the surfaces, so the cards sit in the page
+     instead of floating on top of it. */
+  --bg: #0a0c11;
+  --surface: #0e1118;
+  --card: #12161f;
+  --card-2: #171b26;
+  --line: #1c212c;
+  --line-2: #262c3a;
+  --ink: #eef2f8;
+  --ink-2: #8f9aae;
+  --ink-3: #5a6479;
+  --accent: #3b82f6;
+  --accent-2: #7aa7ff;
+  --accent-dim: rgba(59, 130, 246, 0.12);
+  --shadow: 0 12px 32px rgba(0, 0, 0, 0.32);
+  --radius: 16px;
+}
+
+.admin-body { letter-spacing: -0.005em; }
+
+/* ── sidebar ─────────────────────────────────────────────── */
+.a-side { padding: 24px 14px; gap: 30px; }
+.a-side-brand img {
+  width: 40px;
+  height: 40px;
+  filter: none;
+  border: 1px solid var(--line-2);
+}
+.a-side-brand b { font-size: 14.5px; font-weight: 600; }
+.a-side-brand span { font-size: 10px; letter-spacing: 0.04em; }
+
+.a-nav-label {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--ink-3);
+  padding: 0 14px 10px;
+  font-weight: 600;
+}
+.a-nav a {
+  position: relative;
+  gap: 0;
+  padding: 10px 14px;
+  border-radius: 9px;
+  border: 0;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.18s, color 0.18s;
+}
+.a-nav a:hover { background: var(--card); }
+.a-nav a.on {
+  background: var(--card-2);
+  border: 0;
+  color: var(--ink);
+  font-weight: 600;
+}
+/* A bar on the leading edge marks the current screen — quieter than a
+   filled pill, and it survives the theme having almost no contrast. */
+.a-nav a.on::before {
+  content: "";
+  position: absolute;
+  inset-block: 9px;
+  inset-inline-start: 0;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+.a-nav .ico { display: none; }
+.a-nav .pill {
+  background: var(--accent);
+  font-weight: 600;
+  font-size: 10.5px;
+}
+
+/* ── page header ─────────────────────────────────────────── */
+.a-main { padding-top: 34px; }
+.a-topbar { margin-bottom: 26px; align-items: flex-start; }
+.a-topbar h1 {
+  font-size: 24px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+.a-topbar p { font-size: 13.5px; color: var(--ink-3); margin-top: 5px; }
+.a-topbar-actions { gap: 8px; }
+
+/* ── cards ───────────────────────────────────────────────── */
+.a-card {
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--card);
+  box-shadow: none;
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+.a-card-head {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--line);
+  align-items: flex-start;
+  gap: 14px;
+}
+.a-card-head h2 {
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.a-card-head .hint {
+  font-size: 12.5px;
+  color: var(--ink-3);
+  margin-top: 4px;
+  line-height: 1.6;
+}
+.a-card-body { padding: 22px 24px 24px; }
+
+/* ── buttons ─────────────────────────────────────────────── */
+.a-btn {
+  border-radius: 9px;
+  padding: 10px 18px;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  box-shadow: none;
+  transition: background 0.18s, border-color 0.18s, color 0.18s, opacity 0.18s;
+}
+.a-btn:hover { filter: none; background: var(--accent-strong, #2f6fe0); }
+.a-btn:active { transform: none; opacity: 0.85; }
+.a-btn.ghost {
+  background: transparent;
+  border: 1px solid var(--line-2);
+  color: var(--ink-2);
+}
+.a-btn.ghost:hover { background: var(--card-2); border-color: var(--ink-3); color: var(--ink); }
+.a-btn.sm { padding: 8px 14px; font-size: 12.5px; border-radius: 8px; }
+.a-btn.danger { border-color: rgba(239, 68, 68, 0.35); }
+
+.a-icon-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border-color: var(--line-2);
+  background: var(--bg);
+  font-size: 12px;
+}
+
+/* ── form fields ─────────────────────────────────────────── */
+.a-field-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-2);
+  margin-bottom: 7px;
+}
+.a-field textarea,
+.a-field select,
+.a-fieldgrid .a-field input,
+.a-social-row input,
+.a-search input[type="search"],
+.a-inp {
+  border-radius: 9px;
+  border-color: var(--line-2);
+  background: var(--bg);
+  font-size: 13.5px;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+.a-field textarea:focus,
+.a-field select:focus,
+.a-fieldgrid .a-field input:focus,
+.a-social-row input:focus,
+.a-search input[type="search"]:focus,
+.a-inp:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+.a-field-hint { font-size: 11px; color: var(--ink-3); margin-top: 6px; }
+.a-fieldgrid { gap: 16px; }
+
+/* ── save bar ────────────────────────────────────────────── */
+.a-savebar {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  background: none;
+  backdrop-filter: none;
+}
+.a-savebar .tip { font-size: 12px; color: var(--ink-3); }
+.a-editor .a-savebar.sticky {
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  background: var(--card);
+  backdrop-filter: blur(12px);
+  padding: 14px 20px;
+}
+
+/* ── notes and errors ────────────────────────────────────── */
+.a-note,
+.a-error {
+  border-radius: 11px;
+  font-size: 13px;
+  line-height: 1.75;
+  padding: 14px 16px;
+}
+.a-note { border-color: var(--line-2); background: var(--card-2); color: var(--ink-2); }
+
+/* ── repeatable rows and ordering ────────────────────────── */
+.a-row {
+  border-radius: 13px;
+  border-color: var(--line);
+  background: var(--card-2);
+  padding: 16px 18px 18px;
+}
+.a-row-head { gap: 11px; padding-bottom: 13px; margin-bottom: 15px; }
+.a-row-index {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  border: 0;
+  background: var(--accent-dim);
+  color: var(--accent-2);
+  font-size: 11px;
+}
+.a-row-title { font-size: 13.5px; font-weight: 600; }
+
+.a-order-row { border-radius: 11px; padding: 13px 15px; }
+.a-order-pos { border-radius: 7px; }
+
+/* ── social list ─────────────────────────────────────────── */
+.a-social-row { border-radius: 11px; padding: 11px 13px; }
+.a-social-ic { border-radius: 10px; width: 36px; height: 36px; }
+.a-social-name b { font-size: 13px; font-weight: 600; }
+.a-social-name small { font-size: 10.5px; }
+
+/* ── filters, badges, lists ──────────────────────────────── */
+.a-filters a { border-radius: 8px; font-size: 12.5px; padding: 7px 14px; }
+.a-badge { border-radius: 7px; font-size: 11px; font-weight: 600; }
+.a-langs { border-radius: 10px; padding: 3px; }
+.a-langs a { border-radius: 8px; font-size: 13px; padding: 7px 15px; }
+.a-groupnav a { border-radius: 9px; font-size: 13px; padding: 8px 14px; }
+.a-groupnav .ico { display: none; }
+
+/* ── stats ───────────────────────────────────────────────── */
+.a-stat {
+  border-radius: 13px;
+  border-color: var(--line);
+  background: var(--card);
+  box-shadow: none;
+}
+.a-stat .lbl { font-size: 12px; color: var(--ink-3); font-weight: 500; }
+.a-stat .val { font-weight: 650; letter-spacing: -0.02em; }
+.a-stat .sub { font-size: 11.5px; color: var(--ink-3); }
+
+/* ── QR panel ────────────────────────────────────────────── */
+.a-qr { border-radius: 13px; padding: 22px; gap: 14px; }
+.a-qr-img { border-radius: 10px; }
+.a-qr-url { font-size: 10.5px; border-radius: 7px; }
+
+/* ── media ───────────────────────────────────────────────── */
+.a-media-preview { border-radius: 11px; }
+.a-gallery-preview { border-radius: 11px; }
+
+@media (max-width: 900px) {
+  .a-main { padding-top: 0; }
+  .a-mobile-nav a { border-radius: 8px; font-size: 13px; padding: 8px 15px; }
+  .a-mobile-nav .ico { display: none; }
+  .a-card-head { padding: 18px 16px 14px; }
+  .a-card-body { padding: 18px 16px 20px; }
+}
+
+/* A dot instead of the brand mark: it says set / not set, in the platform's
+   own colour, without putting a picture in every row. */
+.a-social-dot {
+  flex-shrink: 0;
+  width: 9px;
+  height: 9px;
+  margin-inline: 6px;
+  border-radius: 50%;
+  background: var(--line-2);
+  box-shadow: 0 0 0 3px var(--bg);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.a-social-dot.on {
+  background: var(--brand);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 22%, transparent);
+}
+.a-social-row { grid-template-columns: auto 150px 1fr; }
+
+@media (max-width: 700px) {
+  .a-social-row { grid-template-columns: auto 1fr; }
+}

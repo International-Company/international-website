@@ -21,7 +21,7 @@ function RateRows({ rows }: { rows: Rate[] }) {
             <input type="hidden" name="code" value={r.code} />
             <div className="a-rate-name">
               <span className={`a-rate-badge${r.unit === "gold" ? " g" : ""}`}>
-                {r.unit === "gold" ? "◈" : r.code.slice(0, 2)}
+                {r.code.slice(0, 2)}
               </span>
               <span style={{ minWidth: 0 }}>
                 <b>{r.nameAr}</b>
@@ -82,7 +82,7 @@ export default async function AdminRatesPage() {
       subtitle="الأسعار التي تظهر لعملائك في الصفحة الرئيسية وصفحة الأسعار"
       actions={
         <Link href="/ar/rates" className="a-btn ghost sm" target="_blank">
-          ↗ صفحة الأسعار
+          صفحة الأسعار
         </Link>
       }
     >
@@ -111,7 +111,7 @@ export default async function AdminRatesPage() {
               </>
             ) : (
               <div className="a-empty">
-                <span className="big">🗄</span>
+                <span className="big"></span>
                 أضف قاعدة بيانات PostgreSQL لتفعيل تعديل الأسعار.
               </div>
             )
@@ -127,13 +127,13 @@ export default async function AdminRatesPage() {
 
               {currencies.length > 0 && (
                 <>
-                  <div className="a-group-title">💱 العملات</div>
+                  <div className="a-group-title">العملات</div>
                   <RateRows rows={currencies} />
                 </>
               )}
               {golds.length > 0 && (
                 <>
-                  <div className="a-group-title">◈ الذهب</div>
+                  <div className="a-group-title">الذهب</div>
                   <RateRows rows={golds} />
                 </>
               )}
@@ -141,7 +141,7 @@ export default async function AdminRatesPage() {
               <div className="a-savebar sticky">
                 <span className="tip">التغييرات تظهر في الموقع فور الحفظ</span>
                 <button className="a-btn" type="submit">
-                  💾 حفظ الأسعار
+                  حفظ الأسعار
                 </button>
               </div>
             </form>

@@ -237,17 +237,17 @@ export default function DepartmentsEditor({
       ))}
 
       <button type="button" className="a-btn ghost sm" onClick={add}>
-        ＋ إضافة قسم
+        إضافة قسم
       </button>
 
       <div className="a-savebar">
         <span className="tip">
           {state?.saved && !pending
-            ? "✅ تم الحفظ — الأقسام ظاهرة في صفحة تواصل معنا"
+            ? "تم الحفظ — الأقسام ظاهرة في صفحة تواصل معنا"
             : "القسم الذي لا يحمل رقمًا أو واتساب لا يظهر للزوار"}
         </span>
         <button className="a-btn" type="submit" disabled={pending || disabled}>
-          {pending ? "جارٍ الحفظ..." : "💾 حفظ الأقسام"}
+          {pending ? "جارٍ الحفظ..." : "حفظ الأقسام"}
         </button>
       </div>
     </form>

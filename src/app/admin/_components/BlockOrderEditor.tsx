@@ -93,11 +93,11 @@ export default function BlockOrderEditor({
       <div className="a-savebar">
         <span className="tip">
           {state?.saved && !pending
-            ? "✅ تم الحفظ — الترتيب مطبَّق على صفحة التواصل وبطاقة الباركود"
+            ? "تم الحفظ — الترتيب مطبَّق على صفحة التواصل وبطاقة الباركود"
             : "الترتيب نفسه يُطبَّق على صفحة التواصل وعلى صفحة الباركود"}
         </span>
         <button className="a-btn" type="submit" disabled={pending || disabled}>
-          {pending ? "جارٍ الحفظ..." : "💾 حفظ الترتيب"}
+          {pending ? "جارٍ الحفظ..." : "حفظ الترتيب"}
         </button>
       </div>
     </form>

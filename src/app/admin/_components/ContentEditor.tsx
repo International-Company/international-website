@@ -106,11 +106,11 @@ export default function ContentEditor({
       <div className="a-savebar sticky">
         <span className="tip">
           {state?.saved && !pending
-            ? "✅ تم الحفظ — التغييرات ظاهرة في الموقع الآن"
+            ? "تم الحفظ — التغييرات ظاهرة في الموقع الآن"
             : "التغييرات تظهر في الموقع فور الحفظ"}
         </span>
         <button className="a-btn" type="submit" disabled={pending || disabled}>
-          {pending ? "جارٍ الحفظ..." : "💾 حفظ التعديلات"}
+          {pending ? "جارٍ الحفظ..." : "حفظ التعديلات"}
         </button>
       </div>
     </form>
@@ -246,7 +246,7 @@ function ListEditor({
 
       {block.addable && (
         <button type="button" className="a-btn ghost sm" onClick={onAdd} disabled={full}>
-          ＋ إضافة {block.itemLabel}
+          إضافة {block.itemLabel}
           {full && ` (الحد الأقصى ${block.max})`}
         </button>
       )}

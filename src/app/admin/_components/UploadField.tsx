@@ -53,7 +53,7 @@ export default function UploadField({
     <form ref={formRef} action={action} className="a-upload">
       <input type="hidden" name="slot" value={slot} />
       <label className={`a-btn sm wide${pending ? " is-busy" : ""}`}>
-        {pending ? "جارٍ الرفع..." : "⬆ رفع صورة جديدة"}
+        {pending ? "جارٍ الرفع..." : "رفع صورة جديدة"}
         <input
           type="file"
           name="file"

@@ -80,23 +80,23 @@ export default async function AdminOverviewPage() {
       subtitle="ملخّص حالة الموقع والطلبات الواردة"
       actions={
         <Link href="/ar" className="a-btn ghost sm" target="_blank">
-          ↗ عرض الموقع
+          عرض الموقع
         </Link>
       }
     >
       <div className="a-stats">
         <div className={`a-stat${newCount > 0 ? " warn" : " ok"}`}>
-          <div className="lbl">📋 طلبات جديدة</div>
+          <div className="lbl">طلبات جديدة</div>
           <div className="val num">{newCount}</div>
           <div className="sub">بانتظار المتابعة</div>
         </div>
         <div className="a-stat ok">
-          <div className="lbl">📅 طلبات اليوم</div>
+          <div className="lbl">طلبات اليوم</div>
           <div className="val num">{todayCount}</div>
           <div className="sub">منذ منتصف الليل</div>
         </div>
         <div className="a-stat">
-          <div className="lbl">💱 بنود مفعّلة</div>
+          <div className="lbl">بنود مفعّلة</div>
           <div className="val num">
             {activeRates}
             <span style={{ fontSize: 15, color: "var(--ink-3)" }}> / {rates.length}</span>
@@ -104,7 +104,7 @@ export default async function AdminOverviewPage() {
           <div className="sub">تظهر للعملاء</div>
         </div>
         <div className="a-stat gold">
-          <div className="lbl">🕒 آخر تحديث للأسعار</div>
+          <div className="lbl">آخر تحديث للأسعار</div>
           <div className="val" style={{ fontSize: 17 }}>
             {lastUpdate ? arDateTime(lastUpdate) : "—"}
           </div>
@@ -114,7 +114,7 @@ export default async function AdminOverviewPage() {
 
       {announce.enabled && (
         <div className="a-note">
-          🔔 شريط الإعلانات مفعّل حالياً: «{announce.ar || announce.en}» —{" "}
+          شريط الإعلانات مفعّل حالياً: «{announce.ar || announce.en}» —{" "}
           <Link href="/admin/settings">تعديله</Link>
         </div>
       )}
@@ -142,7 +142,7 @@ export default async function AdminOverviewPage() {
           <div className="a-card-body">
             {byService.length === 0 ? (
               <div className="a-empty">
-                <span className="big">📭</span>
+                <span className="big"></span>
                 لا توجد طلبات في هذه الفترة.
               </div>
             ) : (
@@ -179,7 +179,7 @@ export default async function AdminOverviewPage() {
         <div className="a-card-body">
           {latest.length === 0 ? (
             <div className="a-empty">
-              <span className="big">📭</span>
+              <span className="big"></span>
               لم تصل أي طلبات بعد.
             </div>
           ) : (

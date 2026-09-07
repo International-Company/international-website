@@ -103,7 +103,7 @@ export default async function AdminSettingsPage() {
             <div className="a-savebar">
               <span className="tip">يظهر فوق القائمة العلوية في كل الصفحات</span>
               <button className="a-btn" type="submit" disabled={!hasDb}>
-                💾 حفظ الشريط
+                حفظ الشريط
               </button>
             </div>
           </form>
@@ -140,7 +140,7 @@ export default async function AdminSettingsPage() {
             </li>
             <li>
               <span className="k">قاعدة البيانات</span>
-              <span className="v">{hasDb ? "✅ متصلة" : "⚠️ غير متصلة"}</span>
+              <span className="v">{hasDb ? "متصلة" : "غير متصلة"}</span>
               <span className="note">DATABASE_URL</span>
             </li>
           </ul>

@@ -6,18 +6,21 @@ import { logoutAction } from "../actions";
  * Shared frame for every admin screen: sidebar on desktop, a scrolling pill
  * bar on phones, plus the page title and actions. Pages render only their own
  * content and let this handle navigation.
+ *
+ * Navigation is words, not pictures: seven labelled destinations read faster
+ * than seven glyphs a reader has to learn.
  */
 
-type NavItem = { href: string; label: string; icon: string; exact?: boolean };
+type NavItem = { href: string; label: string; exact?: boolean };
 
 const NAV: NavItem[] = [
-  { href: "/admin", label: "نظرة عامة", icon: "📊", exact: true },
-  { href: "/admin/rates", label: "أسعار الشركة", icon: "💱" },
-  { href: "/admin/requests", label: "الطلبات", icon: "📋" },
-  { href: "/admin/content", label: "محتوى الموقع", icon: "✍️" },
-  { href: "/admin/contact", label: "تواصل معنا", icon: "☎️" },
-  { href: "/admin/media", label: "الصور", icon: "🖼" },
-  { href: "/admin/settings", label: "الإعدادات", icon: "⚙️" },
+  { href: "/admin", label: "نظرة عامة", exact: true },
+  { href: "/admin/rates", label: "أسعار الشركة" },
+  { href: "/admin/requests", label: "الطلبات" },
+  { href: "/admin/content", label: "محتوى الموقع" },
+  { href: "/admin/contact", label: "تواصل معنا" },
+  { href: "/admin/media", label: "الصور" },
+  { href: "/admin/settings", label: "الإعدادات" },
 ];
 
 export default async function Chrome({
@@ -43,7 +46,7 @@ export default async function Chrome({
     const on = item.exact ? active === item.href : active.startsWith(item.href);
     return (
       <Link key={item.href} href={item.href} className={on ? "on" : ""}>
-        <span className="ico">{item.icon}</span> {item.label}
+        {item.label}
         {item.href === "/admin/requests" && newCount > 0 && (
           <span className="pill">{newCount}</span>
         )}
@@ -74,7 +77,7 @@ export default async function Chrome({
 
         <div className="a-side-foot">
           <Link href="/ar" className="a-btn ghost sm" target="_blank">
-            ↗ عرض الموقع
+            عرض الموقع
           </Link>
           <form action={logoutAction}>
             <button className="a-btn ghost sm wide" type="submit">

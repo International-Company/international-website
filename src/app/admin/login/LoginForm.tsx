@@ -33,7 +33,7 @@ export default function LoginForm() {
         </button>
 
         <div className="a-login-foot">
-          <span>🔒</span> اتصال آمن — لوحة إدارة خاصة
+          اتصال آمن — لوحة إدارة خاصة
         </div>
       </form>
     </div>

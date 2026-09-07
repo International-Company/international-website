@@ -41,17 +41,17 @@ export default async function AdminContentPage({
       subtitle="عدّل نصوص الموقع مباشرة — بالعربية والإنجليزية — دون لمس الكود"
       actions={
         <Link href={`/${locale}`} className="a-btn ghost sm" target="_blank">
-          ↗ عرض الموقع
+          عرض الموقع
         </Link>
       }
     >
       <div className="a-langbar">
         <div className="a-langs">
           <Link href={href({ lang: "ar" })} className={locale === "ar" ? "on" : ""}>
-            🇵🇸 العربية
+            العربية
           </Link>
           <Link href={href({ lang: "en" })} className={locale === "en" ? "on" : ""}>
-            🇬🇧 English
+            English
           </Link>
         </div>
         <p className="a-langbar-hint">
@@ -92,7 +92,7 @@ export default async function AdminContentPage({
           <form action={resetContentAction}>
             <input type="hidden" name="locale" value={locale} />
             <button className="a-btn danger sm" type="submit" disabled={!hasDb}>
-              ↺ استعادة النصوص الأصلية
+              استعادة النصوص الأصلية
             </button>
           </form>
         </div>

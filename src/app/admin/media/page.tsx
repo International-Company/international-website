@@ -75,7 +75,7 @@ export default async function AdminMediaPage() {
                   <form action={deleteMediaAction}>
                     <input type="hidden" name="slot" value={slot.slot} />
                     <button className="a-btn ghost sm wide" type="submit">
-                      ↺ استعادة الصورة الأصلية
+                      استعادة الصورة الأصلية
                     </button>
                   </form>
                 )}

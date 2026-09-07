@@ -98,11 +98,11 @@ export default async function AdminRequestsPage({
             className="a-btn ghost sm"
             href={`/admin/requests/export?${exportParams.toString()}`}
           >
-            ⬇ تصدير CSV
+            تصدير CSV
           </a>
           <form action={clearFinishedRequestsAction}>
             <button className="a-btn ghost sm" type="submit">
-              🧹 مسح المنجز والملغي
+              مسح المنجز والملغي
             </button>
           </form>
         </>
@@ -168,7 +168,7 @@ export default async function AdminRequestsPage({
 
           {shown.length === 0 ? (
             <div className="a-empty">
-              <span className="big">📭</span>
+              <span className="big"></span>
               {filtering ? "لا توجد طلبات مطابقة لهذا البحث." : "لم تصل أي طلبات بعد."}
             </div>
           ) : (
@@ -227,7 +227,7 @@ export default async function AdminRequestsPage({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    ✆ واتساب
+                    واتساب
                   </a>
                   <a className="a-btn ghost sm" href={`tel:${q2.phone.replace(/\s/g, "")}`}>
                     اتصال

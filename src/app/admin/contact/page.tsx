@@ -19,7 +19,6 @@ import Chrome from "../_components/Chrome";
 import ContentEditor from "../_components/ContentEditor";
 import BlockOrderEditor from "../_components/BlockOrderEditor";
 import DepartmentsEditor from "../_components/DepartmentsEditor";
-import SocialIcon from "@/components/SocialIcon";
 import { saveGalleryAction, saveSiteAction, saveSocialAction } from "../actions";
 
 export const dynamic = "force-dynamic";
@@ -57,7 +56,7 @@ export default async function AdminContactPage({
       subtitle="أرقام الأقسام وروابط التواصل الاجتماعي التي تظهر في صفحة «تواصل معنا»"
       actions={
         <Link href="/ar/contact" className="a-btn ghost sm" target="_blank">
-          ↗ صفحة التواصل
+          صفحة التواصل
         </Link>
       }
     >
@@ -95,7 +94,7 @@ export default async function AdminContactPage({
             <div className="a-savebar">
               <span className="tip">تُطبَّق فوراً على كل صفحات الموقع</span>
               <button className="a-btn" type="submit" disabled={!hasDb}>
-                💾 حفظ الأرقام الرئيسية
+                حفظ الأرقام الرئيسية
               </button>
             </div>
           </form>
@@ -124,12 +123,10 @@ export default async function AdminContactPage({
                 return (
                   <label className="a-social-row" key={platform.id}>
                     <span
-                      className={`a-social-ic${value.trim() ? " on" : ""}`}
+                      className={`a-social-dot${value.trim() ? " on" : ""}`}
                       style={{ ["--brand" as string]: platform.color }}
                       aria-hidden
-                    >
-                      <SocialIcon id={platform.id} />
-                    </span>
+                    />
                     <span className="a-social-name">
                       <b>{platform.label}</b>
                       <small>{platform.labelEn}</small>
@@ -150,7 +147,7 @@ export default async function AdminContactPage({
             <div className="a-savebar">
               <span className="tip">تظهر كأيقونات ملوّنة أسفل صفحة التواصل</span>
               <button className="a-btn" type="submit" disabled={!hasDb}>
-                💾 حفظ الروابط
+                حفظ الروابط
               </button>
             </div>
           </form>
@@ -216,7 +213,7 @@ export default async function AdminContactPage({
             {cards.map((card) => (
               <div className="a-qr" key={card.locale}>
                 <div className="a-qr-head">
-                  <b>{card.locale === "ar" ? "🇵🇸 النسخة العربية" : "🇬🇧 English version"}</b>
+                  <b>{card.locale === "ar" ? "النسخة العربية" : "English version"}</b>
                 </div>
 
                 <div
@@ -234,13 +231,13 @@ export default async function AdminContactPage({
                     className="a-btn sm"
                     href={`/admin/qr?lang=${card.locale}&size=1024`}
                   >
-                    ⬇ تنزيل PNG
+                    تنزيل PNG
                   </a>
                   <a
                     className="a-btn ghost sm"
                     href={`/admin/qr?lang=${card.locale}&format=svg`}
                   >
-                    ⬇ SVG للطباعة
+                    SVG للطباعة
                   </a>
                   <a
                     className="a-btn ghost sm"
@@ -248,7 +245,7 @@ export default async function AdminContactPage({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    ↗ معاينة
+                    معاينة
                   </a>
                 </div>
               </div>
@@ -355,7 +352,7 @@ export default async function AdminContactPage({
             <div className="a-savebar">
               <span className="tip">تظهر أسفل بطاقات الأقسام في صفحة التواصل</span>
               <button className="a-btn" type="submit" disabled={!hasDb}>
-                💾 حفظ بطاقة المعرض
+                حفظ بطاقة المعرض
               </button>
             </div>
           </form>
@@ -368,10 +365,10 @@ export default async function AdminContactPage({
           <div className="a-langbar">
             <div className="a-langs">
               <Link href="/admin/contact?lang=ar" className={locale === "ar" ? "on" : ""}>
-                🇵🇸 العربية
+                العربية
               </Link>
               <Link href="/admin/contact?lang=en" className={locale === "en" ? "on" : ""}>
-                🇬🇧 English
+                English
               </Link>
             </div>
             <p className="a-langbar-hint">عنوان الصفحة يُكتب لكل لغة على حدة.</p>
