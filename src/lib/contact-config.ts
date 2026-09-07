@@ -175,11 +175,18 @@ const HONORIFIC =
   /^\s*(?:[أادمهةحس]\s*\.\s*|(?:الأستاذ|الاستاذ|الدكتور|المهندس|السيد|الحاج|الشيخ|الآنسة)[ةه]?\s+|(?:Mr|Mrs|Ms|Miss|Dr|Eng|Prof)\.?\s+)+/i;
 
 /**
+ * A kunya — "أبو محمد", "أم عبدالله" — names someone after their child, so its
+ * first letter is always أ and tells two people apart no better than a title.
+ * Only stripped when a name follows it.
+ */
+const KUNYA = /^\s*(?:أب[وا]|ابو|أم|ام|ابن|بن|بنت)\s+(?=\S)/;
+
+/**
  * First letter of the person's actual given name, for the avatar badge.
  * Returns an empty string when there is nothing usable to show.
  */
 export function nameInitial(name: string): string {
-  const stripped = name.replace(HONORIFIC, "").trim();
+  const stripped = name.replace(HONORIFIC, "").replace(KUNYA, "").trim();
   return (stripped || name.trim()).charAt(0);
 }
 

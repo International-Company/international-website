@@ -2535,152 +2535,185 @@ body:has(.announce) { --ann-h: 40px; }
 
 /* ============================================================
    CONTACT CHANNELS
-   Department direct lines + social profiles, both filled from
-   the admin panel. This is the whole of the contact page.
+   The whole of the contact page: one card per department, then
+   the social band. The page heading sits above in .page-head,
+   so this section opens straight onto the cards.
    ============================================================ */
 .channels {
-  /* The social band closes the page, so the footer follows directly. */
-  padding: 120px 0 110px;
+  /* Tight to the heading above — the two read as one block, not two
+     sections separated by a void. */
+  padding: 64px 0 120px;
   background: var(--bg);
-  border-block-start: 1px solid var(--border);
 }
 
 /* ── department cards ────────────────────────────────────── */
 .dept-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin-top: 56px;
+  grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
+  gap: 22px;
 }
 /* The reveal wrapper has to stretch too, or a card with an extra line of
    text ends up taller than its neighbours and the buttons stop lining up. */
 .dept-grid > * { display: flex; }
 .dept-grid > * > .dept-card { width: 100%; }
+
 .dept-card {
   position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 32px 28px 26px;
-  border-radius: 20px;
-  background: var(--card);
+  padding: 26px 24px 24px;
+  border-radius: 22px;
+  background: linear-gradient(168deg, var(--card-hover) -10%, var(--card) 55%);
   border: 1px solid var(--border);
   overflow: hidden;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.45s,
-    box-shadow 0.45s;
+  isolation: isolate;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s,
+    box-shadow 0.5s;
 }
-/* A hairline of accent that fills in on hover — quiet at rest. */
+/* A hairline along the top edge: barely there at rest, lit on hover. */
 .dept-card::before {
   content: "";
   position: absolute;
   inset-block-start: 0;
-  inset-inline: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  inset-inline: 18%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-2), transparent);
+  opacity: 0.25;
+  transition: opacity 0.5s, inset-inline 0.5s;
+}
+/* A soft glow that only wakes on hover, kept behind the content. */
+.dept-card::after {
+  content: "";
+  position: absolute;
+  inset-block-start: -60%;
+  inset-inline-start: 50%;
+  width: 140%;
+  aspect-ratio: 1;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow), transparent 62%);
   opacity: 0;
-  transition: opacity 0.45s;
+  transition: opacity 0.6s;
+  z-index: -1;
 }
 .dept-card:hover {
   transform: translateY(-6px);
   border-color: var(--border-strong);
   box-shadow: var(--shadow);
 }
-.dept-card:hover::before { opacity: 1; }
+.dept-card:hover::before { opacity: 1; inset-inline: 6%; }
+.dept-card:hover::after { opacity: 1; }
 
+/* header: icon beside the department name, not stacked above it */
+.dept-top {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
 .dept-ic {
-  width: 52px;
-  height: 52px;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
   display: grid;
   place-items: center;
-  border-radius: 15px;
-  margin-bottom: 20px;
-  font-size: 23px;
+  border-radius: 13px;
+  font-size: 19px;
   line-height: 1;
-  background: linear-gradient(150deg, var(--card-hover), var(--card));
+  background: var(--surface);
   border: 1px solid var(--border-strong);
+  transition: border-color 0.4s, background 0.4s;
+}
+.dept-card:hover .dept-ic {
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
 }
 .dept-card h3 {
-  font-size: 18px;
+  font-size: 16.5px;
   font-weight: 600;
   line-height: 1.4;
-  margin-bottom: 14px;
+  margin: 0;
+  min-width: 0;
 }
-.dept-card h3:has(+ .dept-person) { margin-bottom: 12px; }
 
-/* Who runs the desk — sits between the department name and its number. */
+/* the person who answers — the promise the page makes */
 .dept-person {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid var(--border);
-  width: 100%;
+  gap: 11px;
+  margin-bottom: 20px;
   min-width: 0;
 }
 .dept-avatar {
   flex-shrink: 0;
-  width: 34px;
-  height: 34px;
+  width: 40px;
+  height: 40px;
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: linear-gradient(150deg, var(--accent), var(--accent-strong));
+  background: linear-gradient(150deg, var(--accent-2), var(--accent-strong));
   color: #fff;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1;
+  box-shadow: 0 4px 14px var(--accent-glow);
 }
 .dept-person > span:last-child { min-width: 0; }
+/* No letter-spacing here: Arabic letters join, and spacing them out breaks
+   the joins. The label leans on size and colour instead. */
 .dept-person small {
   display: block;
-  font-size: 10.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 11px;
   color: var(--text-3);
-  line-height: 1.5;
+  line-height: 1.6;
+}
+[dir="ltr"] .dept-person small {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 .dept-person b {
   display: block;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--text-1);
-  line-height: 1.4;
+  line-height: 1.35;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+/* the number is the point of the card, so it carries the most weight */
 .dept-num,
 .dept-mail {
   display: block;
   font-family: var(--font-en), sans-serif;
   text-decoration: none;
-  transition: color 0.25s;
+  transition: color 0.3s;
   word-break: break-all;
 }
 .dept-num {
-  font-size: 17px;
+  font-size: 21px;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
   color: var(--text-1);
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 .dept-num:hover { color: var(--accent-2); }
 .dept-mail {
   font-size: 12.5px;
   color: var(--text-3);
-  margin-bottom: 4px;
 }
 .dept-mail:hover { color: var(--text-2); }
 
 .dept-actions {
   display: flex;
-  gap: 9px;
-  flex-wrap: wrap;
+  gap: 8px;
   margin-top: auto;
-  padding-top: 20px;
+  padding-top: 22px;
   width: 100%;
 }
 .dept-btn {
@@ -2692,16 +2725,16 @@ body:has(.announce) { --ann-h: 40px; }
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 11px 10px;
-  white-space: nowrap;
-  border-radius: 11px;
+  padding: 12px 10px;
+  border-radius: 12px;
   border: 1px solid var(--border-strong);
   background: transparent;
   color: var(--text-2);
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
-  transition: background 0.25s, color 0.25s, border-color 0.25s;
+  white-space: nowrap;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
 .dept-btn:hover {
   background: var(--card-hover);
@@ -2717,54 +2750,54 @@ body:has(.announce) { --ann-h: 40px; }
 
 /* ── social band ─────────────────────────────────────────── */
 .social-band {
-  margin-top: 72px;
-  padding: 44px 46px;
-  border-radius: 24px;
+  margin-top: 64px;
+  padding: 40px 46px;
+  border-radius: 26px;
   border: 1px solid var(--border);
   background:
-    radial-gradient(120% 140% at 100% 0%, var(--glow), transparent 62%),
+    radial-gradient(120% 160% at 100% 0%, var(--glow), transparent 60%),
     var(--surface);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 34px;
+  gap: 32px;
   flex-wrap: wrap;
 }
 .social-copy h3 {
-  font-size: 22px;
+  font-size: 21px;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 7px;
 }
 .social-copy p {
   font-size: 14px;
   color: var(--text-2);
-  max-width: 40ch;
+  max-width: 42ch;
 }
 
 .social-row {
   list-style: none;
   display: flex;
-  gap: 12px;
+  gap: 11px;
   flex-wrap: wrap;
 }
 .social-btn {
   --brand: var(--accent);
-  width: 52px;
-  height: 52px;
+  width: 54px;
+  height: 54px;
   display: grid;
   place-items: center;
-  border-radius: 15px;
+  border-radius: 16px;
   border: 1px solid var(--border-strong);
   background: var(--card);
   color: var(--text-2);
-  transition: color 0.28s, border-color 0.28s, background 0.28s,
-    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: color 0.3s, border-color 0.3s, background 0.3s,
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.social-btn svg { width: 21px; height: 21px; }
+.social-btn svg { width: 22px; height: 22px; }
 /* Colour is the reward for reaching for it, so the row stays calm at rest. */
 .social-btn:hover,
 .social-btn:focus-visible {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
   color: var(--brand);
   border-color: color-mix(in srgb, var(--brand) 55%, transparent);
   background: color-mix(in srgb, var(--brand) 13%, var(--card));
@@ -2777,17 +2810,15 @@ body:has(.announce) { --ann-h: 40px; }
 }
 
 @media (max-width: 720px) {
-  .channels { padding: 80px 0 60px; }
-  .dept-grid { margin-top: 40px; gap: 16px; }
-  .dept-card { padding: 26px 22px 22px; }
+  .channels { padding: 44px 0 80px; }
+  .dept-grid { gap: 14px; }
+  .dept-card { padding: 22px 20px 20px; border-radius: 18px; }
+  .dept-num { font-size: 19px; }
   .social-band {
-    margin-top: 48px;
-    padding: 32px 24px;
-    gap: 26px;
+    margin-top: 40px;
+    padding: 30px 24px;
+    gap: 24px;
   }
-  .social-copy h3 { font-size: 19px; }
-  .social-btn { width: 48px; height: 48px; border-radius: 14px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
+  .social-copy h3 { font-size: 18px; }
+  .social-btn { width: 50px; height: 50px; border-radius: 15px; }
 }

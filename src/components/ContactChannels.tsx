@@ -66,10 +66,12 @@ export default function ContactChannels({
                 return (
                   <Reveal key={`${name}-${i}`} delay={0.06 * i}>
                     <article className="dept-card">
-                      <span className="dept-ic" aria-hidden>
-                        {dept.icon || "☎"}
-                      </span>
-                      <h3>{name}</h3>
+                      <header className="dept-top">
+                        <span className="dept-ic" aria-hidden>
+                          {dept.icon || "☎"}
+                        </span>
+                        <h3>{name}</h3>
+                      </header>
 
                       {person && (
                         <div className="dept-person">
