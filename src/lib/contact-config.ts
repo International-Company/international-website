@@ -116,6 +116,8 @@ export type Department = {
   /** Digits only, no "+" — goes straight into a wa.me link. Optional. */
   whatsapp: string;
   email: string;
+  /** A site of its own — a showroom, a catalogue. Optional. */
+  website: string;
 };
 
 /**
@@ -124,7 +126,14 @@ export type Department = {
  * Numbers start empty on purpose: a department with no phone is skipped on the
  * public page, so the section stays honest until real numbers are entered.
  */
-const blankDept = { personAr: "", personEn: "", phone: "", whatsapp: "", email: "" };
+const blankDept = {
+  personAr: "",
+  personEn: "",
+  phone: "",
+  whatsapp: "",
+  email: "",
+  website: "",
+};
 
 export const DEFAULT_DEPARTMENTS: Department[] = [
   { icon: "💸", nameAr: "الحوالات المالية", nameEn: "Money Remittances", ...blankDept },
@@ -236,6 +245,7 @@ export const getDepartments = cache(async function getDepartments(): Promise<Dep
     phone: String(row.phone ?? "").trim(),
     whatsapp: digits(String(row.whatsapp ?? "")),
     email: String(row.email ?? "").trim(),
+    website: safeUrl(String(row.website ?? "")),
   }));
 });
 
@@ -243,7 +253,7 @@ export const getDepartments = cache(async function getDepartments(): Promise<Dep
 export async function getPublicDepartments(): Promise<Department[]> {
   const rows = await getDepartments();
   return rows.filter(
-    (d) => (d.nameAr || d.nameEn) && (d.phone || d.whatsapp || d.email)
+    (d) => (d.nameAr || d.nameEn) && (d.phone || d.whatsapp || d.email || d.website)
   );
 }
 

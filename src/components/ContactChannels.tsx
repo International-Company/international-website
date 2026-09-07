@@ -19,6 +19,7 @@ const COPY = {
     whatsapp: "واتساب",
     email: "بريد",
     inCharge: "المسؤول",
+    website: "زيارة الموقع",
     socialTitle: "تابعنا على منصاتنا",
     socialSub: "آخر الأسعار والعروض والأخبار أولًا بأول.",
   },
@@ -27,6 +28,7 @@ const COPY = {
     whatsapp: "WhatsApp",
     email: "Email",
     inCharge: "In charge",
+    website: "Visit site",
     socialTitle: "Follow us",
     socialSub: "Rates, offers and announcements as they happen.",
   },
@@ -67,9 +69,6 @@ export default function ContactChannels({
                   <Reveal key={`${name}-${i}`} delay={0.06 * i}>
                     <article className="dept-card">
                       <header className="dept-top">
-                        <span className="dept-ic" aria-hidden>
-                          {dept.icon || "☎"}
-                        </span>
                         <h3>{name}</h3>
                       </header>
 
@@ -96,6 +95,18 @@ export default function ContactChannels({
                         </a>
                       )}
 
+                      {dept.website && (
+                        <a
+                          className="dept-site"
+                          href={dept.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {t.website}
+                          <span aria-hidden>↗</span>
+                        </a>
+                      )}
+
                       <div className="dept-actions">
                         {dept.phone && (
                           <a className="dept-btn" href={`tel:${tel}`}>
@@ -113,6 +124,7 @@ export default function ContactChannels({
                           </a>
                         )}
                       </div>
+
                     </article>
                   </Reveal>
                 );

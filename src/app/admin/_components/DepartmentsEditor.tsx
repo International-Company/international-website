@@ -15,6 +15,7 @@ import { saveDepartmentsAction } from "../actions";
 type Row = { key: string; value: Department };
 
 const EMPTY: Department = {
+  // Kept in the shape for stored rows, though the card no longer draws it.
   icon: "",
   nameAr: "",
   nameEn: "",
@@ -23,6 +24,7 @@ const EMPTY: Department = {
   phone: "",
   whatsapp: "",
   email: "",
+  website: "",
 };
 
 export default function DepartmentsEditor({
@@ -114,17 +116,6 @@ export default function DepartmentsEditor({
           </div>
 
           <div className="a-fieldgrid">
-            <label className="a-field compact">
-              <span className="a-field-label">الأيقونة</span>
-              <input
-                name={`dept_${row.key}_icon`}
-                type="text"
-                defaultValue={row.value.icon}
-                dir="auto"
-              />
-              <small className="a-field-hint">إيموجي واحد</small>
-            </label>
-
             <label className="a-field">
               <span className="a-field-label">اسم القسم بالعربية</span>
               <input
@@ -204,6 +195,20 @@ export default function DepartmentsEditor({
                 defaultValue={row.value.email}
                 dir="ltr"
               />
+            </label>
+
+            <label className="a-field wide">
+              <span className="a-field-label">رابط موقع خاص بالقسم (اختياري)</span>
+              <input
+                name={`dept_${row.key}_website`}
+                type="text"
+                defaultValue={row.value.website}
+                dir="ltr"
+                placeholder="https://gold-showroom.example.com"
+              />
+              <small className="a-field-hint">
+                معرض أو كتالوج أو صفحة خاصة بالقسم — يظهر كزر «زيارة الموقع» على البطاقة
+              </small>
             </label>
           </div>
         </div>

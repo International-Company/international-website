@@ -33,12 +33,12 @@ export default async function ContactPage({
 
   return (
     <>
-      <div className="page-head">
+      {/* Two words, centred, with a rule under them — nothing else needs
+          saying before the numbers themselves. */}
+      <div className="page-head page-head-plain">
         <div className="wrap">
           <Reveal>
-            <div className="chapter-tag">{dict.contact.tag}</div>
-            <h1 className="section-title">{dict.contact.title}</h1>
-            <p className="section-sub">{dict.contact.lead}</p>
+            <h1 className="page-title-solo">{dict.contact.title}</h1>
           </Reveal>
         </div>
       </div>

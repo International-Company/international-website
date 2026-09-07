@@ -337,6 +337,7 @@ export async function saveDepartmentsAction(
     phone: get(key, "phone"),
     whatsapp: digits(get(key, "whatsapp")),
     email: get(key, "email"),
+    website: safeUrl(get(key, "website")),
   }));
 
   await saveDepartments(departments);

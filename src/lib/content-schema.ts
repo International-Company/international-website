@@ -362,9 +362,7 @@ export const CONTENT_GROUPS: Group[] = [
           {
             kind: "fields",
             fields: [
-              { path: "contact.tag", label: "وسم القسم" },
-              { path: "contact.title", label: "العنوان", type: "area" },
-              { path: "contact.lead", label: "الفقرة تحت العنوان", type: "area" },
+              { path: "contact.title", label: "عنوان الصفحة" },
             ],
           },
         ],

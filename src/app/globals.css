@@ -2536,21 +2536,45 @@ body:has(.announce) { --ann-h: 40px; }
 /* ============================================================
    CONTACT CHANNELS
    The whole of the contact page: one card per department, then
-   the social band. The page heading sits above in .page-head,
-   so this section opens straight onto the cards.
+   the social band. The heading above is two words and a rule,
+   so the cards carry the page.
    ============================================================ */
+
+/* ── the page's one-line heading ──────────────────────────── */
+.page-head-plain { padding: 170px 0 76px; text-align: center; }
+.page-title-solo {
+  font-size: clamp(38px, 6vw, 68px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0 auto;
+  width: fit-content;
+  padding-bottom: 22px;
+  position: relative;
+}
+/* A short rule centred under the words, in place of a subtitle. */
+.page-title-solo::after {
+  content: "";
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: 50%;
+  translate: -50% 0;
+  width: 68px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
 .channels {
-  /* Tight to the heading above — the two read as one block, not two
-     sections separated by a void. */
-  padding: 64px 0 120px;
+  padding: 56px 0 120px;
   background: var(--bg);
 }
 
 /* ── department cards ────────────────────────────────────── */
 .dept-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
-  gap: 22px;
+  grid-template-columns: repeat(auto-fit, minmax(262px, 1fr));
+  gap: 20px;
 }
 /* The reveal wrapper has to stretch too, or a card with an extra line of
    text ends up taller than its neighbours and the buttons stop lining up. */
@@ -2562,104 +2586,66 @@ body:has(.announce) { --ann-h: 40px; }
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 26px 24px 24px;
-  border-radius: 22px;
-  background: linear-gradient(168deg, var(--card-hover) -10%, var(--card) 55%);
+  padding: 30px 26px 26px;
+  border-radius: 20px;
+  background: var(--card);
   border: 1px solid var(--border);
   overflow: hidden;
   isolation: isolate;
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s,
-    box-shadow 0.5s;
+    background 0.5s, box-shadow 0.5s;
 }
-/* A hairline along the top edge: barely there at rest, lit on hover. */
+/* A rule down the leading edge, the one piece of colour at rest. */
 .dept-card::before {
   content: "";
   position: absolute;
-  inset-block-start: 0;
-  inset-inline: 18%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent-2), transparent);
-  opacity: 0.25;
-  transition: opacity 0.5s, inset-inline 0.5s;
-}
-/* A soft glow that only wakes on hover, kept behind the content. */
-.dept-card::after {
-  content: "";
-  position: absolute;
-  inset-block-start: -60%;
-  inset-inline-start: 50%;
-  width: 140%;
-  aspect-ratio: 1;
-  translate: -50% 0;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--glow), transparent 62%);
-  opacity: 0;
-  transition: opacity 0.6s;
-  z-index: -1;
+  inset-block: 26px;
+  inset-inline-start: 0;
+  width: 2px;
+  border-radius: 0 2px 2px 0;
+  background: linear-gradient(180deg, var(--accent), transparent);
+  opacity: 0.55;
+  transition: opacity 0.5s, inset-block 0.5s;
 }
 .dept-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-5px);
+  background: var(--card-hover);
   border-color: var(--border-strong);
   box-shadow: var(--shadow);
 }
-.dept-card:hover::before { opacity: 1; inset-inline: 6%; }
-.dept-card:hover::after { opacity: 1; }
+.dept-card:hover::before { opacity: 1; inset-block: 0; }
 
-/* header: icon beside the department name, not stacked above it */
-.dept-top {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  padding-bottom: 18px;
-  margin-bottom: 18px;
-  border-bottom: 1px solid var(--border);
-}
-.dept-ic {
-  flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  border-radius: 13px;
-  font-size: 19px;
-  line-height: 1;
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  transition: border-color 0.4s, background 0.4s;
-}
-.dept-card:hover .dept-ic {
-  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
-  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
-}
+/* department name — the label you scan for */
+.dept-top { margin-bottom: 22px; }
 .dept-card h3 {
-  font-size: 16.5px;
+  font-size: 15px;
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.45;
   margin: 0;
-  min-width: 0;
+  color: var(--text-2);
 }
 
-/* the person who answers — the promise the page makes */
+/* the person who answers */
 .dept-person {
   display: flex;
   align-items: center;
-  gap: 11px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 22px;
   min-width: 0;
 }
 .dept-avatar {
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: 46px;
+  height: 46px;
   display: grid;
   place-items: center;
-  border-radius: 50%;
-  background: linear-gradient(150deg, var(--accent-2), var(--accent-strong));
+  border-radius: 14px;
+  background: linear-gradient(155deg, var(--accent-2), var(--accent-strong));
   color: #fff;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   line-height: 1;
-  box-shadow: 0 4px 14px var(--accent-glow);
+  box-shadow: 0 5px 16px var(--accent-glow);
 }
 .dept-person > span:last-child { min-width: 0; }
 /* No letter-spacing here: Arabic letters join, and spacing them out breaks
@@ -2668,7 +2654,7 @@ body:has(.announce) { --ann-h: 40px; }
   display: block;
   font-size: 11px;
   color: var(--text-3);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 [dir="ltr"] .dept-person small {
   font-size: 10px;
@@ -2677,7 +2663,7 @@ body:has(.announce) { --ann-h: 40px; }
 }
 .dept-person b {
   display: block;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 600;
   color: var(--text-1);
   line-height: 1.35;
@@ -2696,9 +2682,9 @@ body:has(.announce) { --ann-h: 40px; }
   word-break: break-all;
 }
 .dept-num {
-  font-size: 21px;
+  font-size: 22px;
   font-weight: 600;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   color: var(--text-1);
   margin-bottom: 3px;
 }
@@ -2713,7 +2699,7 @@ body:has(.announce) { --ann-h: 40px; }
   display: flex;
   gap: 8px;
   margin-top: auto;
-  padding-top: 22px;
+  padding-top: 24px;
   width: 100%;
 }
 .dept-btn {
@@ -2726,7 +2712,7 @@ body:has(.announce) { --ann-h: 40px; }
   justify-content: center;
   gap: 6px;
   padding: 12px 10px;
-  border-radius: 12px;
+  border-radius: 11px;
   border: 1px solid var(--border-strong);
   background: transparent;
   color: var(--text-2);
@@ -2737,7 +2723,7 @@ body:has(.announce) { --ann-h: 40px; }
   transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
 .dept-btn:hover {
-  background: var(--card-hover);
+  background: var(--surface);
   border-color: var(--text-3);
   color: var(--text-1);
 }
@@ -2748,11 +2734,41 @@ body:has(.announce) { --ann-h: 40px; }
 }
 .dept-btn.wa:hover { filter: brightness(1.08); color: #06301a; }
 
+/* A department with a site of its own. Tinted rather than outlined: a dashed
+   box reads as disabled, and this is a live link. */
+.dept-site {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 12px 12px;
+  border-radius: 11px;
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
+  background: color-mix(in srgb, var(--accent) 11%, transparent);
+  color: var(--accent-2);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.3s, border-color 0.3s, color 0.3s;
+}
+.dept-site span {
+  font-size: 12px;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dept-site:hover {
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  border-color: var(--accent);
+}
+.dept-site:hover span { transform: translate(-2px, -2px); }
+[dir="ltr"] .dept-site:hover span { transform: translate(2px, -2px); }
+
 /* ── social band ─────────────────────────────────────────── */
 .social-band {
-  margin-top: 64px;
+  margin-top: 60px;
   padding: 40px 46px;
-  border-radius: 26px;
+  border-radius: 24px;
   border: 1px solid var(--border);
   background:
     radial-gradient(120% 160% at 100% 0%, var(--glow), transparent 60%),
@@ -2807,13 +2823,15 @@ body:has(.announce) { --ann-h: 40px; }
   .dept-card:hover,
   .social-btn:hover,
   .social-btn:focus-visible { transform: none; }
+  .dept-site:hover span { transform: none; }
 }
 
 @media (max-width: 720px) {
-  .channels { padding: 44px 0 80px; }
+  .page-head-plain { padding: 130px 0 52px; }
+  .channels { padding: 40px 0 80px; }
   .dept-grid { gap: 14px; }
-  .dept-card { padding: 22px 20px 20px; border-radius: 18px; }
-  .dept-num { font-size: 19px; }
+  .dept-card { padding: 24px 20px 20px; border-radius: 17px; }
+  .dept-num { font-size: 20px; }
   .social-band {
     margin-top: 40px;
     padding: 30px 24px;
