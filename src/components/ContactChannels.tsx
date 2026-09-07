@@ -15,7 +15,6 @@ import Reveal from "./Reveal";
 
 const COPY = {
   ar: {
-    call: "اتصال",
     whatsapp: "واتساب",
     email: "بريد",
     inCharge: "المسؤول",
@@ -24,7 +23,6 @@ const COPY = {
     socialSub: "آخر الأسعار والعروض والأخبار أولًا بأول.",
   },
   en: {
-    call: "Call",
     whatsapp: "WhatsApp",
     email: "Email",
     inCharge: "In charge",
@@ -111,11 +109,6 @@ export default function ContactChannels({
                       )}
 
                       <div className="dept-actions">
-                        {dept.phone && (
-                          <a className="dept-btn" href={`tel:${tel}`}>
-                            <span aria-hidden>✆</span> {t.call}
-                          </a>
-                        )}
                         {dept.whatsapp && (
                           <a
                             className="dept-btn wa"
