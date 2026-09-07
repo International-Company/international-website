@@ -12,7 +12,6 @@ import ScrollProgress from "@/components/ScrollProgress";
 import CursorFx from "@/components/CursorFx";
 import Ticker from "@/components/Ticker";
 import Navbar from "@/components/Navbar";
-import WhatsAppFloat from "@/components/WhatsAppFloat";
 import Analytics from "@/components/Analytics";
 import "../globals.css";
 
@@ -152,7 +151,6 @@ export default async function LocaleLayout({
         <Ticker />
         <Navbar dict={dict} locale={locale} logo={images.logo} />
         <main>{children}</main>
-        <WhatsAppFloat label={dict.whatsapp} wa={site.whatsapp} />
         <Analytics />
       </body>
     </html>
