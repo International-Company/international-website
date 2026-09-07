@@ -9,6 +9,7 @@ import {
   getSocialSettings,
 } from "@/lib/contact-config";
 import { getGallery } from "@/lib/gallery-config";
+import { allCards, configuredOrigin } from "@/lib/qr";
 import { getImages } from "@/lib/media";
 import { getContent } from "@/lib/content";
 import { findGroup } from "@/lib/content-schema";
@@ -36,6 +37,8 @@ export default async function AdminContactPage({
   const departments = await getDepartments();
   const gallery = await getGallery();
   const images = await getImages();
+  const cards = await allCards();
+  const otherOrigin = await configuredOrigin();
 
   const headingGroup = findGroup("contact");
   const headingData = headingGroup
@@ -165,6 +168,77 @@ export default async function AdminContactPage({
           <DepartmentsEditor departments={departments} disabled={!hasDb} />
         </div>
       </section>
+      {/* ── the printed contact card ── */}
+      <section className="a-card">
+        <div className="a-card-head">
+          <div>
+            <h2>باركود بطاقة التواصل</h2>
+            <div className="hint">
+              امسحه ليفتح صفحة أرقامكم وحدها — بلا قائمة ولا رابط لبقية الموقع
+            </div>
+          </div>
+        </div>
+
+        <div className="a-card-body">
+          <div className="a-note">
+            صفحة البطاقة تعرض نفس أقسامكم وأرقامكم والمعرض — تُحدَّث تلقائيًا مع أي
+            تعديل تحفظه هنا، فالباركود المطبوع يبقى صالحًا للأبد.
+          </div>
+
+          {otherOrigin && (
+            <div className="a-error">
+              الباركود يشير إلى العنوان الذي تتصفّح منه الآن. لكن{" "}
+              <code>NEXT_PUBLIC_SITE_URL</code> مضبوط على <code>{otherOrigin}</code> —
+              إن كان هذا هو النطاق النهائي، اضبطه أولًا وافتح اللوحة منه ثم اطبع
+              الباركود، وإلا فستطبع رمزًا يشير لعنوان مؤقت.
+            </div>
+          )}
+
+          <div className="a-qr-grid">
+            {cards.map((card) => (
+              <div className="a-qr" key={card.locale}>
+                <div className="a-qr-head">
+                  <b>{card.locale === "ar" ? "🇵🇸 النسخة العربية" : "🇬🇧 English version"}</b>
+                </div>
+
+                <div
+                  className="a-qr-img"
+                  /* Generated on the server by the qrcode package, not user input. */
+                  dangerouslySetInnerHTML={{ __html: card.svg }}
+                />
+
+                <code className="a-qr-url" dir="ltr">
+                  {card.url}
+                </code>
+
+                <div className="a-qr-actions">
+                  <a
+                    className="a-btn sm"
+                    href={`/admin/qr?lang=${card.locale}&size=1024`}
+                  >
+                    ⬇ تنزيل PNG
+                  </a>
+                  <a
+                    className="a-btn ghost sm"
+                    href={`/admin/qr?lang=${card.locale}&format=svg`}
+                  >
+                    ⬇ SVG للطباعة
+                  </a>
+                  <a
+                    className="a-btn ghost sm"
+                    href={card.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ↗ معاينة
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── the jewellery showroom ── */}
       <section className="a-card">
         <div className="a-card-head">

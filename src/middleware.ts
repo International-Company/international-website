@@ -18,5 +18,7 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next|api|admin|.*\\..*).*)"],
+  // `card` carries its own locale segment (/card/ar), so it must not be
+  // rewritten to /ar/card by the redirect above.
+  matcher: ["/((?!_next|api|admin|card|.*\\..*).*)"],
 };
