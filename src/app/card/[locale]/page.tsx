@@ -10,6 +10,7 @@ import {
   nameInitial,
 } from "@/lib/contact-config";
 import { getGallery } from "@/lib/gallery-config";
+import { getBlockOrder, type BlockId } from "@/lib/contact-layout";
 import { getImages } from "@/lib/media";
 import SocialIcon from "@/components/SocialIcon";
 import GalleryCard from "@/components/GalleryCard";
@@ -54,27 +55,14 @@ export default async function CardPage({
   const socials = await getSocialLinks();
   const gallery = await getGallery();
   const images = await getImages();
+  const order = await getBlockOrder();
   const t = COPY[locale];
   const ar = locale === "ar";
 
-  return (
-    <main className="card-page">
-      <header className="card-head">
-        <Image
-          src={images.logo}
-          alt=""
-          width={82}
-          height={82}
-          className="card-logo"
-          priority
-          unoptimized={images.logo.startsWith("/api/")}
-        />
-        <h1>{ar ? dict.brand.ar : dict.brand.en}</h1>
-        <p>{dict.preloader.tagline}</p>
-      </header>
-
-      {departments.length > 0 && (
-        <ul className="card-list">
+  const blocks: Record<BlockId, React.ReactNode> = {
+    departments:
+      departments.length > 0 ? (
+        <ul className="card-list" key="departments">
           {departments.map((dept, i) => {
             const name = (ar ? dept.nameAr : dept.nameEn) || dept.nameAr;
             const person = ar
@@ -118,12 +106,20 @@ export default async function CardPage({
             );
           })}
         </ul>
-      )}
+      ) : null,
 
-      <GalleryCard locale={locale} gallery={gallery} emblem={images["gallery-emblem"]} />
+    gallery: (
+      <GalleryCard
+        key="gallery"
+        locale={locale}
+        gallery={gallery}
+        emblem={images["gallery-emblem"]}
+      />
+    ),
 
-      {socials.length > 0 && (
-        <section className="card-social">
+    social:
+      socials.length > 0 ? (
+        <section className="card-social" key="social">
           <span className="card-social-label">{t.follow}</span>
           <ul>
             {socials.map(({ platform, url }) => (
@@ -143,7 +139,26 @@ export default async function CardPage({
             ))}
           </ul>
         </section>
-      )}
+      ) : null,
+  };
+
+  return (
+    <main className="card-page">
+      <header className="card-head">
+        <Image
+          src={images.logo}
+          alt=""
+          width={82}
+          height={82}
+          className="card-logo"
+          priority
+          unoptimized={images.logo.startsWith("/api/")}
+        />
+        <h1>{ar ? dict.brand.ar : dict.brand.en}</h1>
+        <p>{dict.preloader.tagline}</p>
+      </header>
+
+      {order.map((id) => blocks[id])}
     </main>
   );
 }

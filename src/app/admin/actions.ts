@@ -35,6 +35,7 @@ import {
   type SocialLink,
 } from "@/lib/contact-config";
 import { getGallery, saveGallery, type Gallery } from "@/lib/gallery-config";
+import { saveBlockOrder, type BlockId } from "@/lib/contact-layout";
 
 /** What a save action reports back to its form. */
 export type SaveState = { saved: boolean } | null;
@@ -371,4 +372,24 @@ export async function saveGalleryAction(formData: FormData) {
 
   await saveGallery(gallery);
   refreshPublic();
+}
+
+/* ── the order the contact page stacks its blocks in ──────────────────── */
+
+export async function saveBlockOrderAction(
+  _prev: SaveState,
+  formData: FormData
+): Promise<SaveState> {
+  await requireAuth();
+
+  // Unknown ids are dropped and missing ones appended when this is stored,
+  // so a mangled field can never leave the page with nothing on it.
+  const order = String(formData.get("order") ?? "")
+    .split(",")
+    .map((id) => id.trim())
+    .filter(Boolean) as BlockId[];
+
+  await saveBlockOrder(order);
+  refreshPublic();
+  return { saved: true };
 }

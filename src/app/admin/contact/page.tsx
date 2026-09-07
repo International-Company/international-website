@@ -10,12 +10,14 @@ import {
 } from "@/lib/contact-config";
 import { getGallery } from "@/lib/gallery-config";
 import { allCards, configuredOrigin } from "@/lib/qr";
+import { getBlockOrder } from "@/lib/contact-layout";
 import { getImages } from "@/lib/media";
 import { getContent } from "@/lib/content";
 import { findGroup } from "@/lib/content-schema";
 import { buildEditorData } from "@/lib/content-editor-data";
 import Chrome from "../_components/Chrome";
 import ContentEditor from "../_components/ContentEditor";
+import BlockOrderEditor from "../_components/BlockOrderEditor";
 import DepartmentsEditor from "../_components/DepartmentsEditor";
 import SocialIcon from "@/components/SocialIcon";
 import { saveGalleryAction, saveSiteAction, saveSocialAction } from "../actions";
@@ -39,6 +41,7 @@ export default async function AdminContactPage({
   const images = await getImages();
   const cards = await allCards();
   const otherOrigin = await configuredOrigin();
+  const blockOrder = await getBlockOrder();
 
   const headingGroup = findGroup("contact");
   const headingData = headingGroup
@@ -168,6 +171,21 @@ export default async function AdminContactPage({
           <DepartmentsEditor departments={departments} disabled={!hasDb} />
         </div>
       </section>
+      {/* ── the order the page stacks its blocks in ── */}
+      <section className="a-card">
+        <div className="a-card-head">
+          <div>
+            <h2>ترتيب الصفحة</h2>
+            <div className="hint">
+              أي كتلة تظهر أولاً للزائر — اسحبها أو استخدم الأسهم
+            </div>
+          </div>
+        </div>
+        <div className="a-card-body">
+          <BlockOrderEditor order={blockOrder} disabled={!hasDb} />
+        </div>
+      </section>
+
       {/* ── the printed contact card ── */}
       <section className="a-card">
         <div className="a-card-head">

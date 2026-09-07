@@ -1296,3 +1296,51 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+/* ── reordering: page blocks and department rows ─────────────── */
+.a-order { list-style: none; display: grid; gap: 9px; margin-bottom: 4px; }
+.a-order-row {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--line-2);
+  background: var(--card-2);
+  cursor: grab;
+  transition: border-color 0.18s, background 0.18s, opacity 0.18s;
+}
+.a-order-row:hover { border-color: var(--accent); }
+.a-order-row.is-dragging { opacity: 0.45; cursor: grabbing; }
+.a-order-pos {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--accent-dim);
+  color: var(--accent-2);
+  font-size: 12px;
+  font-weight: 700;
+}
+.a-order-name { flex: 1; min-width: 0; }
+.a-order-name b { display: block; font-size: 14px; line-height: 1.35; }
+.a-order-name small { font-size: 11.5px; color: var(--ink-3); }
+
+/* the grip that says "this can be dragged" */
+.a-order-grip,
+.a-row-grip {
+  flex-shrink: 0;
+  color: var(--ink-3);
+  font-size: 15px;
+  line-height: 1;
+  cursor: grab;
+  user-select: none;
+}
+.a-order-row:hover .a-order-grip,
+.a-row-head:hover .a-row-grip { color: var(--accent-2); }
+
+.a-row-head { cursor: grab; }
+.a-row-head:active { cursor: grabbing; }
+.a-row.is-dragging { opacity: 0.45; }

@@ -4,6 +4,7 @@ import { isLocale } from "@/lib/i18n";
 import { getContent } from "@/lib/content";
 import { getPublicDepartments, getSocialLinks } from "@/lib/contact-config";
 import { getGallery } from "@/lib/gallery-config";
+import { getBlockOrder } from "@/lib/contact-layout";
 import { getImages } from "@/lib/media";
 import ContactChannels from "@/components/ContactChannels";
 import GalleryCard from "@/components/GalleryCard";
@@ -35,6 +36,7 @@ export default async function ContactPage({
   const socials = await getSocialLinks();
   const gallery = await getGallery();
   const images = await getImages();
+  const order = await getBlockOrder();
 
   return (
     <>
@@ -51,6 +53,7 @@ export default async function ContactPage({
         locale={locale}
         departments={departments}
         socials={socials}
+        order={order}
         gallery={
           <GalleryCard
             locale={locale}

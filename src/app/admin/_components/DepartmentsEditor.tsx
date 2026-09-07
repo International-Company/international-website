@@ -37,6 +37,7 @@ export default function DepartmentsEditor({
   const [rows, setRows] = useState<Row[]>(() =>
     departments.map((value, i) => ({ key: `r${i}`, value }))
   );
+  const [dragging, setDragging] = useState<string | null>(null);
   // The server action is passed to the form directly rather than wrapped in a
   // client handler, so a click that lands before hydration still submits.
   const [state, formAction, pending] = useActionState(saveDepartmentsAction, null);
@@ -49,12 +50,15 @@ export default function DepartmentsEditor({
 
   const remove = (key: string) => setRows((prev) => prev.filter((r) => r.key !== key));
 
-  const move = (index: number, delta: number) =>
+  const move = (index: number, delta: number) => reorder(index, index + delta);
+
+  /** Lifts one row out and drops it in at `to`, keeping the rest in sequence. */
+  const reorder = (from: number, to: number) =>
     setRows((prev) => {
+      if (to < 0 || to >= prev.length || from === to) return prev;
       const next = [...prev];
-      const target = index + delta;
-      if (target < 0 || target >= next.length) return prev;
-      [next[index], next[target]] = [next[target], next[index]];
+      const [moved] = next.splice(from, 1);
+      next.splice(to, 0, moved);
       return next;
     });
 
@@ -78,8 +82,26 @@ export default function DepartmentsEditor({
       )}
 
       {rows.map((row, index) => (
-        <div className="a-row" key={row.key}>
-          <div className="a-row-head">
+        <div
+          className={`a-row${dragging === row.key ? " is-dragging" : ""}`}
+          key={row.key}
+          onDragOver={(e) => {
+            e.preventDefault();
+            if (dragging && dragging !== row.key) {
+              reorder(rows.findIndex((r) => r.key === dragging), index);
+            }
+          }}
+          onDrop={(e) => e.preventDefault()}
+        >
+          <div
+            className="a-row-head"
+            draggable
+            onDragStart={() => setDragging(row.key)}
+            onDragEnd={() => setDragging(null)}
+          >
+            <span className="a-row-grip" aria-hidden title="اسحب لإعادة الترتيب">
+              ⠿
+            </span>
             <span className="a-row-index">{index + 1}</span>
             <b className="a-row-title">{row.value.nameAr || "قسم بلا اسم"}</b>
             <div className="a-row-tools">
