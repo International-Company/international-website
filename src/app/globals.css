@@ -2900,3 +2900,19 @@ body:has(.announce) { --ann-h: 40px; }
   .gc-name { font-size: 20px; }
   .gc-cta { align-self: stretch; justify-content: center; }
 }
+
+/* WhatsApp's own mark on the buttons that open WhatsApp — a handset glyph
+   there reads as "call", which is the one thing these buttons do not do. */
+.wa-mark {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+.wa-mark svg {
+  width: 17px;
+  height: 17px;
+  fill: currentColor;
+  display: block;
+}
+.card-wa .wa-mark svg { width: 16px; height: 16px; }

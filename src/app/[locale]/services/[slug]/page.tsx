@@ -6,6 +6,7 @@ import { isLocale } from "@/lib/i18n";
 import { getContent } from "@/lib/content";
 import { getSiteConfig } from "@/lib/site-config";
 import { getImages } from "@/lib/media";
+import SocialIcon from "@/components/SocialIcon";
 import Reveal from "@/components/Reveal";
 
 /** Service slug → the image slot the admin panel fills for it. */
@@ -157,7 +158,10 @@ export default async function ServiceDetailPage({
                   rel="noopener noreferrer"
                   className="btn btn-primary magnetic"
                 >
-                  ✆ {d.ctaWhats}
+                  <span className="wa-mark" aria-hidden>
+                    <SocialIcon id="whatsapp" />
+                  </span>
+                  {d.ctaWhats}
                 </a>
                 <Link href={`/${locale}/contact`} className="btn btn-secondary magnetic">
                   {d.ctaContact} <span className="arrow">{dict.arrow}</span>

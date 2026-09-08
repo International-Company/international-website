@@ -99,7 +99,10 @@ export default async function CardPage({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <span aria-hidden>✆</span> {t.whatsapp}
+                    <span className="wa-mark" aria-hidden>
+                      <SocialIcon id="whatsapp" />
+                    </span>
+                    {t.whatsapp}
                   </a>
                 )}
               </li>
